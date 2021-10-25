@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!-- utilizara la ultima version de html -->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Registrarse</title>
+</head>
+
+<body>
+    <br><br>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-5 col-sm-8 rounded mx-auto bg-white">
+                <br>
+                <div class="form-group mb-3">
+                    <!-- Colocar margin top -->
+                    <img alt="" src="assets/Imagenes/lohacemos.png" width="100%">
+                </div>
+
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+                    <legend class="txt-titulo">Crear Usuario Funcionario</legend>
+                    <div class="form-group">
+                        <label for="nombre">Nombres:*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user fa-1x"
+                                        style="color: cornflowerblue"></i></span>
+                            </div>
+                            <input class="form-control" formControlName="nombres"
+                                [ngClass]="{ 'is-invalid': submitted && f.nombres.errors }" placeholder="Nombres"
+                                type="text" name="nombre" id="nombre" size="25" maxlength="100" value="">
+                            <div *ngIf="submitted && f.nombres.errors" class="invalid-feedback">
+                                <div *ngIf="f.nombres.errors.required">El campo es obligatorio</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Apellidos:*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user fa-1x"
+                                        style="color: cornflowerblue"></i></span>
+                            </div>
+                            <input class="form-control" formControlName="apellidos"
+                                [ngClass]="{ 'is-invalid': submitted && f.apellidos.errors }" placeholder="Apellidos"
+                                type="text" name="apellido" id="apellido" size="25" maxlength="100" value=""
+                                style="cursor: pointer;">
+                            <div *ngIf="submitted && f.apellidos.errors" class="invalid-feedback">
+                                <div *ngIf="f.apellidos.errors.required">El campo es obligatorio</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo
+                            identificación:*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-fingerprint fa-1x"
+                                        style="color: cornflowerblue"></i></span>
+                            </div>
+
+                            <select class="form-control" formControlName="tipoId"
+                                [ngClass]="{ 'is-invalid': submitted && f.tipoId.errors }"  name="tipoUsuario"
+                                id="tipoUsuario">
+                                <option value="" selected>--Seleccione--</option>
+                                <option value="CC">Cédula de ciudadanía</option>
+                                <option value="CE">Cédula de extranjería</option>
+                                <option value="PP">Pasaporte</option>
+                                <option value="RC">Registro civil</option>
+                                <option value="TI">Tarjeta de Identidad</option>
+                            </select>
+                            <div *ngIf="submitted && f.tipoId.errors" class="invalid-feedback">
+                                <div *ngIf="f.tipoId.errors.required">El campo es obligatorio</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="identificacion">Número de identificación: *</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-fingerprint fa-1x"
+                                        style="color: cornflowerblue"></i></span>
+                            </div>
+                            <input class="form-control" formControlName="id"
+                                [ngClass]="{ 'is-invalid': submitted && f.id.errors }"
+                                placeholder="Número de identificación" type="text" name="identificacion" id="id"
+                                size="25" maxlength="11" value="">
+                            <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
+                                <div *ngIf="f.id.errors.required">El campo es obligatorio</div>
+                                <div *ngIf="f.id.errors.pattern">Solo numeros</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group has-error">
+                        <label for="email">Correo electrónico:*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-envelope fa-1x"
+                                        style="color: cornflowerblue"></i></span>
+                            </div>
+                            <input class="form-control" formControlName="correo"
+                                [ngClass]="{ 'is-invalid': submitted && f.correo.errors }"
+                                placeholder="Correo Electrónico" type="text" name="email" id="email" size="25"
+                                maxlength="50" value="" aria-required="true" aria-invalid="true"
+                                style="cursor: pointer;">
+                            <div *ngIf="submitted && f.correo.errors" class="invalid-feedback">
+                                <div *ngIf="f.correo.errors.required">El campo es obligatorio</div>
+                                <div *ngIf="f.correo.errors.email">Correo inválido, (por ejemplo, nombre@ejemplo.com).
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="celular">Celular:</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-phone fa-1x"
+                                        style="color: cornflowerblue"></i></span>
+                            </div>
+                            <input class="form-control" formControlName="celular"
+                                [ngClass]="{ 'is-invalid': submitted && f.celular.errors }" placeholder="Celular"
+                                type="text" name="celular" id="celular" size="25" maxlength="10" value="">
+                            <div *ngIf="submitted && f.celular.errors" class="invalid-feedback">
+                                <div *ngIf="f.celular.errors.required">El campo es obligatorio</div>
+                                <div *ngIf="f.celular.errors.pattern">Solo numeros</div>
+                                <div *ngIf="f.celular.errors.minlength">El celular debe tener minimo 10 numeros</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group valid">
+                        <label for="passwd">Contraseña:*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key fa-1x"
+                                        style="color: cornflowerblue"></i></span>
+                            </div>
+                            <input class="form-control" formControlName="clave"
+                                [ngClass]="{ 'is-invalid': submitted && f.clave.errors }" placeholder="Contraseña"
+                                type="password" name="passwd" id="passwd" size="25" value="" aria-required="true"
+                                aria-invalid="false" aria-autocomplete="list" oldautocomplete="remove"
+                                autocomplete="off" style="cursor: pointer;">
+                            <div *ngIf="submitted && f.clave.errors" class="invalid-feedback">
+                                <div *ngIf="f.clave.errors.required">El campo es obligatorio</div>
+                                <div *ngIf="f.clave.errors.pattern">Contraseña débil, minimo 8 caracteres</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reppasswd">Confirmar Contraseña:*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key fa-1x"
+                                        style="color: cornflowerblue"></i></span>
+                            </div>
+                            <input class="form-control" formControlName="confirmacionClave"
+                                [ngClass]="{ 'is-invalid': submitted && f.confirmacionClave.errors }"
+                                placeholder="Confirmar Contraseña" type="password" name="reppasswd" id="reppasswd"
+                                size="25" value="" style="cursor: pointer;" oldautocomplete="remove" autocomplete="off">
+                            <div *ngIf="submitted && f.confirmacionClave.errors" class="invalid-feedback">
+                                <div *ngIf="f.confirmacionClave.errors.required">El campo es obligatorio</div>
+                                <div *ngIf="f.confirmacionClave.errors.mustMatch">La contraseña debe ser la misma </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Política de Privacidad de Datos:&nbsp;*</label>
+                        <div>
+                            <div class="form-group"><label for="terminos1">Conozco y Acepto la Política de Privacidad de
+                                    Datos <a target="_blank"
+                                        href="https://cesar.gov.co/d/filesmain/transparencia/politica_proteccion_datos_personales.pdf#view=fitH">politica</a></label>
+                                <div class="col-md-8">
+                                    <input type="checkbox" formControlName="checkbox"
+                                        [ngClass]="{ 'is-invalid': submitted && f.checkbox.errors }" class="valCheckbox"
+                                        name="terminos[]" id="terminos1">
+                                    <div *ngIf="submitted && f.checkbox.errors" class="invalid-feedback">
+                                        <div *ngIf="f.checkbox.errors.required">Acepte terminos</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div >
+                        <div class="input-group mb-3">
+                            <input type="submit" name="ButtonLogin" value="Registrar" id="ButtonLogin"
+                                class="btn btn-block btn-primary">
+                            &nbsp;&nbsp;
+                            <input type="submit" name="ButtonLogin" value="Cancelar" id="ButtonLogin"
+                                class="btn btn-block btn-secundary" type="reset" (click)="onReset()">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="col-md-6 ">
+
+                <section class=" col-sm-8 ">
+
+                    <!-- <div class="container1">
+                        <h3><strong><span style="font-size:22px">¡Bienvenidos a la Sede
+                                    Electrónica de tramites de la Gobernación del
+                                    Cesar!</span></strong></h3>
+                        <p><span style="font-size:18px">Te invitamos a registrarte y así
+                                poder disfrutar de un sin número de beneficios que
+                                tenemos preparados para tí.</span></p>
+                    </div> -->
+
+                     <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">celular</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let usuario of listaUsuarios">
+                            <td>{{usuario.id}}</td>
+                            <td>{{usuario.nombres}}</td>
+                            <td>{{usuario.apellidos}}</td>
+                            <td>{{usuario.celular}}</td>
+                          </tr>
+                        </tbody>
+                      </table> 
+                </section>
+            </div>
+        </div>
+    </div>
+    <br><br>
+</body>
+
+</html>

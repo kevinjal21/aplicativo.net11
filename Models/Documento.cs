@@ -1,0 +1,22 @@
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Aplicativo.net.Models
+{
+    // [Table("DOCUMENTO")]
+
+    public class Documento
+    {
+        [Key] [JsonProperty("codocumento")] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Codocumento { get; set; }
+        [JsonProperty("codstramite")] public int Codstramite { get; set; }
+        [JsonProperty("observacion")] public string Observacion { get; set; }
+        [JsonProperty("fechacreacion")] public string Fechacreacion { get; set; }
+        [JsonProperty("nombredoc")] public string Nombredoc { get; set; }
+        [JsonProperty("documentos")] public List<Documento> Documentos { get; set; }
+
+
+    }
+}
+
