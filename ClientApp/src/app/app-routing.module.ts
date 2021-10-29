@@ -18,9 +18,8 @@ import { CancelacionPersoneriaComponent } from './tramites/cancelacion-personeri
 import { CertificadoExistenciaComponent } from './tramites/certificado-existencia/certificado-existencia.component';
 
 const routes: Routes = [
-
   { path: '', component: TramitesComponent },
-  { path: 'Inicio', component: InicioComponent },
+  { path: 'Inicio', component: InicioComponent,data: { title: 'Inicio' } },
   { path: 'Registrarse', component: RegistrarseComponent },
   { path: 'Ingresar', component: IngresarComponent },
   { path: 'Tramites', component: TramitesComponent },
@@ -35,7 +34,6 @@ const routes: Routes = [
   { path: 'Aprobacion', component: AprobacionReformasComponent },
   { path: 'Cancelacion', component: CancelacionPersoneriaComponent },
   { path: 'Certificado', component: CertificadoExistenciaComponent },
-  
 ];
 
 @NgModule({

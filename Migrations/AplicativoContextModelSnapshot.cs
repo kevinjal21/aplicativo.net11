@@ -112,9 +112,6 @@ namespace Aplicativo.net.Migrations
                     b.Property<string>("Celular")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Clave")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Correo")
                         .HasColumnType("nvarchar(max)");
 
@@ -124,7 +121,13 @@ namespace Aplicativo.net.Migrations
                     b.Property<string>("Nombres")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Rol")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Salt")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TipoId")

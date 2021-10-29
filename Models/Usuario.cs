@@ -15,7 +15,8 @@ namespace Aplicativo.net.Models
         [JsonProperty("apellidos")] public string Apellidos { get; set; }
         [JsonProperty("correo")] public string Correo { get; set; }
         [JsonProperty("celular")] public string Celular { get; set; }
-        [JsonProperty("clave")] public string Clave { get; set; }
         [JsonProperty("rol")] public string Rol { get; set; }
+        [JsonProperty("clave")] public string Password { get; set; }
+        public string Salt { get; set; }
     }
 }

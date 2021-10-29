@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -24,7 +23,8 @@ import { VistacanComponent } from './tramites/cancelacion-personeria/vistacan/vi
 import { VistaaproComponent } from './tramites/aprobacion-reformas/vistaapro/vistaapro.component';
 import { CertificadoExistenciaComponent } from './tramites/certificado-existencia/certificado-existencia.component';
 import { VistacertComponent } from './tramites/certificado-existencia/vistacert/vistacert.component';
-
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 
 @NgModule({
@@ -55,11 +55,16 @@ import { VistacertComponent } from './tramites/certificado-existencia/vistacert/
     FormsModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([
     ]),
     AppRoutingModule
   ],
-  providers: [],
+  providers: [  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

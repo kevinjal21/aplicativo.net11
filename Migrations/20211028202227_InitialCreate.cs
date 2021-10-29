@@ -74,8 +74,9 @@ namespace Aplicativo.net.Migrations
                     Apellidos = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Correo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Celular = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Clave = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Rol = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Rol = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Salt = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aplicativo.net.Migrations
 {
     [DbContext(typeof(AplicativoContext))]
-    [Migration("20211020195844_InitialCreate")]
+    [Migration("20211028202227_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -114,9 +114,6 @@ namespace Aplicativo.net.Migrations
                     b.Property<string>("Celular")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Clave")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Correo")
                         .HasColumnType("nvarchar(max)");
 
@@ -126,7 +123,13 @@ namespace Aplicativo.net.Migrations
                     b.Property<string>("Nombres")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Rol")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Salt")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TipoId")
