@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscriber } from 'rxjs';
-import { Usuario } from 'src/app/models/usuario';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+
 @Component({
   selector: 'app-ingresar',
   templateUrl: './ingresar.component.html',
@@ -9,51 +10,60 @@ import { Usuario } from 'src/app/models/usuario';
 })
 export class IngresarComponent implements OnInit {
 
-  listaUsuarios: any[] = [{
-    tipoId: 'cc', id: '1010039344', nombres: 'Mike', apellidos: 'Benjumea', correo: 'maicoolbenjumea11@gmail.com', celular: '3003148827', clave: '117mike1127'
-  }];
-
   registerForm!: FormGroup;
   submitted = false;
+  isLoadingResults = false;
 
-  usuario!: Usuario;
-
-
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.usuario = new Usuario();
+    // this.usuario = new Usuario();
     this.registerForm = this.formBuilder.group({
-      correo: [this.usuario.correo, [Validators.email, Validators.required]],
-      clave: [this.usuario.clave, [Validators.required, Validators.pattern(/^[A-Za-z0-9_-]{8,}$/)]],
+      'correo': [null, [Validators.email, Validators.required]],
+      'password': [null, [Validators.required, Validators.pattern(/^[A-Za-z0-9_-]{8,}$/)]],
     }
     );
-
   }
 
   get f() { return this.registerForm.controls; }
 
-  onSubmit() {
+  onSubmit(form: NgForm) {
     this.submitted = true;
     // stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
-    this.ingresar();
+    this.authService.login(form)
+      .subscribe(res => {
+        console.log(res);
+        if (res.token) {
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('nombres', res.nombres);
+          localStorage.setItem('apellidos', res.apellidos);
+          localStorage.setItem('email', res.email);
+          localStorage.setItem('rol', res.rol);
+          this.router.navigate(['Tramites']);
+        }
+      }, (err) => {
+        console.log(err);
+      });
   }
 
-  ingresar() {
-    // for (let index = 0; index < this.listaUsuarios.length; index++) {
-    //   const element = this.listaUsuarios[index];
-    //   if (element.correo == this.registerForm.get('correo')?.value && element.clave == this.registerForm.get('clave')?.value) {
-    //     console.log('el usuario existe');
-    //     index=this.listaUsuarios.length;
-    //   }
-    // }
+  onFormSubmit(form: NgForm) {
+    this.authService.login(form)
+      .subscribe(res => {
+        console.log(res);
+        if (res.token) {
+          localStorage.setItem('token', res.token);
+          this.router.navigate(['Tramites']);
+        }
+      }, (err) => {
+        console.log(err);
+      });
+  }
 
-    // // .subscribe( usuario =>{
-    // //     alert("se agrego un ausurio")
-    // //   });
+  register() {
+    this.router.navigate(['Registrarse']);
   }
 
   onReset() {

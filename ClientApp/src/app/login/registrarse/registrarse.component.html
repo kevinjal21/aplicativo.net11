@@ -19,7 +19,7 @@
                     <img alt="" src="assets/Imagenes/lohacemos.png" width="100%">
                 </div>
 
-                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
 
                     <legend class="txt-titulo">Registro</legend>
                     <div class="form-group">
@@ -137,14 +137,14 @@
                                 <span class="input-group-text"><i class="fas fa-key fa-1x"
                                         style="color: cornflowerblue"></i></span>
                             </div>
-                            <input class="form-control" formControlName="clave"
-                                [ngClass]="{ 'is-invalid': submitted && f.clave.errors }" placeholder="Contraseña"
+                            <input class="form-control" formControlName="password"
+                                [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Contraseña"
                                 type="password" name="passwd" id="passwd" size="25" value="" aria-required="true"
                                 aria-invalid="false" aria-autocomplete="list" oldautocomplete="remove"
                                 autocomplete="off" style="cursor: pointer;">
-                            <div *ngIf="submitted && f.clave.errors" class="invalid-feedback">
-                                <div *ngIf="f.clave.errors.required">El campo es obligatorio</div>
-                                <div *ngIf="f.clave.errors.pattern">Contraseña débil, minimo 8 caracteres</div>
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                <div *ngIf="f.password.errors.required">El campo es obligatorio</div>
+                                <div *ngIf="f.password.errors.pattern">Contraseña débil, minimo 8 caracteres</div>
                             </div>
                         </div>
                     </div>

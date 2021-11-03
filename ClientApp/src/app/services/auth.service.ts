@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -8,12 +8,12 @@ import { catchError, tap } from 'rxjs/operators';
 })
 export class AuthService {
 
-  apiUrl = 'http://192.168.0.5:5000/api/auth/';
+  // apiUrl = 'http://192.168.0.5:5000/api/auth/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   login(data: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + 'login', data)
+    return this.http.post<any>(this.baseUrl + 'api/Auth/login', data)
       .pipe(
         tap(_ => this.log('login')),
         catchError(this.handleError('login', []))
@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   register(data: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl + 'register', data)
+    return this.http.post<any>(this.baseUrl + 'api/Auth/register', data)
       .pipe(
         tap(_ => this.log('register')),
         catchError(this.handleError('register', []))

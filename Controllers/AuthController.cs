@@ -16,7 +16,7 @@ namespace Aplicativo.net.Controllers
 {
     [Route("api/[Controller]")]
     [ApiController]
-    public class AuthController: ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
@@ -38,7 +38,7 @@ namespace Aplicativo.net.Controllers
 
             var userToCreate = _mapper.Map<Usuario>(registerDto);
             var createdUser = await _repo.Register(userToCreate, registerDto.Password);
-            return StatusCode(201, new { Correo = createdUser.Correo, Nombres = createdUser.Nombres});
+            return StatusCode(201, new { Correo = createdUser.Correo, Nombres = createdUser.Nombres });
         }
 
         [HttpPost("login")]
@@ -67,7 +67,7 @@ namespace Aplicativo.net.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new {token = tokenHandler.WriteToken(token), email = userFromRepo.Correo, fullname = userFromRepo.Nombres+" "+userFromRepo.Apellidos});
+            return Ok(new { token = tokenHandler.WriteToken(token), email = userFromRepo.Correo, nombres = userFromRepo.Nombres, apellidos = userFromRepo.Apellidos, rol = userFromRepo.Rol });
         }
     }
 }
