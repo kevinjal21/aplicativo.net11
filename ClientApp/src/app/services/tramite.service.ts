@@ -22,6 +22,10 @@ export class TramiteService {
     );
   }
 
+  getTipoTLocalStore(): number {
+    return Number(localStorage.getItem('tipoTramite'));
+  }
+
   getTramite(): Observable<Tramite[]> {
     return this.http.get<Tramite[]>(this.baseUrl + 'api/Tramite')
       .pipe(
@@ -30,34 +34,34 @@ export class TramiteService {
       );
   }
 
-  get(codtramite: string): Observable<Tramite> {
-    const url = `${this.baseUrl + 'api/Tramite'}/${codtramite}`;
+  get(id: number): Observable<Tramite> {
+    const url = `${this.baseUrl + 'api/Tramite'}/${id}`;
     return this.http.get<Tramite>(url).pipe(
     );
   }
 
-  update (tramite: Tramite): Observable<any> {
+  update(tramite: Tramite): Observable<any> {
     const url =
-    
-    `${this.baseUrl + 'api/Tramite'}/${tramite.codtramite}`;
+
+      `${this.baseUrl + 'api/Tramite'}/${tramite.codtramite}`;
     return this.http.put(url, tramite, httpOptions).pipe(
-    tap(_ => this.log(`updated tramite isbn=${tramite.codtramite}`)),
-    catchError(this.handleError<any>('tramite'))
+      tap(_ => this.log(`updated tramite isbn=${tramite.codtramite}`)),
+      catchError(this.handleError<any>('tramite'))
     );
-    }
+  }
 
 
-  delete (tramite: Tramite | string): Observable<Tramite> {
+  delete(tramite: Tramite | string): Observable<Tramite> {
     const id = typeof tramite === 'string' ? tramite : tramite.codtramite;
     const url =
-    
-    `${this.baseUrl + 'api/Tramite'}/${id}`;
-    
+
+      `${this.baseUrl + 'api/Tramite'}/${id}`;
+
     return this.http.delete<Tramite>(url, httpOptions).pipe(
-    tap(_ => this.log(`deleted tramite isbn=${id}`)),
-    catchError(this.handleError<Tramite>('deleteTask'))
+      tap(_ => this.log(`deleted tramite isbn=${id}`)),
+      catchError(this.handleError<Tramite>('deleteTask'))
     );
-    }
+  }
 
 
   private handleError<T>(operation = 'operation', result?: T) {

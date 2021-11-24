@@ -1,3 +1,6 @@
+<!-- <app-menu></app-menu> -->
+<!-- target="_blank" para que el enlace se abran en una nueva pestaña-->
+<app-menusesion></app-menusesion>
 <!DOCTYPE html>
 <html>
 
@@ -6,13 +9,6 @@
 </head>
 
 <body>
-    <!-- <div class="example-loading-shade"
-       *ngIf="isLoadingResults">
-    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-  </div>
-  <div class="button-row">
-    <a mat-flat-button color="primary" (click)="logout()">Logout</a>
-  </div> -->
     <div class="col-xs-12  col-md-12 col-lg-12 col-xl-12">
         <div class="resultadosBusqueda">
 
@@ -31,61 +27,18 @@
                 <div class="contenedor-tramites-g col-xl-12">
                     <div class="contenedor-tramites">
 
-                        <!-- <div class="row mt-4">
-                                <div class="contenedor-tramite col-lg-9">
-                                    <span class="titulo-entidad-detalle">
-                                        <a class="mx-auto " href="ReconocimientoPersoneria">
-                                            <h3 class="titulo-tramite">Personería Jurídica de organismos deportivos y
-                                                recreativos.
-                                            </h3>
-                                        </a>
-                                    </span>
-                                    <div class="contendor-descripcion mt-2">Reconocimiento de la personería jurídica de
-                                        los organismos
-                                        deportivos y recreativos vinculados al sistema nacional del deporte.
-                                    </div>
-                                    <span class="titulo-entidad">Realizar Tramite:<a target="_blank"
-                                            href="ReconocimientoPersoneria">
-                                            <span class="titulo-entidad-detalle">Click aquí</span>
-                                        </a>
-                                    </span>
-                                </div>
-                                <div class="col info-tramite align-self-end">
-
-                                    <div class="col">
-                                        <span class="ico-tramite-linea">
-                                            <span class="text-tramites-linea m-4">Trámite en línea</span>
-                                        </span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span class="ico-tramite-con-costo">
-                                            <span class="text-tramites m-4">Trámite sin costo</span>
-                                        </span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span class="ico-tiempo">
-                                            <span class="text-tramites m-4">Duración 60 días hábiles</span>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>  -->
-
-
                         <tr *ngFor="let tramite of listaTramites | filtroTramites:filterPost" class="row mt-4">
 
                             <div class="contenedor-tramite col-lg-9">
                                 <span class="titulo-entidad-detalle">
-                                    <a class="mx-auto " href="{{tramite.url}}vista">
+                                    <a class="mx-auto" href="{{tramite.url}}vista">
                                         <h3 class="titulo-tramite">{{tramite.nombre}}
                                         </h3>
                                     </a>
                                 </span>
                                 <div class="contendor-descripcion mt-2">{{tramite.descripcion}}
                                 </div>
-                                <span class="titulo-entidad">Realizar Tramite:<a target="_blank" href="{{tramite.url}}">
+                                <span class="titulo-entidad">Realizar Tramite:<a  href="{{tramite.url}}/{{tramite.codtramite}}">
                                         <span class="titulo-entidad-detalle">Click aquí</span>
                                     </a>
                                 </span>
@@ -113,135 +66,6 @@
 
                             </div>
                         </tr>
-                        <!--<tr *ngFor="let tramite of listaTramites"> 
-                                    <td>{{tramite.id}}</td>
-                                <td>{{tramite.nombre}}</td>
-                                <td>{{tramite.descripcion}}</td>
-                                <td>{{tramite.duracion}}</td>
-                                <td>{{tramite.costo}}</td>
-                                <td>{{tramite.modalidad}}</td>
-                                <td>{{tramite.url}}</td>
-
-                              </tr> -->
-
-
-                        <!-- <div class="row mt-4">
-                                <div class="contenedor-tramite  col-lg-9">
-                                    <a target="_blank" href="/ficha-tramites-y-servicios/T1033">
-                                        <h3 class="titulo-tramite">Inscripción de dignatarios de los organismos
-                                            deportivos y recreativos.
-                                        </h3>
-                                    </a>
-                                    <div class="contendor-descripcion mt-2">SInscripción de dignatarios de los
-                                        organismos deportivos y
-                                        recreativos vinculados al sistema nacional del deporte.
-                                    </div>
-                                    <span class="titulo-entidad">Realizar Tramite:<a target="_blank"
-                                            href="reconocimientopersoneria">
-                                            <span class="titulo-entidad-detalle">Click aquí</span>
-                                        </a>
-                                    </span>
-                                </div>
-                                <div class="col info-tramite align-self-end">
-
-                                    <div class="col">
-                                        <span class="ico-tramite-linea">
-                                            <span class="text-tramites-linea m-4">Trámite en línea</span>
-                                        </span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span class="ico-tramite-con-costo">
-                                            <span class="text-tramites m-4">Trámite sin costo</span>
-                                        </span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span class="ico-tiempo">
-                                            <span class="text-tramites m-4">Duración 60 días hábiles</span>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="row mt-4">
-                                <div class="contenedor-tramite  col-lg-9">
-                                    <a target="_blank" href="/ficha-tramites-y-servicios/T1033">
-                                        <h3 class="titulo-tramite">Aprobación de reformas estatutarias</h3>
-                                    </a>
-                                    <div class="contendor-descripcion mt-2">Aprobación de las reformas estatutarias de
-                                        los organismos
-                                        deportivos o recreativos vinculados al sistema nacional del deporte.
-                                    </div>
-                                    <span class="titulo-entidad">Realizar Tramite:<a target="_blank"
-                                            href="reconocimientopersoneria">
-                                            <span class="titulo-entidad-detalle">Click aquí</span>
-                                        </a>
-                                    </span>
-                                </div>
-                                <div class="col info-tramite align-self-end">
-
-                                    <div class="col">
-                                        <span class="ico-tramite-linea">
-                                            <span class="text-tramites-linea m-4">Trámite en línea</span>
-                                        </span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span class="ico-tramite-con-costo">
-                                            <span class="text-tramites m-4">Trámite sin costo</span>
-                                        </span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span class="ico-tiempo">
-                                            <span class="text-tramites m-4">Duración 60 días hábiles</span>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="row mt-4">
-                                <div class="contenedor-tramite  col-lg-9">
-                                    <a target="_blank" href="/ficha-tramites-y-servicios/T1033">
-                                        <h3 class="titulo-tramite">Cancelación de Personería Jurídica</h3>
-                                    </a>
-                                    <div class="contendor-descripcion mt-2">Cancelación de la personería jurídica de
-                                        ligas y clubes
-                                        deportivos.
-                                    </div>
-                                    <span class="titulo-entidad">Realizar Tramite:<a target="_blank"
-                                            href="reconocimientopersoneria">
-                                            <span class="titulo-entidad-detalle">Click aquí</span>
-                                        </a>
-                                    </span>
-                                </div>
-
-
-                                <div class="col info-tramite align-self-end">
-
-                                    <div class="col">
-                                        <span class="ico-tramite-linea">
-                                            <span class="text-tramites-linea m-4">Trámite en línea</span>
-                                        </span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span class="ico-tramite-con-costo">
-                                            <span class="text-tramites m-4">Trámite sin costo</span>
-                                        </span>
-                                    </div>
-
-                                    <div class="col">
-                                        <span class="ico-tiempo">
-                                            <span class="text-tramites m-4">Duración 60 días hábiles</span>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div> -->
                     </div>
                 </div>
             </div>

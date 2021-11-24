@@ -1,3 +1,4 @@
+<app-menu></app-menu>
 <!DOCTYPE html>
 <!-- utilizara la ultima version de html -->
 <html>
@@ -43,7 +44,8 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key fa-1x"
-                                    style="color: cornflowerblue"></i></span>
+                                    style="color: cornflowerblue"></i>
+                            </span>
                         </div>
                         <input class="form-control" formControlName="password"
                             [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Contraseña"
@@ -55,11 +57,8 @@
                             <div *ngIf="f.password.errors.pattern">Contraseña débil, minimo 8 caracteres</div>
                         </div>
                     </div>
-
-
                     <div style="margin-top: 10px" class="form-group">
                         <!-- Button -->
-
                         <div class="input-group mb-3">
                             <input type="submit" name="ButtonLogin" value="Ingresar" id="ButtonLogin"
                                 class="btn btn-block btn-primary">
@@ -68,7 +67,6 @@
 
                     <div class="text-right">
                         <a class="btn btn-dark btn-block" href="SPWD">¿Olvidó su contraseña?</a>
-
                     </div>
                     <br>
                     <div class="input-group mb-1">
@@ -77,22 +75,18 @@
 
                     </div>
                     <br>
-                    <!-- <div class="input-group mb-1">
-                        <span id="Label5" class="mx-auto">¿Tiene dudas?, contáctenos a:</span>
-                        <a id="HyperLink1" class="mx-auto" href="correo@cesar.gov.co">correo@cesar.gov.co</a>
-                    </div> -->
                     <br>
                 </form>
 
             </div>
             <div class="col-md-7 ">
-
                 <section class=" col-sm-8 ">
-
                     <div class="container1">
-                        <h3><strong><span style="font-size:22px">¡Bienvenidos a la Sede
+                        <h3><strong>
+                                <span style="font-size:22px">¡Bienvenidos a la Sede
                                     Electrónica de tramites de la Gobernación del
-                                    Cesar!</span></strong></h3>
+                                    Cesar!</span>
+                            </strong></h3>
 
                         <p><span style="font-size:18px">Te invitamos a registrarte y así
                                 poder disfrutar de un sin número de beneficios que
@@ -104,8 +98,6 @@
         </div>
 
     </div>
-
     <br><br>
 </body>
-
 </html>

@@ -31,7 +31,7 @@ namespace Aplicativo.net.Controllers
 
         // POST: api/Task
         [HttpPost]
-        public async Task<ActionResult<Stramite>> PostCliente(Stramite newdocumento)
+        public async Task<ActionResult<Stramite>> PostStramite(Stramite newdocumento)
         {
             var varLibro = await _context.Stramites.FindAsync(newdocumento.Codstramite);
             if (varLibro != null)
@@ -40,21 +40,23 @@ namespace Aplicativo.net.Controllers
             }
             else
             {
+                newdocumento.Fecha=DateTime.Now.ToString();
+                // localStorage.setItem('paises',newdocumento.Fecha);
                 _context.Stramites.Add(newdocumento);
                 await _context.SaveChangesAsync();
-                return CreatedAtAction(nameof(GetCliente), new { id = newdocumento.Codstramite }, newdocumento);
+                return CreatedAtAction(nameof(GetStramite), new { id = newdocumento.Codstramite }, newdocumento);
             }
 
         }
         // PUT: api/cliente/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCliente(int id, Stramite itemCliente)
+        public async Task<IActionResult> PutStramite(int id, Stramite itemStramite)
         {
-            if (id != (itemCliente.Codstramite))
+            if (id != (itemStramite.Codstramite))
             {
                 return BadRequest();
             }
-            _context.Entry(itemCliente).State = EntityState.Modified;
+            _context.Entry(itemStramite).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -62,14 +64,14 @@ namespace Aplicativo.net.Controllers
 
         // GET: api/Task
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Stramite>>> GetClientes()
+        public async Task<ActionResult<IEnumerable<Stramite>>> GetStramites()
         {
             return await _context.Stramites.ToListAsync();
         }
 
         // GET: api/Task/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Stramite>> GetCliente(int id)
+        public async Task<ActionResult<Stramite>> GetStramite(int id)
         {
             var clienteItem = await _context.Stramites.FindAsync(id);
 
@@ -83,16 +85,16 @@ namespace Aplicativo.net.Controllers
 
         // DELETE: api/Todo/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCliente(int id)
+        public async Task<IActionResult> DeleteStramite(int id)
         {
-            var ClienteItem = await _context.Stramites.FindAsync(id);
+            var StramiteItem = await _context.Stramites.FindAsync(id);
 
-            if (ClienteItem == null)
+            if (StramiteItem == null)
             {
                 return NotFound();
             }
 
-            _context.Stramites.Remove(ClienteItem);
+            _context.Stramites.Remove(StramiteItem);
             await _context.SaveChangesAsync();
 
             return NoContent();

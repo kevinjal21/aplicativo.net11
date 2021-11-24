@@ -1,3 +1,4 @@
+<app-menu></app-menu> 
 <!DOCTYPE html>
 <!-- utilizara la ultima version de html -->
 <html>
@@ -61,7 +62,6 @@
                                 <span class="input-group-text"><i class="fas fa-fingerprint fa-1x"
                                         style="color: cornflowerblue"></i></span>
                             </div>
-
                             <select class="form-control" formControlName="tipoId"
                                 [ngClass]="{ 'is-invalid': submitted && f.tipoId.errors }"  name="tipoUsuario"
                                 id="tipoUsuario">
@@ -130,6 +130,42 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label>Sexo:*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-venus-mars fa-1x"
+                                        style="color: cornflowerblue"></i></span>
+                            </div>
+                            <select class="form-control" formControlName="sexo"
+                                [ngClass]="{ 'is-invalid': submitted && f.sexo.errors }"  name="sexo"
+                                id="sexo">
+                                <option value="" selected>--Seleccione--</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Indeterminado ">Indeterminado </option>
+                            </select>
+                            <div *ngIf="submitted && f.sexo.errors" class="invalid-feedback">
+                                <div *ngIf="f.sexo.errors.required">El campo es obligatorio</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Fecha de Nacimiento:*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-calendar fa-1x"
+                                        style="color: cornflowerblue"></i></span>
+                            </div>
+                            <input class="form-control" formControlName="fechaNacimiento"
+                                [ngClass]="{ 'is-invalid': submitted && f.fechaNacimiento.errors }" placeholder="fecha de Nacimiento"
+                                type="date" name="fechaNacimiento" id="fechaNacimiento" size="25" maxlength="100" value=""
+                                style="cursor: pointer;">
+                            <div *ngIf="submitted && f.fechaNacimiento.errors" class="invalid-feedback">
+                                <div *ngIf="f.fechaNacimiento.errors.required">El campo es obligatorio</div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group valid">
                         <label for="passwd">Contraseña:*</label>
                         <div class="input-group mb-3">
@@ -170,7 +206,7 @@
                         <div>
                             <div class="form-group"><label for="terminos1">Conozco y Acepto la Política de Privacidad de
                                     Datos <a target="_blank"
-                                        href="https://cesar.gov.co/d/filesmain/transparencia/politica_proteccion_datos_personales.pdf#view=fitH">politica</a></label>
+                                        href="assets/Archivos/politica_proteccion_datos_personales.pdf">politica</a></label>
                                 <div class="col-md-8">
                                     <input type="checkbox" formControlName="checkbox"
                                         [ngClass]="{ 'is-invalid': submitted && f.checkbox.errors }" class="valCheckbox"
@@ -206,24 +242,6 @@
                                 poder disfrutar de un sin número de beneficios que
                                 tenemos preparados para tí.</span></p>
                     </div>
-                    <!-- <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">celular</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let usuario of listaUsuarios">
-                            <td>{{usuario.id}}</td>
-                            <td>{{usuario.nombres}}</td>
-                            <td>{{usuario.apellidos}}</td>
-                            <td>{{usuario.celular}}</td>
-                          </tr>
-                        </tbody>
-                      </table> -->
                 </section>
             </div>
         </div>

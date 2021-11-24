@@ -6,7 +6,7 @@
     margin-left: auto;
 }
 
-body {
+/* body {
     overflow-x: hidden;
     padding: 0;
     width: 100%;
@@ -21,7 +21,7 @@ body {
     background-color: #fff;
     display: block;
     margin: 8px;
-}
+} */
 
 html {
     font-family: 'Work Sans';
@@ -117,20 +117,12 @@ html {
   #src-file1::before {
     content: 'Cargar y Enviar';
     }
-
-    .centrar{
+    
+.centrar{
         text-align: center;
         align-items: center;
         vertical-align: middle;
     }
-
-    :root {
-        --fn: 'Seleccionar Archivo';
-        }
-        .file-select::before {
-        white-space: nowrap;
-        content: var(--fn);
-        }
 
 
 .border-info {

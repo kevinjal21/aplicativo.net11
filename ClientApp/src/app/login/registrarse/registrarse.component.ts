@@ -4,6 +4,7 @@ import { Usuario } from '../../models/usuario';
 import { ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -51,8 +52,7 @@ export class RegistrarseComponent implements OnInit {
   usuario!: Usuario;
   confirmacionClave!: string;
   checkbox!: boolean;
-
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.usuario = new Usuario();
@@ -63,8 +63,11 @@ export class RegistrarseComponent implements OnInit {
       'apellidos': [null, Validators.required],
       'correo': [null, [Validators.email, Validators.required]],
       'celular': [null, [Validators.required, Validators.pattern(/^[0-9]\d*$/), Validators.minLength(10)]],
+      'sexo': [null, Validators.required],
+      'fechaNacimiento': [null, Validators.required],
+      'fechaRegistro': [this.obtenerFecha()],
       'password': [null, [Validators.required, Validators.pattern(/^[A-Za-z0-9_-]{8,}$/)]],
-      'rol':["Usuario"],
+      'rol': ["Usuario"],
       confirmacionClave: [this.confirmacionClave, [Validators.required, Validators.pattern(/^[A-Za-z0-9_-]{1,}$/),], ""],
       checkbox: [this.checkbox, Validators.requiredTrue],
     },
@@ -76,16 +79,23 @@ export class RegistrarseComponent implements OnInit {
 
   }
 
+  obtenerFecha() {
+    let fechaHoy: Date = new Date();
+     return `${fechaHoy.getFullYear()}-${('0'+(fechaHoy.getMonth()+1)).slice(-2)}-${('0'+(fechaHoy.getDate())).slice(-2)}  ${('0'+(fechaHoy.getHours())).slice(-2)}:${('0'+(fechaHoy.getMinutes())).slice(-2)}:${('0'+(fechaHoy.getSeconds())).slice(-2)}`;;
+  }
+
   get f() { return this.registerForm.controls; }
 
   onSubmit(form: NgForm) {
     this.submitted = true;
     // stop here if form is invalid
     if (this.registerForm.invalid) {
+      this.toastr.error('LLene Todos los Campos!', 'Error!');
       return;
     }
     this.authService.register(form)
       .subscribe(res => {
+        this.toastr.success('Usuario ' + res.nombres + ' Registrad@!', 'Registro Exitoso!');
         this.router.navigate(['Ingresar']);
       }, (err) => {
         console.log(err);

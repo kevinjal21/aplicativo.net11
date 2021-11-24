@@ -1,3 +1,4 @@
+<app-menuadminsesion></app-menuadminsesion>
 <!DOCTYPE html>
 <!-- utilizara la ultima version de html -->
 <html>
@@ -19,7 +20,7 @@
                     <img alt="" src="assets/Imagenes/lohacemos.png" width="100%">
                 </div>
 
-                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
 
                     <legend class="txt-titulo">Crear Usuario Funcionario</legend>
                     <div class="form-group">
@@ -63,7 +64,7 @@
                             </div>
 
                             <select class="form-control" formControlName="tipoId"
-                                [ngClass]="{ 'is-invalid': submitted && f.tipoId.errors }"  name="tipoUsuario"
+                                [ngClass]="{ 'is-invalid': submitted && f.tipoId.errors }" name="tipoUsuario"
                                 id="tipoUsuario">
                                 <option value="" selected>--Seleccione--</option>
                                 <option value="CC">Cédula de ciudadanía</option>
@@ -130,6 +131,41 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label>Sexo:*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-venus-mars fa-1x"
+                                        style="color: cornflowerblue"></i></span>
+                            </div>
+                            <select class="form-control" formControlName="sexo"
+                                [ngClass]="{ 'is-invalid': submitted && f.sexo.errors }" name="sexo" id="sexo">
+                                <option value="" selected>--Seleccione--</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Indeterminado ">Indeterminado </option>
+                            </select>
+                            <div *ngIf="submitted && f.sexo.errors" class="invalid-feedback">
+                                <div *ngIf="f.sexo.errors.required">El campo es obligatorio</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Fecha de Nacimiento:*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-calendar fa-1x"
+                                        style="color: cornflowerblue"></i></span>
+                            </div>
+                            <input class="form-control" formControlName="fechaNacimiento"
+                                [ngClass]="{ 'is-invalid': submitted && f.fechaNacimiento.errors }"
+                                placeholder="fecha de Nacimiento" type="date" name="fechaNacimiento"
+                                id="fechaNacimiento" size="25" maxlength="100" value="" style="cursor: pointer;">
+                            <div *ngIf="submitted && f.fechaNacimiento.errors" class="invalid-feedback">
+                                <div *ngIf="f.fechaNacimiento.errors.required">El campo es obligatorio</div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group valid">
                         <label for="passwd">Contraseña:*</label>
                         <div class="input-group mb-3">
@@ -137,14 +173,14 @@
                                 <span class="input-group-text"><i class="fas fa-key fa-1x"
                                         style="color: cornflowerblue"></i></span>
                             </div>
-                            <input class="form-control" formControlName="clave"
-                                [ngClass]="{ 'is-invalid': submitted && f.clave.errors }" placeholder="Contraseña"
+                            <input class="form-control" formControlName="password"
+                                [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Contraseña"
                                 type="password" name="passwd" id="passwd" size="25" value="" aria-required="true"
                                 aria-invalid="false" aria-autocomplete="list" oldautocomplete="remove"
                                 autocomplete="off" style="cursor: pointer;">
-                            <div *ngIf="submitted && f.clave.errors" class="invalid-feedback">
-                                <div *ngIf="f.clave.errors.required">El campo es obligatorio</div>
-                                <div *ngIf="f.clave.errors.pattern">Contraseña débil, minimo 8 caracteres</div>
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                <div *ngIf="f.password.errors.required">El campo es obligatorio</div>
+                                <div *ngIf="f.password.errors.pattern">Contraseña débil, minimo 8 caracteres</div>
                             </div>
                         </div>
                     </div>
@@ -183,10 +219,10 @@
                         </div>
 
                     </div>
-                    <div >
+                    <div>
                         <div class="input-group mb-3">
                             <input type="submit" name="ButtonLogin" value="Registrar" id="ButtonLogin"
-                                class="btn btn-block btn-primary">
+                                class="btn btn-block btn-primary" >
                             &nbsp;&nbsp;
                             <input type="submit" name="ButtonLogin" value="Cancelar" id="ButtonLogin"
                                 class="btn btn-block btn-secundary" type="reset" (click)="onReset()">
@@ -199,33 +235,41 @@
 
                 <section class=" col-sm-8 ">
 
-                    <!-- <div class="container1">
-                        <h3><strong><span style="font-size:22px">¡Bienvenidos a la Sede
-                                    Electrónica de tramites de la Gobernación del
-                                    Cesar!</span></strong></h3>
-                        <p><span style="font-size:18px">Te invitamos a registrarte y así
+                    <div class="container1">
+                        <h3>
+                            <strong>
+                                <span style="font-size:22px">Lista de usuaros Funcionarios</span>
+                            </strong>
+                        </h3>
+                        <!-- <p>
+                            <span style="font-size:18px">Te invitamos a registrarte y así
                                 poder disfrutar de un sin número de beneficios que
-                                tenemos preparados para tí.</span></p>
-                    </div> -->
+                                tenemos preparados para tí.</span>
+                        </p> -->
+                    </div>
+                    <input class="form-control" name="filtrarUser" type="text" placeholder="Buscar por nombre..."
+                        [(ngModel)]="filtrarUser" />
 
-                     <table class="table">
+                    <table class="table" style="text-align: center">
                         <thead>
-                          <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">celular</th>
-                          </tr>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">celular</th>
+                                <th>Opcion</th>
+                            </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let usuario of listaUsuarios">
-                            <td>{{usuario.id}}</td>
-                            <td>{{usuario.nombres}}</td>
-                            <td>{{usuario.apellidos}}</td>
-                            <td>{{usuario.celular}}</td>
-                          </tr>
+                            <tr *ngFor="let usuar of listaUsuarios | filtroUsuarioF:filtrarUser">
+                                <td>{{usuar.id}}</td>
+                                <td>{{usuar.nombres}}</td>
+                                <td>{{usuar.apellidos}}</td>
+                                <td>{{usuar.celular}}</td>
+                                <td><a routerLink="/detalleUsuarioF/{{usuar.codusuario}}">Gestion</a></td>
+                            </tr>
                         </tbody>
-                      </table> 
+                    </table>
                 </section>
             </div>
         </div>

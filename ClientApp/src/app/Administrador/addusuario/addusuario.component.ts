@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Usuario } from '../../models/usuario';
-import { ValidatorFn, AbstractControl } from '@angular/forms';
-//  import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { Location } from '@angular/common';
 
 
-
-// To validate password and confirm password
 export function ComparePassword(
   controlName: string,
   matchingControlName: string
@@ -36,70 +37,114 @@ export function ComparePassword(
 export class AddusuarioComponent implements OnInit {
 
 
-  listaUsuarios: any[] = [{
-    tipoId: 'cc', id: '1010039344', nombres: 'Mike', apellidos: 'Benjumea', correo: 'maicoolbenjumea11@gmail.com', celular: '3003148827', clave: '117mike1127'
-  }];
-
-  registerForm!: FormGroup;
+  registerForm: FormGroup;
   submitted = false;
 
-  usuario!: Usuario;
+  usuario: Usuario;
+  listaUsuarios: Usuario[] = [];
+  usuarios: Usuario[] = [];
+  filtrarUser = '';
+
+
   TipoDato!: string;
   confirmacionClave!: string;
   checkbox!: boolean;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+    private servicioUsuario: UsuarioService,
+    private authService: AuthService,
+    private toastr: ToastrService,
+    private router: Router,
+    private location: Location
+  ) { }
 
   ngOnInit(): void {
-    this.TipoDato = 'password';
     this.usuario = new Usuario();
     this.registerForm = this.formBuilder.group({
-      tipoId: [this.usuario.tipoId, Validators.required],
-      id: [this.usuario.id, [Validators.required, Validators.pattern(/^[0-9]\d*$/)]],
-      nombres: [this.usuario.nombres, Validators.required],
-      apellidos: [this.usuario.apellidos, Validators.required],
-      correo: [this.usuario.correo, [Validators.email, Validators.required]],
-      celular: [this.usuario.celular, [Validators.required, Validators.pattern(/^[0-9]\d*$/), Validators.minLength(10)]],
-      clave: [this.usuario.clave, [Validators.required, Validators.pattern(/^[A-Za-z0-9_-]{8,}$/)]],
+      'tipoId': [null, Validators.required],
+      'id': [null, [Validators.required, Validators.pattern(/^[0-9]\d*$/)]],
+      'nombres': [null, Validators.required],
+      'apellidos': [null, Validators.required],
+      'correo': [null, [Validators.email, Validators.required]],
+      'celular': [null, [Validators.required, Validators.pattern(/^[0-9]\d*$/), Validators.minLength(10)]],
+      'sexo': [null, Validators.required],
+      'fechaNacimiento': [null, Validators.required],
+      'fechaRegistro': [this.obtenerFecha()],
+      'password': [null, [Validators.required, Validators.pattern(/^[A-Za-z0-9_-]{8,}$/)]],
+      'rol': ["Funcionario"],
       confirmacionClave: [this.confirmacionClave, [Validators.required, Validators.pattern(/^[A-Za-z0-9_-]{1,}$/),], ""],
       checkbox: [this.checkbox, Validators.requiredTrue],
     },
       {
         // Used custom form validator name
-        validator: ComparePassword("clave", "confirmacionClave")
+        validator: ComparePassword("password", "confirmacionClave")
       }
     );
-
+    this.getAllUsuarios();
   }
 
   get f() { return this.registerForm.controls; }
 
-  onSubmit() {
+
+
+  obtenerFecha() {
+    let fechaHoy: Date = new Date();
+    return `${fechaHoy.getFullYear()}-${('0' + (fechaHoy.getMonth() + 1)).slice(-2)}-${('0' + (fechaHoy.getDate())).slice(-2)}  ${('0' + (fechaHoy.getHours())).slice(-2)}:${('0' + (fechaHoy.getMinutes())).slice(-2)}:${('0' + (fechaHoy.getSeconds())).slice(-2)}`;;
+  }
+
+
+  onSubmit(form: NgForm) {
     this.submitted = true;
     // stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
-    this.add();
+    this.add(form);
   }
 
-  add() {
-    this.usuario.tipoId = this.registerForm.get('tipoId').value;
-    this.usuario.id = this.registerForm.get('id').value;
-    this.usuario.nombres = this.registerForm.get('nombres').value;
-    this.usuario.apellidos = this.registerForm.get('apellidos').value;
-    this.usuario.correo = this.registerForm.get('correo').value;
-    this.usuario.celular = this.registerForm.get('celular').value;
-    this.usuario.clave = this.registerForm.get('clave').value;
-    this.listaUsuarios.push(this.usuario);
-    console.log(this.usuario);
-    // this.toastr.success('el usuario se registro con exito', 'Registro de usuario');
-    this.onReset();
+  add(form: NgForm) {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+      this.toastr.error('LLene Todos los Campos!', 'Error!');
+      return;
+    }
+    this.authService.register(form)
+      .subscribe(res => {
+        this.submitted = false;
+        this.toastr.success('Usuario ' + res.nombres + ' Registrad@!', 'Registro Exitoso!');
+        this.registerForm.reset();
+        this.getAllUsuarios();
+        // this.router.navigate(['Ingresar']);
+      }, (err) => {
+        console.log(err);
+        alert(err.error);
+      });
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.navigate(['Addusuario']);
+      // this.goBack();
+
   }
 
   onReset() {
     this.submitted = false;
     this.registerForm.reset();
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  getAllUsuarios() {
+    this.servicioUsuario.getUsuario().subscribe(useri => {
+      this.usuarios = useri
+      for (let index = 0; index < this.usuarios.length; index++) {
+        const element = this.usuarios[index];
+        if (element.rol == "Funcionario") {
+          this.listaUsuarios.push(element);
+        }
+      }
+    });
   }
 }
 

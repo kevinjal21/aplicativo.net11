@@ -25,7 +25,19 @@ import { CertificadoExistenciaComponent } from './tramites/certificado-existenci
 import { VistacertComponent } from './tramites/certificado-existencia/vistacert/vistacert.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-
+import { MenusesionComponent } from './menu/menusesion/menusesion.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { MenuadminsesionComponent } from './menu/menuadminsesion/menuadminsesion.component';
+import { CargardocumentreconocimientoComponent } from './tramites/reconocimiento-personaria/cargardocumentreconocimiento/cargardocumentreconocimiento.component';
+import { ModuloFuncionarioComponent } from './inicio/modulo-funcionario/modulo-funcionario.component';
+import { ModuloAdminComponent } from './inicio/modulo-admin/modulo-admin.component';
+import { ModuloUsuarioComponent } from './inicio/modulo-usuario/modulo-usuario.component';
+import { MenuFuncionarioComponent } from './menu/menu-funcionario/menu-funcionario.component';
+import { SeletionTipoTramiteComponent } from './tramites/reconocimiento-personaria/seletion-tipo-tramite/seletion-tipo-tramite.component';
+import { FiltroUsuarioFPipe } from './pipe/filtro-usuario-f.pipe';
+import { EditElimUsuarioComponent } from './Administrador/edit-elim-usuario/edit-elim-usuario.component';
+import { SolicitudesListComponent } from './Funcionario/solicitudes-list/solicitudes-list.component';
 
 @NgModule({
   declarations: [
@@ -48,9 +60,22 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     VistaaproComponent,
     CertificadoExistenciaComponent,
     VistacertComponent,
+    MenusesionComponent,
+    MenuadminsesionComponent,
+    CargardocumentreconocimientoComponent,
+    ModuloFuncionarioComponent,
+    ModuloAdminComponent,
+    ModuloUsuarioComponent,
+    MenuFuncionarioComponent,
+    SeletionTipoTramiteComponent,
+    FiltroUsuarioFPipe,
+    EditElimUsuarioComponent,
+    SolicitudesListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), 
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

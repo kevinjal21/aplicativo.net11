@@ -15,18 +15,26 @@ export class DocumentoService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-  addCliente(documento: Documento): Observable<Documento> {
+  addDocumento(documento: Documento): Observable<Documento> {
     return this.http.post<Documento>(this.baseUrl + 'api/Documento', documento, httpOptions).pipe(
-      tap((newDocumento: Documento) => this.log(`added NewSocio w/ id=${newDocumento.codocumento}`)),
-      catchError(this.handleError<Documento>('addCliente'))
+      // tap((newDocumento: Documento) => this.log(`nuevo documento id=${newDocumento.codocumento}`)),
+      catchError(this.handleError<Documento>('addDocumento'))
     );
   }
 
-  getCliente(): Observable<Documento[]> {
+  cargarDocumento(data: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl + 'api/Documento/Archivos', data)
+      .pipe(
+        tap(_ => this.log('register')),
+        catchError(this.handleError('register', []))
+      );
+  }
+  
+  getDocumentos(): Observable<Documento[]> {
     return this.http.get<Documento[]>(this.baseUrl + 'api/Documento')
       .pipe(
         // tap(_ => this.log("Lista Cargada")),
-        catchError(this.handleError<Documento[]>('getCliente', []))
+        catchError(this.handleError<Documento[]>('getDocumentos', []))
       );
   }
 
@@ -69,6 +77,6 @@ export class DocumentoService {
   }
 
   private log(message: string) {
-    alert(`ServicioCliente: ${message}`);
+    alert(`ServicioDocumento: ${message}`);
   }
 }

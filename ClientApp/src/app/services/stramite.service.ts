@@ -14,21 +14,31 @@ export class StramiteService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-  addCliente(stramite: Stramite): Observable<Stramite> {
+  addStramite(stramite: Stramite): Observable<Stramite> {
     return this.http.post<Stramite>(this.baseUrl + 'api/Stramite', stramite, httpOptions).pipe(
-      tap((newStramite: Stramite) => this.log(`added NewSocio w/ id=${newStramite.codstramite}`)),
-      catchError(this.handleError<Stramite>('addCliente'))
+      // tap((newStramite: Stramite) => this.log(`nueva solicitud id=${newStramite.codstramite}`)),
+      catchError(this.handleError<Stramite>('addStramite'))
     );
   }
 
-  getCliente(): Observable<Stramite[]> {
+  getCodigoStramiteLocalStore(): number {
+    return Number(localStorage.getItem('codigosolicitud'));
+  }
+
+  getStramite(): Observable<Stramite[]> {
     return this.http.get<Stramite[]>(this.baseUrl + 'api/Stramite')
       .pipe(
         // tap(_ => this.log("Lista Cargada")),
-        catchError(this.handleError<Stramite[]>('getCliente', []))
+        catchError(this.handleError<Stramite[]>('getStramite', []))
       );
   }
 
+  getStramitelist(): Observable<Stramite[]> {
+    return this.http.get<Stramite[]>(this.baseUrl + 'api/Stramite')
+      .pipe(
+        catchError(this.handleError<Stramite[]>('getStramite', []))
+      );
+  }
   get(id: string): Observable<Stramite> {
     const url = `${this.baseUrl + 'api/Stramite'}/${id}`;
     return this.http.get<Stramite>(url).pipe(
@@ -68,6 +78,6 @@ export class StramiteService {
   }
 
   private log(message: string) {
-    alert(`ServicioCliente: ${message}`);
+    alert(`ServicioStramite: ${message}`);
   }
 }

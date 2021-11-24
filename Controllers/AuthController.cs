@@ -1,5 +1,6 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,11 +23,12 @@ namespace Aplicativo.net.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
+        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper, AplicativoContext context)
         {
             _mapper = mapper;
             _config = config;
             _repo = repo;
+
         }
 
         [HttpPost("register")]
@@ -34,8 +36,10 @@ namespace Aplicativo.net.Controllers
         {
             registerDto.Correo = registerDto.Correo.ToLower();
             if (await _repo.UserExists(registerDto.Correo))
-                return BadRequest("Correo already exists");
-
+                return BadRequest("El correo ya existe");
+            if (await _repo.UserExists(registerDto.Id))
+                return BadRequest("La cedula ya existe");
+            registerDto.FechaRegistro = DateTime.Now.ToString();
             var userToCreate = _mapper.Map<Usuario>(registerDto);
             var createdUser = await _repo.Register(userToCreate, registerDto.Password);
             return StatusCode(201, new { Correo = createdUser.Correo, Nombres = createdUser.Nombres });
@@ -67,7 +71,7 @@ namespace Aplicativo.net.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new { token = tokenHandler.WriteToken(token), email = userFromRepo.Correo, nombres = userFromRepo.Nombres, apellidos = userFromRepo.Apellidos, rol = userFromRepo.Rol });
+            return Ok(new { token = tokenHandler.WriteToken(token), codigoU = userFromRepo.Codusuario, email = userFromRepo.Correo, nombres = userFromRepo.Nombres, apellidos = userFromRepo.Apellidos, rol = userFromRepo.Rol });
         }
     }
 }

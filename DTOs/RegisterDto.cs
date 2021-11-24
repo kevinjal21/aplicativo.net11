@@ -17,6 +17,12 @@ namespace Aplicativo.net.DTOs
         [Required]
         public string Celular { get; set; }
         [Required]
+        public string Sexo { get; set; }
+        [Required]
+        public string FechaNacimiento { get; set; }
+        [Required]
+        public string FechaRegistro { get; set; }
+        [Required]
         public string Rol { get; set; }
         [Required]
         public string Password { get; set; }

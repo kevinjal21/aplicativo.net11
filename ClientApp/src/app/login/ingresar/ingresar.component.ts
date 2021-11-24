@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
+
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -13,11 +16,12 @@ export class IngresarComponent implements OnInit {
   registerForm!: FormGroup;
   submitted = false;
   isLoadingResults = false;
-
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) { }
+  rol: string;
+  constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
-    // this.usuario = new Usuario();
+    if (localStorage.getItem('token') != null)
+      this.router.navigateByUrl('Ingresar');
     this.registerForm = this.formBuilder.group({
       'correo': [null, [Validators.email, Validators.required]],
       'password': [null, [Validators.required, Validators.pattern(/^[A-Za-z0-9_-]{8,}$/)]],
@@ -31,18 +35,47 @@ export class IngresarComponent implements OnInit {
     this.submitted = true;
     // stop here if form is invalid
     if (this.registerForm.invalid) {
+      this.toastr.error('LLene Todos los Campos!', 'Error!');
       return;
     }
+
     this.authService.login(form)
       .subscribe(res => {
         console.log(res);
         if (res.token) {
+          //guardo los datos del usuario loguedo en el localStorage
           localStorage.setItem('token', res.token);
-          localStorage.setItem('nombres', res.nombres);
-          localStorage.setItem('apellidos', res.apellidos);
+          localStorage.setItem('codigoU', res.codigoU);
           localStorage.setItem('email', res.email);
           localStorage.setItem('rol', res.rol);
-          this.router.navigate(['Tramites']);
+          //el condicional es para que me filtre el primer nombre del usuario
+          if (((res.apellidos).substring(0, (res.apellidos).indexOf(" "))) == "") {
+            localStorage.setItem('apellidos', res.apellidos);
+          } else {
+            localStorage.setItem('apellidos', (res.apellidos).substring(0, (res.apellidos).indexOf(" ")));
+          }
+          //el condicional es para que me filtre el primer apellido del usuario
+          if (((res.nombres).substring(0, (res.nombres).indexOf(" "))) == "") {
+            localStorage.setItem('nombres', res.nombres);
+          } else {
+            localStorage.setItem('nombres', (res.nombres).substring(0, (res.nombres).indexOf(" ")));
+          }
+
+          this.rol = this.authService.getRolLocalStore();
+          if (this.rol == "Admin") {
+            this.toastr.success('Bienvenido Administrador ' + res.nombres + ' ' + res.apellidos + '!', 'Bienvenido Administrador!');
+            this.router.navigate(['InicioAdmin']);
+          } else if (this.rol == "Usuario") {
+            this.toastr.success('Bienvenido ' + res.nombres + ' ' + res.apellidos + '!', 'Bienvenido Usuario!');
+            this.router.navigate(['InicioUsuario']);
+          } else if(this.rol == "Funcionario") {
+            this.toastr.success('Bienvenido Funcionario ' + res.nombres + ' ' + res.apellidos + '!', 'Bienvenido Funcionario!');
+            this.router.navigate(['InicioFuncionario']);
+          }else{
+
+          }
+        } else {
+          this.toastr.error('Correo o contraseña incorrecta!', 'Error!');
         }
       }, (err) => {
         console.log(err);
@@ -69,5 +102,16 @@ export class IngresarComponent implements OnInit {
   onReset() {
     this.submitted = false;
     this.registerForm.reset();
+  }
+
+  onLogout() {
+    localStorage.removeItem('nombres');
+    localStorage.removeItem('token');
+    localStorage.removeItem('apellidos');
+    localStorage.removeItem('email');
+    localStorage.removeItem('rol');
+    localStorage.removeItem('codigosolicitud');
+    localStorage.removeItem('codigoU');
+    // this.router.navigate(['Ingresar']);
   }
 }

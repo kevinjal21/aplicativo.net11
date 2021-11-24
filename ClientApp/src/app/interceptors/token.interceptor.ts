@@ -12,7 +12,7 @@ export class TokenInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         const token = localStorage.getItem('token');
-        if (token) {
+        if (token != null) {
             request = request.clone({
                 setHeaders: {
                     'Authorization': 'Bearer ' + token
@@ -39,7 +39,7 @@ export class TokenInterceptor implements HttpInterceptor {
             catchError((error: HttpErrorResponse) => {
                 console.log(error);
                 if (error.status === 401) {
-                    this.router.navigate(['login']);
+                    this.router.navigate(['Ingresar']);
                 }
                 if (error.status === 400) {
                     alert(error.error);

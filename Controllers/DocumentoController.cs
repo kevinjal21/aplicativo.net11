@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Aplicativo.net.Models;
 using System;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace Aplicativo.net.Controllers
 {
@@ -29,7 +31,7 @@ namespace Aplicativo.net.Controllers
 
         // POST: api/Task
         [HttpPost]
-        public async Task<ActionResult<Documento>> PostCliente(Documento newdocumento)
+        public async Task<ActionResult<Documento>> PostDocumento(Documento newdocumento)
         {
             var varLibro = await _context.Documentos.FindAsync(newdocumento.Codocumento);
             if (varLibro != null)
@@ -40,19 +42,19 @@ namespace Aplicativo.net.Controllers
             {
                 _context.Documentos.Add(newdocumento);
                 await _context.SaveChangesAsync();
-                return CreatedAtAction(nameof(GetCliente), new { id = newdocumento.Codocumento }, newdocumento);
+                return CreatedAtAction(nameof(GetDocumento), new { id = newdocumento.Codocumento }, newdocumento);
             }
 
         }
         // PUT: api/cliente/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCliente(int id, Documento itemCliente)
+        public async Task<IActionResult> PutDocumento(int id, Documento documento)
         {
-            if (id != (itemCliente.Codocumento))
+            if (id != (documento.Codocumento))
             {
                 return BadRequest();
             }
-            _context.Entry(itemCliente).State = EntityState.Modified;
+            _context.Entry(documento).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -60,14 +62,14 @@ namespace Aplicativo.net.Controllers
 
         // GET: api/Task
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Documento>>> GetClientes()
+        public async Task<ActionResult<IEnumerable<Documento>>> GetDocumentos()
         {
             return await _context.Documentos.ToListAsync();
         }
 
         // GET: api/Task/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Documento>> GetCliente(int id)
+        public async Task<ActionResult<Documento>> GetDocumento(int id)
         {
             var clienteItem = await _context.Documentos.FindAsync(id);
 
@@ -81,18 +83,80 @@ namespace Aplicativo.net.Controllers
 
         // DELETE: api/Todo/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCliente(int id)
+        public async Task<IActionResult> DeleteDocumento(int id)
         {
-            var ClienteItem = await _context.Documentos.FindAsync(id);
+            var DocumentoItem = await _context.Documentos.FindAsync(id);
 
-            if (ClienteItem == null)
+            if (DocumentoItem == null)
             {
                 return NotFound();
             }
 
-            _context.Documentos.Remove(ClienteItem);
+            _context.Documentos.Remove(DocumentoItem);
             await _context.SaveChangesAsync();
 
+            return NoContent();
+        }
+
+        [HttpPost("Archivos")]
+        public ActionResult PostArchivos(IFormFile file, int codstramite)
+        {
+            Documento documento = new Documento();
+
+            try
+            {
+                var filePath = "D:\\User\\Escritorio\\Practicas\\Sotfware\\Aplicativo.net\\ClientApp\\src\\assets\\Documentos\\" + file.FileName;
+                // var filePath = "C:/documentosPrueba/" + file.FileName;
+
+                using (var stream = System.IO.File.Create(filePath))
+                {
+                    file.CopyTo(stream);
+                }
+
+                double tamanio = file.Length;
+                tamanio = tamanio / 1000000;
+                tamanio = Math.Round(tamanio, 2);
+                documento.Codstramite = codstramite;
+                documento.Fechacreacion = DateTime.Now.ToString();
+                documento.Observacion = "";
+                documento.Nombredoc = "";
+                documento.Tamanio = tamanio;
+                documento.Url = filePath;
+                _context.Documentos.Add(documento);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok(documento);
+
+        }
+
+        [HttpPut("Archivos/{id}")]
+        public async Task<IActionResult> PutDocumentoArchivo(int id, Documento documento, IFormFile file)
+        {
+            if (id != (documento.Codocumento))
+            {
+                return BadRequest();
+            }
+            var filePath = "D:\\User\\Escritorio\\Practicas\\Sotfware\\Aplicativo.net\\ClientApp\\src\\assets\\Documentos\\" + file.FileName;
+            // var filePath = "C:/documentosPrueba/" + file.FileName;
+
+            using (var stream = System.IO.File.Create(filePath))
+            {
+                file.CopyTo(stream);
+            }
+            double tamanio = file.Length;
+            tamanio = tamanio / 1000000;
+            tamanio = Math.Round(tamanio, 2);
+            documento.Codstramite = 1;
+            documento.Fechacreacion = DateTime.Now.ToString();
+            documento.Tamanio = tamanio;
+            documento.Url = filePath;
+            _context.Entry(documento).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
             return NoContent();
         }
 

@@ -1,0 +1,50 @@
+<app-menu-funcionario></app-menu-funcionario>
+<!DOCTYPE html> 
+<!-- utilizara la ultima version de html -->
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Solicitudes</title>
+  </head>
+
+  <body>
+    <div class="content-box">
+
+        <section>
+
+            <div class="container1">
+                <h3>
+                    <strong>
+                        <span style="font-size:22px">Lista de usuaros Funcionarios</span>
+                    </strong>
+                </h3>
+            </div>
+            <input class="form-control" name="filtrarUser" type="text" placeholder="Buscar por nombre..."
+                [(ngModel)]="filtrarUser" />
+
+            <table class="table" style="text-align: center">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Tramite</th>
+                        <th scope="col">Fecha</th>
+                        <th>Opcion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let solicitud of solicitudes; let i = index">
+                        <td >{{i}}</td>
+
+                        <td >{{usuariosList[i].nombres}}</td>
+                        <td>{{tramitesList[i].nombre}}</td>
+                        <td>{{solicitud.fecha}}</td>
+                        <td><a routerLink="/detalleUsuarioF/{{solicitud.codusuario}}">Gestion</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+  </body>
+</html>

@@ -30,7 +30,7 @@ namespace Aplicativo.net.Controllers
 
         // POST: api/Task
         [HttpPost]
-        public async Task<ActionResult<Usuario>> PostCliente(Usuario newdocumento)
+        public async Task<ActionResult<Usuario>> PostUsuario(Usuario newdocumento)
         {
             var varLibro = await _context.Usuarios.FindAsync(newdocumento.Codusuario);
             if (varLibro != null)
@@ -41,19 +41,19 @@ namespace Aplicativo.net.Controllers
             {
                 _context.Usuarios.Add(newdocumento);
                 await _context.SaveChangesAsync();
-                return CreatedAtAction(nameof(GetCliente), new { id = newdocumento.Codusuario }, newdocumento);
+                return CreatedAtAction(nameof(GetUsuario), new { id = newdocumento.Codusuario }, newdocumento);
             }
 
         }
         // PUT: api/cliente/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCliente(int id, Usuario itemCliente)
+        public async Task<IActionResult> PutUsuario(int id, Usuario itemUsuario)
         {
-            if (id != (itemCliente.Codusuario))
+            if (id != (itemUsuario.Codusuario))
             {
                 return BadRequest();
             }
-            _context.Entry(itemCliente).State = EntityState.Modified;
+            _context.Entry(itemUsuario).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -61,14 +61,14 @@ namespace Aplicativo.net.Controllers
 
         // GET: api/Task
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetClientes()
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
         {
             return await _context.Usuarios.ToListAsync();
         }
 
         // GET: api/Task/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Usuario>> GetCliente(int id)
+        public async Task<ActionResult<Usuario>> GetUsuario(int id)
         {
             var clienteItem = await _context.Usuarios.FindAsync(id);
 
@@ -82,16 +82,16 @@ namespace Aplicativo.net.Controllers
 
         // DELETE: api/Todo/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCliente(int id)
+        public async Task<IActionResult> DeleteUsuario(int id)
         {
-            var ClienteItem = await _context.Usuarios.FindAsync(id);
+            var UsuarioItem = await _context.Usuarios.FindAsync(id);
 
-            if (ClienteItem == null)
+            if (UsuarioItem == null)
             {
                 return NotFound();
             }
 
-            _context.Usuarios.Remove(ClienteItem);
+            _context.Usuarios.Remove(UsuarioItem);
             await _context.SaveChangesAsync();
 
             return NoContent();

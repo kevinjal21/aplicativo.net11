@@ -4,16 +4,6 @@ element.style {
 a {
     color: #0d3c61;
 }
-a {
-    color: #0088cc;
-    text-decoration: none;
-}
-user agent stylesheet
-a:-webkit-any-link {
-    color: -webkit-link;
-    cursor: pointer;
-    text-decoration: underline;
-}
 style attribute {
     color: #000000;
 }
@@ -25,16 +15,12 @@ style attribute {
 }
 
 body {
-    color: #616161;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    line-height: 22px;
-}
-body {
-    margin: 0;
+    margin: 20;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 20px;
     color: #333333;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-color: #ffffff;
 }
 html {

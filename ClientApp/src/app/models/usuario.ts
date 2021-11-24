@@ -6,6 +6,9 @@ export class Usuario {
     apellidos!: string;
     correo!: string;
     celular!: string;
+    sexo!: string;
+    fechaNacimiento!: string;
+    fechaRegistro!: string
     clave!: string;
     rol!: string;
 }

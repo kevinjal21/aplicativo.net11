@@ -5,5 +5,6 @@ export class Stramite {
     codusuario!: number;
     codtramite!: number;
     fecha!: string;
-    documentos!:Documento[];
+    tipoTramite!: string;
+    // documentos!:Documento[];
 }

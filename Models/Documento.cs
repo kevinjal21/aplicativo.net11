@@ -13,8 +13,12 @@ namespace Aplicativo.net.Models
         [JsonProperty("codstramite")] public int Codstramite { get; set; }
         [JsonProperty("observacion")] public string Observacion { get; set; }
         [JsonProperty("fechacreacion")] public string Fechacreacion { get; set; }
+        [JsonProperty("fechaactualizacion")] public string Fechaactualizacion { get; set; }
         [JsonProperty("nombredoc")] public string Nombredoc { get; set; }
-        [JsonProperty("documentos")] public List<Documento> Documentos { get; set; }
+        [JsonProperty("url")] public string Url { get; set; }
+        [JsonProperty("tamanio")] public double Tamanio { get; set; }
+        [JsonProperty("estado")] public string Estado { get; set; }
+        [JsonProperty("plantilla")] public string Plantilla { get; set; }
 
 
     }

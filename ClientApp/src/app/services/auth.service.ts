@@ -20,6 +20,25 @@ export class AuthService {
       );
   }
 
+  getUserProfile() {
+    return this.http.get(this.baseUrl + 'api/Usuario');
+  }
+  getNombreLocalStore(): string {
+    return localStorage.getItem('nombres');
+  }
+  getApellidoLocalStore(): string {
+    return localStorage.getItem('apellidos');
+  }
+  getCorreoLocalStore(): string {
+    return localStorage.getItem('email');
+  }
+  getRolLocalStore(): string {
+    return localStorage.getItem('rol');
+  }
+  getCodigoUserLocalStore(): number {
+    return Number(localStorage.getItem('codigoU'));
+  }
+
   register(data: any): Observable<any> {
     return this.http.post<any>(this.baseUrl + 'api/Auth/register', data)
       .pipe(

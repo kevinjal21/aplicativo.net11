@@ -15,22 +15,22 @@ export class UsuarioService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-  addCliente(usuario: Usuario): Observable<Usuario> {
+  addUsuario(usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(this.baseUrl + 'api/Usuario', usuario, httpOptions).pipe(
       tap((newUsuario: Usuario) => this.log(`added NewSocio w/ id=${newUsuario.codusuario}`)),
-      catchError(this.handleError<Usuario>('addCliente'))
+      catchError(this.handleError<Usuario>('addUsuario'))
     );
   }
 
-  getCliente(): Observable<Usuario[]> {
+  getUsuario(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.baseUrl + 'api/Usuario')
       .pipe(
         // tap(_ => this.log("Lista Cargada")),
-        catchError(this.handleError<Usuario[]>('getCliente', []))
+        catchError(this.handleError<Usuario[]>('getUsuario', []))
       );
   }
 
-  get(codusuario: string): Observable<Usuario> {
+  get(codusuario: number): Observable<Usuario> {
     const url = `${this.baseUrl + 'api/Usuario'}/${codusuario}`;
     return this.http.get<Usuario>(url).pipe(
     );
@@ -41,7 +41,7 @@ export class UsuarioService {
     
     `${this.baseUrl + 'api/Usuario'}/${usuario.codusuario}`;
     return this.http.put(url, usuario, httpOptions).pipe(
-    tap(_ => this.log(`updated usuario isbn=${usuario.codusuario}`)),
+    // tap(_ => this.log(`updated usuario isbn=${usuario.codusuario}`)),
     catchError(this.handleError<any>('usuario'))
     );
     }
@@ -53,7 +53,7 @@ export class UsuarioService {
     `${this.baseUrl + 'api/Usuario'}/${id}`;
 
     return this.http.delete<Usuario>(url, httpOptions).pipe(
-    tap(_ => this.log(`deleted usuario isbn=${id}`)),
+    // tap(_ => this.log(`deleted usuario isbn=${id}`)),
     catchError(this.handleError<Usuario>('deleteTask'))
     );
     }
@@ -67,6 +67,6 @@ export class UsuarioService {
   }
 
   private log(message: string) {
-    alert(`ServicioCliente: ${message}`);
+    alert(`ServicioUsuario: ${message}`);
   }
 }
