@@ -10,6 +10,7 @@ namespace Aplicativo.net.Helpers
         {
             CreateMap<LoginDto, Usuario>();
             CreateMap<RegisterDto, Usuario>();
+            CreateMap<DocumentoDto, Documento>();
         }
     }
 }

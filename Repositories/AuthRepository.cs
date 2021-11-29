@@ -1,12 +1,14 @@
 using System;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Aplicativo.net.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aplicativo.net.Repositories
 {
-    public class AuthRepository: IAuthRepository
+    public class AuthRepository : IAuthRepository
     {
         private readonly AplicativoContext _context;
 
@@ -27,6 +29,29 @@ namespace Aplicativo.net.Repositories
             return user; // auth successful
         }
 
+        // public async Task<Documento> CargaArchivo(int id, IFormFile file)
+        // {
+        //   var filePath = "D:\\User\\Escritorio\\Practicas\\Sotfware\\Aplicativo.net\\ClientApp\\src\\assets\\Documentos\\" + file.FileName;
+        //     // var filePath = "C:/documentosPrueba/" + file.FileName;
+
+        //     using (var stream = System.IO.File.Create(filePath))
+        //     {
+        //         file.CopyTo(stream);
+        //     }
+
+        //     var documento = _context.Documentos.Single(p => p.Codocumento == id);
+        //     double tamanio = file.Length;
+        //     tamanio = tamanio / 1000000;
+        //     tamanio = Math.Round(tamanio, 2);
+        //     documento.Codstramite = 1;
+        //     documento.Fechacreacion = DateTime.Now.ToString();
+        //     documento.Tamanio = tamanio;
+        //     documento.Url = filePath;
+        //      _context.Entry(documento).State = EntityState.Modified;
+        //     await _context.SaveChangesAsync();
+        //     return documento;
+
+        // }
         public async Task<Usuario> Register(Usuario user, string password)
         {
             byte[] passwordHash, salt;
@@ -34,8 +59,8 @@ namespace Aplicativo.net.Repositories
             user.Password = Convert.ToBase64String(passwordHash);
             user.Salt = Convert.ToBase64String(salt);
 
-             await _context.Usuarios.AddAsync(user);
-             await _context.SaveChangesAsync();
+            await _context.Usuarios.AddAsync(user);
+            await _context.SaveChangesAsync();
 
             return user;
         }

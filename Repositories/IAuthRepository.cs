@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Aplicativo.net.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Aplicativo.net.Repositories
 {
@@ -7,6 +8,8 @@ namespace Aplicativo.net.Repositories
     {
         Task<Usuario> Register(Usuario user, string password);
         Task<Usuario> Login(string username, string password);
+        // Task<Usuario> CargaArchivo(int id, IFormFile file);
+
         Task<bool> UserExists(string username);
     }
 }

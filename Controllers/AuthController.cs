@@ -45,6 +45,7 @@ namespace Aplicativo.net.Controllers
             return StatusCode(201, new { Correo = createdUser.Correo, Nombres = createdUser.Nombres });
         }
 
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {

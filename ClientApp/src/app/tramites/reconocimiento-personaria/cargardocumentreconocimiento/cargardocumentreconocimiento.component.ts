@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Documento } from 'src/app/models/documento';
 import { DocumentoService } from 'src/app/services/documento.service';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -14,24 +17,66 @@ export class CargardocumentreconocimientoComponent implements OnInit {
 
   documento: Documento;
   stask: string;
+  registerForm!: FormGroup;
+  submitted = false;
+  file: File;
+
   constructor
     (
+      private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private servicioDocumentos: DocumentoService,
-      private location: Location
+      private location: Location,
+      private toastr: ToastrService
+
     ) { }
 
+  ngOnInit() {
+    this.get();
+    // this.registerForm = this.formBuilder.group({
+    //   'filenew': [null, Validators.required],
+    // }
+    // );
+  }
 
   name = 'Angular';
 
-  onSubmit() {
-    return false;
+  // onSubmit(form: NgForm) {
+  //   this.submitted = true;
+  //   // stop here if form is invalid
+  //   if (this.registerForm.invalid) {
+  //     this.toastr.error('LLene Todos los Campos!', 'Error!');
+  //     return;
+  //   }
+  //   this.servicioDocumentos.cargarDocumento(this.filenew, Number(this.route.snapshot.paramMap.get('id')))
+  //     .subscribe(res => {
+  //       this.toastr.success('Se Cargó el documento', 'Registro Exitoso!');
+  //       this.goBack();
+  //     }, (err) => {
+  //       console.log(err);
+  //       alert(err.error);
+  //     });
+  // }
+
+
+  update(): void {
+    // this.file = this.file.target.files[0];
+
+    console.log(this.file);
+    this.servicioDocumentos.cargarDocumentoUpdate(this.file, Number(this.route.snapshot.paramMap.get('id')))
+      .subscribe(d => console.log(d)
+
+        //  this.goBack()
+      );
   }
 
-  ngOnInit() {
 
-    this.get();
+  selectFile(e: any) {
+    this.file = <File>e.target.files[0];
+    console.log(this.file);
   }
+
+  get f() { return this.registerForm.controls; }
 
   get(): void {
     var id =

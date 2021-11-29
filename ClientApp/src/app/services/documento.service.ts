@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable, of, observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Documento } from '../models/documento';
@@ -7,6 +7,11 @@ import { Documento } from '../models/documento';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+
+const httpOptionsA = {
+  headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' })
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,14 +27,6 @@ export class DocumentoService {
     );
   }
 
-  cargarDocumento(data: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl + 'api/Documento/Archivos', data)
-      .pipe(
-        tap(_ => this.log('register')),
-        catchError(this.handleError('register', []))
-      );
-  }
-  
   getDocumentos(): Observable<Documento[]> {
     return this.http.get<Documento[]>(this.baseUrl + 'api/Documento')
       .pipe(
@@ -44,28 +41,67 @@ export class DocumentoService {
     );
   }
 
-  update (documento: Documento): Observable<any> {
+  update(documento: Documento): Observable<any> {
     const url =
-    
-    `${this.baseUrl + 'api/Documento'}/${documento.codocumento}`;
+      `${this.baseUrl + 'api/Documento'}/${documento.codocumento}`;
     return this.http.put(url, documento, httpOptions).pipe(
-    tap(_ => this.log(`updated documento isbn=${documento.codocumento}`)),
-    catchError(this.handleError<any>('documento'))
+      tap(_ => this.log(`updated documento isbn=${documento.codocumento}`)),
+      catchError(this.handleError<any>('documento'))
     );
-    }
+  }
 
+  cargarDocumentoUpdate(file: File, id: number): Observable<any> {
 
-  delete (documento: Documento | string): Observable<Documento> {
+    const url =this.baseUrl + 'api/Documento/ArchivosPost';
+    // let headers = new HttpHeaders();
+    // headers.append('Content-Type', 'multipart/form-data');
+    // let options = ({ headers: headers });
+    let formData = new FormData();
+    formData.append('file', file)
+    formData.append('id', id+"")
+    console.log("este es el formdata: " + formData)
+    console.log(formData)
+    return this.http.post<any>(url, formData).pipe(
+      tap(_ => this.log(`se actualizo el documento id:${id}`)),
+      catchError(this.handleError<any>('File'))
+    );
+  }
+
+  upload(file: File, id: number): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    formData.append('id', id.toString());
+    formData.append('file', file);
+    const url = this.baseUrl + 'api/Documento/ArchivosPost';
+    const request = new HttpRequest('POST', url, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(request);
+  }
+
+  cargarDocumento(file: any): Observable<any> {
+    let formData = new FormData();
+    formData.append('file', file)
+    // const url =
+    //   `${this.baseUrl + 'api/Documento/Archivos'}/${id}`;
+    return this.http.post<any>(this.baseUrl + 'api/Documento/Archivos', formData, httpOptions).pipe(
+      tap(_ => this.log(`se actualizo el documento id:${2}`)),
+      catchError(this.handleError<any>('file'))
+    );
+  }
+
+  delete(documento: Documento | string): Observable<Documento> {
     const id = typeof documento === 'string' ? documento : documento.codocumento;
     const url =
-    
-    `${this.baseUrl + 'api/Documento'}/${id}`;
-    
+
+      `${this.baseUrl + 'api/Documento'}/${id}`;
+
     return this.http.delete<Documento>(url, httpOptions).pipe(
-    tap(_ => this.log(`deleted documento isbn=${id}`)),
-    catchError(this.handleError<Documento>('deleteTask'))
+      tap(_ => this.log(`deleted documento isbn=${id}`)),
+      catchError(this.handleError<Documento>('deleteTask'))
     );
-    }
+  }
 
 
   private handleError<T>(operation = 'operation', result?: T) {

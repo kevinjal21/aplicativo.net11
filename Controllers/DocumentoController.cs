@@ -98,10 +98,10 @@ namespace Aplicativo.net.Controllers
             return NoContent();
         }
 
-        [HttpPost("Archivos")]
-        public ActionResult PostArchivos(IFormFile file, int codstramite)
+        [HttpPost("ArchivosPost")]
+        public ActionResult PostArchivos( IFormFile file, int id)
         {
-            Documento documento = new Documento();
+            var documento = _context.Documentos.Single(p => p.Codocumento == id);
 
             try
             {
@@ -112,52 +112,57 @@ namespace Aplicativo.net.Controllers
                 {
                     file.CopyTo(stream);
                 }
-
                 double tamanio = file.Length;
                 tamanio = tamanio / 1000000;
                 tamanio = Math.Round(tamanio, 2);
-                documento.Codstramite = codstramite;
                 documento.Fechacreacion = DateTime.Now.ToString();
-                documento.Observacion = "";
-                documento.Nombredoc = "";
                 documento.Tamanio = tamanio;
                 documento.Url = filePath;
-                _context.Documentos.Add(documento);
-                _context.SaveChanges();
+                _context.Entry(documento).State = EntityState.Modified;
+                _context.SaveChangesAsync();
+                 return CreatedAtAction(nameof(GetDocumento), new { id = documento.Codocumento }, documento);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-
-            return Ok(documento);
-
+            // return Ok(documento);
         }
 
+
         [HttpPut("Archivos/{id}")]
-        public async Task<IActionResult> PutDocumentoArchivo(int id, Documento documento, IFormFile file)
+        public async Task<IActionResult> PutDocumentoArchivo(IFormFile file, int id)
         {
+            Console.WriteLine("este es el archivo: " + file);
+            var documento = _context.Documentos.Single(p => p.Codocumento == id);
+            if (file == null) throw new Exception("File is null");
+            if (file.Length == 0) throw new Exception("File is empty");
+
             if (id != (documento.Codocumento))
             {
                 return BadRequest();
             }
-            var filePath = "D:\\User\\Escritorio\\Practicas\\Sotfware\\Aplicativo.net\\ClientApp\\src\\assets\\Documentos\\" + file.FileName;
-            // var filePath = "C:/documentosPrueba/" + file.FileName;
-
-            using (var stream = System.IO.File.Create(filePath))
+            try
             {
-                file.CopyTo(stream);
+                var filePath = "D:\\User\\Escritorio\\Practicas\\Sotfware\\Aplicativo.net\\ClientApp\\src\\assets\\Documentos\\" + file.FileName;
+                using (var stream = System.IO.File.Create(filePath))
+                {
+                    file.CopyTo(stream);
+                }
+                double tamanio = file.Length;
+                tamanio = tamanio / 1000000;
+                tamanio = Math.Round(tamanio, 2);
+                documento.Fechacreacion = DateTime.Now.ToString();
+                documento.Tamanio = tamanio;
+                documento.Url = filePath;
+                _context.Entry(documento).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return NoContent();
             }
-            double tamanio = file.Length;
-            tamanio = tamanio / 1000000;
-            tamanio = Math.Round(tamanio, 2);
-            documento.Codstramite = 1;
-            documento.Fechacreacion = DateTime.Now.ToString();
-            documento.Tamanio = tamanio;
-            documento.Url = filePath;
-            _context.Entry(documento).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return NoContent();
+            catch (System.Exception)
+            {
+                return BadRequest();
+            }
         }
 
     }
