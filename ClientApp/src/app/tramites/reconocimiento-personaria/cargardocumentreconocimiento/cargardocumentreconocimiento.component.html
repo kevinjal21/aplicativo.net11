@@ -63,7 +63,7 @@
                     <br>
                     <div class="row">
                         <div class="col-md-9">
-                            <input type="file" #fileInput id="fileInput" (change)="selectFile($event)">
+                            <input type="file" [ngModel]="file1" (change)="selectFile($event)"  accept=".pdf">
                             <!-- <div *ngIf="submitted && f.filenew.errors" formControlName="filenew"
                                 [ngClass]="{ 'is-invalid': submitted && f.filenew.errors }" class="invalid-feedback">
                                 <div *ngIf="f.filenew.errors.required">El campo es obligatorio</div>
@@ -73,7 +73,10 @@
                             <!-- <input type="submit" name="ButtonLogin" value="Registrar" id="ButtonLogin"
                                 class="btn btn-block btn-primary">
                             <br> -->
+                            <br>
+
                             <button (click)="update()" class="btn btn-primary">Actualizar</button>
+                            <br>
                             <br>
                             <button (click)="cancelar()" class="btn btn-primary">Atras</button>
 

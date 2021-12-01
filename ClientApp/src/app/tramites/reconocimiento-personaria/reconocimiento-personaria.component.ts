@@ -33,7 +33,7 @@ export class ReconocimientoPersonariaComponent implements OnInit {
 
   ngOnInit() {
     this.solicitudTramite = { codstramite: 0, codtramite: 0, codusuario: 0, fecha: "", tipoTramite: "" };
-    this.documento = { codocumento: 0, codstramite: 0, observacion: "", fechacreacion: "", fechaactualizacion: "", nombredoc: "", url: "", tamanio: 0, estado: "", plantilla: "" }
+    this.documento = { codocumento: 0, codstramite: 0, observacion: "", fechacreacion: "", fechaactualizacion: "", nombredoc: "", url: "", tamanio: 0, estado: "", plantilla: "" ,Archive:null}
     this.creacionDocumentos();
     this.getAllDocumentos();
     this.codigoUser = this.route.snapshot.paramMap.get('id');

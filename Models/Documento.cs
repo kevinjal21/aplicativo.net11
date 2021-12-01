@@ -20,6 +20,8 @@ namespace Aplicativo.net.Models
         [JsonProperty("tamanio")] public double Tamanio { get; set; }
         [JsonProperty("estado")] public string Estado { get; set; }
         [JsonProperty("plantilla")] public string Plantilla { get; set; }
+        // public FormFile Archive { get; set; }
+
         // public IFormFile File { get; set; }
     }
 }

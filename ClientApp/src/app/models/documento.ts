@@ -3,6 +3,7 @@ export class Documento {
     codstramite!: number;
     observacion!: string;
     fechacreacion!: string;
+    Archive: File;
     fechaactualizacion!: string;
     nombredoc!: string;
     url!: string;

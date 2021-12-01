@@ -89,9 +89,16 @@ namespace Aplicativo.net.Repositories
             }
         }
 
-        public async Task<bool> UserExists(string Username)
+        public async Task<bool> UserExistsCorreo(string Username)
         {
             if (await _context.Usuarios.AnyAsync(x => x.Correo == Username))
+                return true;
+            return false;
+        }
+
+        public async Task<bool> UserExistsCedula(string cedula)
+        {
+            if (await _context.Usuarios.AnyAsync(x => x.Id == cedula))
                 return true;
             return false;
         }

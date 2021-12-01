@@ -99,8 +99,13 @@ namespace Aplicativo.net.Controllers
         }
 
         [HttpPost("ArchivosPost")]
-        public ActionResult PostArchivos( IFormFile file, int id)
+        public ActionResult PostArchivos(IFormFile file, int id)
         {
+            Console.WriteLine("este es el archivo: " + file);
+            Console.WriteLine("este es el id: " + id);
+
+            if (file == null) throw new Exception("File is null");
+            if (file.Length == 0) throw new Exception("File is empty");
             var documento = _context.Documentos.Single(p => p.Codocumento == id);
 
             try

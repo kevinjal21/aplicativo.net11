@@ -11,6 +11,9 @@ const httpOptions = {
 const httpOptionsA = {
   headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' })
 };
+const httpOptionsPDF = {
+  headers: new HttpHeaders({ 'Content-Type': 'multipart/pdf' })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -52,16 +55,16 @@ export class DocumentoService {
 
   cargarDocumentoUpdate(file: File, id: number): Observable<any> {
 
-    const url =this.baseUrl + 'api/Documento/ArchivosPost';
+    const url = this.baseUrl + 'api/Documento/ArchivosPost';
     // let headers = new HttpHeaders();
     // headers.append('Content-Type', 'multipart/form-data');
     // let options = ({ headers: headers });
     let formData = new FormData();
     formData.append('file', file)
-    formData.append('id', id+"")
-    console.log("este es el formdata: " + formData)
-    console.log(formData)
-    return this.http.post<any>(url, formData).pipe(
+    formData.append('id', id + "")
+    console.log(formData.get("id"))
+    console.log(formData.get("file"))
+    return this.http.post<any>(url, formData, httpOptions).pipe(
       tap(_ => this.log(`se actualizo el documento id:${id}`)),
       catchError(this.handleError<any>('File'))
     );

@@ -1,7 +1,18 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { Documento } from '../models/documento';
+
+const httpOptionsA = {
+  headers: new HttpHeaders().set('Content-Type', 'multipart/form-data')
+};
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+const options = {} as any;
+
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +56,45 @@ export class AuthService {
         tap(_ => this.log('register')),
         catchError(this.handleError('register', []))
       );
+  }
+
+  // registerArchivo(file: File,id: number): Observable<any> {
+  //   let datos = new FormData();
+  //   datos.append("Id", id.toString());
+  //   datos.append('Archive', file);
+  //   console.log(datos.get("Id"))
+  //   console.log(datos.get("Archive"))
+  //   return this.http.post<any>(this.baseUrl + 'api/Auth/PostArchivos', datos)
+  //     .pipe(
+  //       tap(_ => this.log('registerArchivo')),
+  //       catchError(this.handleError('registerArchivo', []))
+  //     );
+  // }
+
+  registerArchivo(documento: any): Observable<any> {
+    let datos = new FormData();
+    datos.append("Id", documento.codocumento.toString());
+    datos.append('Archive', documento.Archive);
+    console.log(datos)
+    return this.http.post<any>(this.baseUrl + 'api/Auth/PostArchivos', datos, httpOptions)
+      .pipe(
+        tap(_ => this.log('registerArchivo')),
+        catchError(this.handleError('registerArchivo', []))
+      );
+  }
+
+  upload(documento: any): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('Id', documento.codocumento.toString());
+    formData.append('Archive', documento.Archive);
+
+    const request = new HttpRequest('POST', this.baseUrl + 'api/Auth/PostArchivos', formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(request);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

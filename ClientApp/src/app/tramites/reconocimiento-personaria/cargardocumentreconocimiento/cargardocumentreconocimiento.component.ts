@@ -5,6 +5,7 @@ import { Documento } from 'src/app/models/documento';
 import { DocumentoService } from 'src/app/services/documento.service';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 
@@ -20,6 +21,8 @@ export class CargardocumentreconocimientoComponent implements OnInit {
   registerForm!: FormGroup;
   submitted = false;
   file: File;
+  file1: File;
+
 
   constructor
     (
@@ -27,7 +30,8 @@ export class CargardocumentreconocimientoComponent implements OnInit {
       private route: ActivatedRoute,
       private servicioDocumentos: DocumentoService,
       private location: Location,
-      private toastr: ToastrService
+      private toastr: ToastrService,
+      private authService: AuthService,
 
     ) { }
 
@@ -63,11 +67,12 @@ export class CargardocumentreconocimientoComponent implements OnInit {
     // this.file = this.file.target.files[0];
 
     console.log(this.file);
-    this.servicioDocumentos.cargarDocumentoUpdate(this.file, Number(this.route.snapshot.paramMap.get('id')))
+    this.documento.Archive=this.file;
+    this.authService.registerArchivo(this.documento)
       .subscribe(d => console.log(d)
 
-        //  this.goBack()
       );
+    this.servicioDocumentos.cargarDocumentoUpdate
   }
 
 

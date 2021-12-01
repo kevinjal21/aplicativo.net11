@@ -5,9 +5,11 @@ namespace Aplicativo.net.DTOs
 {
     public class DocumentoDto
     {
-        [Required]
         public int Id { get; set; }
-        [Required]
-        public IFormFile File { get; set; }
+        public IFormFile Archive { get; set; }
+    }
+    public class RegisterArchivoDtoResponse
+    {
+        public string Mensaje { get; set; }
     }
 }
