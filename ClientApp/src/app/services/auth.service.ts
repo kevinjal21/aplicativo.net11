@@ -5,7 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { Documento } from '../models/documento';
 
 const httpOptionsA = {
-  headers: new HttpHeaders().set('Content-Type', 'multipart/form-data')
+  headers: new HttpHeaders().set('Content-Type', 'multipart/form-data;boundary=2')
 };
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -73,10 +73,10 @@ export class AuthService {
 
   registerArchivo(documento: any): Observable<any> {
     let datos = new FormData();
-    datos.append("Id", documento.codocumento.toString());
+    datos.append('Id', documento.codocumento.toString());
     datos.append('Archive', documento.Archive);
     console.log(datos)
-    return this.http.post<any>(this.baseUrl + 'api/Auth/PostArchivos', datos, httpOptions)
+    return this.http.post<any>(this.baseUrl + 'api/Auth/PostArchivos', datos)
       .pipe(
         tap(_ => this.log('registerArchivo')),
         catchError(this.handleError('registerArchivo', []))

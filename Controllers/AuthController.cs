@@ -50,11 +50,13 @@ namespace Aplicativo.net.Controllers
         }
 
         [HttpPost("PostArchivos")]
+        // [Produces("multipart/form-data")]
         public ActionResult RegisterDocumento([FromForm] DocumentoDto documentoDto)
         {
+    
             Console.WriteLine("este es el archivo: " + documentoDto.Archive);
             Console.WriteLine("este es el id: " + documentoDto.Id);
-
+            Console.WriteLine("Hora: " + DateTime.Now.ToString());
             if (documentoDto.Archive == null) throw new Exception("File is null");
             if (documentoDto.Archive.Length == 0) throw new Exception("File is empty");
             var documento = _context.Documentos.Single(p => p.Codocumento == documentoDto.Id);
@@ -76,7 +78,7 @@ namespace Aplicativo.net.Controllers
                 documento.Url = filePath;
                 _context.Entry(documento).State = EntityState.Modified;
                 _context.SaveChangesAsync();
-                 return CreatedAtAction(nameof(GetDocumento), new { id = documento.Codocumento }, documento);
+                return CreatedAtAction(nameof(GetDocumento), new { id = documento.Codocumento }, documento);
             }
             catch (Exception ex)
             {
