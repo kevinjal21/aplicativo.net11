@@ -45,29 +45,27 @@ export class StramiteService {
     );
   }
 
-  update (stramite: Stramite): Observable<any> {
+  update(stramite: Stramite): Observable<any> {
     const url =
-    
-    `${this.baseUrl + 'api/Stramite'}/${stramite.codstramite}`;
+
+      `${this.baseUrl + 'api/Stramite'}/${stramite.codstramite}`;
     return this.http.put(url, stramite, httpOptions).pipe(
-    tap(_ => this.log(`updated stramite isbn=${stramite.codstramite}`)),
-    catchError(this.handleError<any>('stramite'))
+      tap(_ => this.log(`updated stramite isbn=${stramite.codstramite}`)),
+      catchError(this.handleError<any>('stramite'))
     );
-    }
+  }
 
-
-  delete (stramite: Stramite | string): Observable<Stramite> {
+  delete(stramite: Stramite | string): Observable<Stramite> {
     const id = typeof stramite === 'string' ? stramite : stramite.codstramite;
     const url =
-    
-    `${this.baseUrl + 'api/Stramite'}/${id}`;
-    
-    return this.http.delete<Stramite>(url, httpOptions).pipe(
-    tap(_ => this.log(`deleted stramite isbn=${id}`)),
-    catchError(this.handleError<Stramite>('deleteTask'))
-    );
-    }
 
+      `${this.baseUrl + 'api/Stramite'}/${id}`;
+
+    return this.http.delete<Stramite>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted stramite isbn=${id}`)),
+      catchError(this.handleError<Stramite>('deleteTask'))
+    );
+  }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

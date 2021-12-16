@@ -11,7 +11,7 @@ export class AuthadminGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot):  boolean{
-      if (localStorage.getItem('token') != null && localStorage.getItem('rol')=="Adminn")
+      if (localStorage.getItem('token') != null && localStorage.getItem('rol')=="Admin")
       return true;
     else {
       this.router.navigate(['Ingresar']);

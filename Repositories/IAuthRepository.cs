@@ -13,5 +13,7 @@ namespace Aplicativo.net.Repositories
 
         Task<bool> UserExistsCorreo(string username);
         Task<bool> UserExistsCedula(string cedula);
+        Task<bool> UserEstate(string correo);
+        Task<bool> UserExists(string username);
     }
 }

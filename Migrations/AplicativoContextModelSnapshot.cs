@@ -127,6 +127,9 @@ namespace Aplicativo.net.Migrations
                     b.Property<string>("Correo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
+
                     b.Property<string>("FechaNacimiento")
                         .HasColumnType("nvarchar(max)");
 

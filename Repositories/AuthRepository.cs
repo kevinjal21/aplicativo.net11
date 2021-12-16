@@ -29,29 +29,7 @@ namespace Aplicativo.net.Repositories
             return user; // auth successful
         }
 
-        // public async Task<Documento> CargaArchivo(int id, IFormFile file)
-        // {
-        //   var filePath = "D:\\User\\Escritorio\\Practicas\\Sotfware\\Aplicativo.net\\ClientApp\\src\\assets\\Documentos\\" + file.FileName;
-        //     // var filePath = "C:/documentosPrueba/" + file.FileName;
-
-        //     using (var stream = System.IO.File.Create(filePath))
-        //     {
-        //         file.CopyTo(stream);
-        //     }
-
-        //     var documento = _context.Documentos.Single(p => p.Codocumento == id);
-        //     double tamanio = file.Length;
-        //     tamanio = tamanio / 1000000;
-        //     tamanio = Math.Round(tamanio, 2);
-        //     documento.Codstramite = 1;
-        //     documento.Fechacreacion = DateTime.Now.ToString();
-        //     documento.Tamanio = tamanio;
-        //     documento.Url = filePath;
-        //      _context.Entry(documento).State = EntityState.Modified;
-        //     await _context.SaveChangesAsync();
-        //     return documento;
-
-        // }
+    
         public async Task<Usuario> Register(Usuario user, string password)
         {
             byte[] passwordHash, salt;
@@ -64,7 +42,6 @@ namespace Aplicativo.net.Repositories
 
             return user;
         }
-
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] salt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512(salt))
@@ -96,11 +73,44 @@ namespace Aplicativo.net.Repositories
             return false;
         }
 
+         public async Task<bool> UserExists(string Username)
+        {
+            if (await _context.Usuarios.AnyAsync(x => x.Correo == Username))
+                return true;
+            return false;
+        }
+
+        public async Task<UsuarioRequest> ResetPassword(UsuarioRequest user)
+        {
+            var usuario = _context.Usuarios.Single(p => p.Correo == user.Correo);
+            if (usuario == null)
+            {
+                return null;
+            }
+            byte[] passwordHash, salt;
+            CreatePasswordHash(user.Password, out passwordHash, out salt);
+            usuario.Password =Convert.ToBase64String(passwordHash);
+            usuario.Salt = Convert.ToBase64String(salt);
+            _context.Entry(usuario).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return user;
+        }
+
         public async Task<bool> UserExistsCedula(string cedula)
         {
             if (await _context.Usuarios.AnyAsync(x => x.Id == cedula))
                 return true;
             return false;
+        }
+
+          public async Task<bool> UserEstate(string correo)
+        {
+            if (await _context.Usuarios.AnyAsync(x => x.Correo == correo && x.Estado == 1))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

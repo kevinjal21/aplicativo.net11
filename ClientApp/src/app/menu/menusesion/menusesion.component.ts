@@ -31,6 +31,7 @@ export class MenusesionComponent implements OnInit {
     localStorage.removeItem('rol');
     localStorage.removeItem('codigosolicitud');
     localStorage.removeItem('codigoU');
+    localStorage.removeItem('tipoTramite');
     this.router.navigate(['Ingresar']);
   }
 

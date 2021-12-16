@@ -9,6 +9,7 @@ import { Usuario } from '../../models/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Tramite } from '../../models/tramite';
 import { TramiteService } from 'src/app/services/tramite.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-solicitudes-list',
@@ -35,7 +36,8 @@ export class SolicitudesListComponent implements OnInit {
     private router: Router,
     private location: Location,
     private servicioUsuario: UsuarioService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getAllUsuarios();
@@ -46,6 +48,8 @@ export class SolicitudesListComponent implements OnInit {
   }
 
   getAllUsuarios() {
+    // this.usuariosList = new Usuario[];
+   
     this.solicitudService.getStramite().subscribe(soli => {
       this.solicitudes = soli
       for (let index = 0; index < this.solicitudes.length; index++) {
@@ -59,16 +63,15 @@ export class SolicitudesListComponent implements OnInit {
             }
           }
         });
-        this.serviciosTramite.getTramite().subscribe(tra=>{
-          this.tramites=tra
+        this.serviciosTramite.getTramite().subscribe(tra => {
+          this.tramites = tra
           for (let index = 0; index < this.tramites.length; index++) {
             const element2 = this.tramites[index];
-            if (element.codtramite==element2.codtramite) {
+            if (element.codtramite == element2.codtramite) {
               this.tramitesList.push(element2);
             }
           }
         }
-
         )
       }
     });

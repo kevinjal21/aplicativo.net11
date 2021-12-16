@@ -8,13 +8,6 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const httpOptionsA = {
-  headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data' })
-};
-const httpOptionsPDF = {
-  headers: new HttpHeaders({ 'Content-Type': 'multipart/pdf' })
-};
-
 @Injectable({
   providedIn: 'root'
 })
@@ -48,17 +41,13 @@ export class DocumentoService {
     const url =
       `${this.baseUrl + 'api/Documento'}/${documento.codocumento}`;
     return this.http.put(url, documento, httpOptions).pipe(
-      tap(_ => this.log(`updated documento isbn=${documento.codocumento}`)),
+      // tap(_ => this.log(`updated documento isbn=${documento.codocumento}`)),
       catchError(this.handleError<any>('documento'))
     );
   }
 
   cargarDocumentoUpdate(file: File, id: number): Observable<any> {
-
     const url = this.baseUrl + 'api/Documento/ArchivosPost';
-    // let headers = new HttpHeaders();
-    // headers.append('Content-Type', 'multipart/form-data');
-    // let options = ({ headers: headers });
     let formData = new FormData();
     formData.append('file', file)
     formData.append('id', id + "")
@@ -105,7 +94,6 @@ export class DocumentoService {
       catchError(this.handleError<Documento>('deleteTask'))
     );
   }
-
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

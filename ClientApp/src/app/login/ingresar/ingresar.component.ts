@@ -74,7 +74,9 @@ export class IngresarComponent implements OnInit {
           }else{
 
           }
-        } else {
+        } else if(res.mensaje){
+          this.toastr.error(res.mensaje, 'Error!');
+        }else{
           this.toastr.error('Correo o contraseña incorrecta!', 'Error!');
         }
       }, (err) => {

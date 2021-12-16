@@ -12,3 +12,9 @@ export class Usuario {
     clave!: string;
     rol!: string;
 }
+export class ForgotPassword
+{
+    Email!: string;
+    ClientURI!: string;
+    estado!: string;  
+}

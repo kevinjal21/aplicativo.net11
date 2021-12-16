@@ -1,50 +1,59 @@
 <app-menu-funcionario></app-menu-funcionario>
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <!-- utilizara la ultima version de html -->
 <html>
-  <head>
-    <meta charset="utf-8"/>
+
+<head>
+    <meta charset="utf-8" />
     <title>Solicitudes</title>
-  </head>
+</head>
 
-  <body>
-    <div class="content-box">
+<body>
+    <div class="col-xs-12  col-md-12 col-lg-12 col-xl-12">
+        <div class="resultadosBusqueda">
 
-        <section>
+            <div class="row">
 
-            <div class="container1">
-                <h3>
-                    <strong>
-                        <span style="font-size:22px">Lista de usuaros Funcionarios</span>
-                    </strong>
-                </h3>
+                <div class="titulo-de-tramites">
+                    <p class="tramites"> Lista de Solicitudes de tramite</p>
+                </div>
+
+                <!-- <div class="box">
+                    <div class="container-1">
+                        <span class="icon"><i class="fa fa-search fa-6"></i></span>
+                        <input  name="filtrarUser" type="search" placeholder="Buscar por nombre..."
+                            [(ngModel)]="filtrarUser" id="search"/>
+                    </div>
+                </div> -->
+
+                <div class="contenedor-tramites-g col-xl-12">
+                    <div class="contenedor-tramites">
+                        <table class="table table-striped table-hover" id="table_id"  style="background-color: #ffffff;" >
+                            <thead class="table" style="background-color: #4193f2;">
+                                <tr>
+                                    <th scope="col">#</th>
+
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Tramite</th>
+                                    <th scope="col">Fecha</th>
+                                    <th>Opcion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let solicitud of solicitudes; let i = index ">
+                                    <td>{{i+1}}</td>
+                                    <td>{{usuariosList[i]?.nombres}}</td>
+                                    <td>{{tramitesList[i]?.nombre}}</td>
+                                    <td>{{solicitud.fecha}}</td>
+                                    <td><a class="btn btn-primary" routerLink="/GestionSolicitudes/{{solicitud.codstramite}}">Gestionar</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <input class="form-control" name="filtrarUser" type="text" placeholder="Buscar por nombre..."
-                [(ngModel)]="filtrarUser" />
-
-            <table class="table" style="text-align: center">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-
-                        <th scope="col">Usuario</th>
-                        <th scope="col">Tramite</th>
-                        <th scope="col">Fecha</th>
-                        <th>Opcion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let solicitud of solicitudes; let i = index">
-                        <td >{{i}}</td>
-
-                        <td >{{usuariosList[i].nombres}}</td>
-                        <td>{{tramitesList[i].nombre}}</td>
-                        <td>{{solicitud.fecha}}</td>
-                        <td><a routerLink="/detalleUsuarioF/{{solicitud.codusuario}}">Gestion</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+        </div>
     </div>
-  </body>
+</body>
+
 </html>

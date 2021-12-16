@@ -20,6 +20,14 @@ namespace Aplicativo.net.Models
         [JsonProperty("fechaRegistro")] public string FechaRegistro { get; set; }
         [JsonProperty("rol")] public string Rol { get; set; }
         [JsonProperty("clave")] public string Password { get; set; }
+         public int Estado { get; set; }
         public string Salt { get; set; }
+    }
+
+     public class UsuarioRequest 
+    {
+        public string Password { get; set;}
+
+        public string Correo {get; set;}
     }
 }

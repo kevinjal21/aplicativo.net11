@@ -26,5 +26,7 @@ namespace Aplicativo.net.DTOs
         public string Rol { get; set; }
         [Required]
         public string Password { get; set; }
+        [Required]
+        public int Estado { get; set; }
     }
 }

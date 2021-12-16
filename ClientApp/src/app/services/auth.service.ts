@@ -3,12 +3,13 @@ import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Documento } from '../models/documento';
+import { ForgotPassword } from '../models/usuario';
 
 const httpOptionsA = {
-  headers: new HttpHeaders().set('Content-Type', 'multipart/form-data;boundary=2')
+  headers: new HttpHeaders().set('Content-Type', 'multipart/form-data')
 };
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data; boundary=3' })
 };
 
 const options = {} as any;
@@ -24,7 +25,9 @@ export class AuthService {
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   login(data: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl + 'api/Auth/login', data)
+    return this.http.post<any>(this.baseUrl + 'api/Auth/login', data, {
+      reportProgress: true
+    })
       .pipe(
         tap(_ => this.log('login')),
         catchError(this.handleError('login', []))
@@ -49,6 +52,9 @@ export class AuthService {
   getCodigoUserLocalStore(): number {
     return Number(localStorage.getItem('codigoU'));
   }
+  getTipoTLocalStore(): string {
+    return localStorage.getItem('tipoTramite');
+  }
 
   register(data: any): Observable<any> {
     return this.http.post<any>(this.baseUrl + 'api/Auth/register', data)
@@ -58,37 +64,98 @@ export class AuthService {
       );
   }
 
-  // registerArchivo(file: File,id: number): Observable<any> {
-  //   let datos = new FormData();
-  //   datos.append("Id", id.toString());
-  //   datos.append('Archive', file);
-  //   console.log(datos.get("Id"))
-  //   console.log(datos.get("Archive"))
-  //   return this.http.post<any>(this.baseUrl + 'api/Auth/PostArchivos', datos)
-  //     .pipe(
-  //       tap(_ => this.log('registerArchivo')),
-  //       catchError(this.handleError('registerArchivo', []))
-  //     );
-  // }
+  RestablecerClave(correo: string, clave: string) {
+    console.log(correo);
+    console.log(clave);
+    let datos = new FormData();
+    datos.append('Password', clave);
+    datos.append('Correo', correo);
+
+    const url = this.baseUrl + 'api/Auth/ResetPassword';
+    fetch(url, {
+      method: 'PUT',
+      body: datos
+    })
+      .then(response => response.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => console.log('Success:', response));
+  }
+
+  SendEmail(data: ForgotPassword) {
+    if (data.estado == "1") {
+      data.ClientURI = this.baseUrl + 'login/Restablecer/';
+    }
+    else if(data.estado == "0"){
+      data.ClientURI = this.baseUrl + 'login/ConfirmacionCuenta/';
+    }
+    // console.log(data.ClientURI);
+    // console.log(data.Email);
+    let datos = new FormData();
+    datos.append('Email', data.Email);
+    datos.append('ClientURI', data.ClientURI);
+    datos.append('estado', data.estado);
+
+    const url = this.baseUrl + 'api/Auth/PostEmail';
+    fetch(url, {
+      method: 'POST',
+      body: datos
+    })
+      .then(response => response.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => console.log('Success:', response));
+  }
+
+  ConfirmarUsuario(data: string) {
+    console.log(data);
+    let datos = new FormData();
+    datos.append("Correo", data);
+    const url = this.baseUrl + 'api/Auth/ActivarUsuario';
+    fetch(url, {
+      method: 'PUT',
+      body: datos
+    })
+      .then(response => response.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => console.log('Success:', response));
+  }
+
+
+  async ActualizarDocumento(data: Documento) {
+    const url = this.baseUrl + 'api/Documento/UpdateDocumento';
+    console.log("datra ", data);
+    let datos = new FormData();
+    console.log("id: " + data.codocumento);
+    console.log("file: " + data.Archive);
+    datos.append('Id', data.codocumento + "");
+    datos.append('Archive', data.Archive, data.Archive.name);
+    //debugger
+    console.log("datos ", datos);
+    fetch(url, {
+      method: 'PUT',
+      body: datos
+    })
+      .then(response => response.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => console.log('Success:', response));
+  }
 
   registerArchivo(documento: any): Observable<any> {
     let datos = new FormData();
     datos.append('Id', documento.codocumento.toString());
     datos.append('Archive', documento.Archive);
     console.log(datos)
-    return this.http.post<any>(this.baseUrl + 'api/Auth/PostArchivos', datos)
+    return this.http.post<any>(this.baseUrl + 'api/Auth/PostArchivos', datos
+    )
       .pipe(
-        tap(_ => this.log('registerArchivo')),
-        catchError(this.handleError('registerArchivo', []))
+        tap(_ => this.log(`se actualizo el documento id:${documento.codocumento}`)),
+        catchError(this.handleError<any>('File'))
       );
   }
 
   upload(documento: any): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
-
     formData.append('Id', documento.codocumento.toString());
-    formData.append('Archive', documento.Archive);
-
+    formData.append('Archive', documento.Archive, documento.Archive.name);
     const request = new HttpRequest('POST', this.baseUrl + 'api/Auth/PostArchivos', formData, {
       reportProgress: true,
       responseType: 'json'
@@ -99,19 +166,12 @@ export class AuthService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
+      console.error(error);
       this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
       return of(result as T);
     };
   }
 
-  /** Log a HeroService message with the MessageService */
   private log(message: string) {
     console.log(message);
   }

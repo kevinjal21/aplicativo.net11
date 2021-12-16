@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { Usuario } from '../../models/usuario';
+import { Usuario, ForgotPassword } from '../../models/usuario';
 import { ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-
-
 
 
 // To validate password and confirm password
@@ -17,11 +15,9 @@ export function ComparePassword(
   return (formGroup: FormGroup) => {
     const control = formGroup.controls[controlName];
     const matchingControl = formGroup.controls[matchingControlName];
-
     if (matchingControl.errors && !matchingControl.errors.mustMatch) {
       return;
     }
-
     if (control.value !== matchingControl.value) {
       matchingControl.setErrors({ mustMatch: true });
     } else {
@@ -29,7 +25,6 @@ export function ComparePassword(
     }
   };
 }
-
 
 @Component({
   selector: 'app-registrarse',
@@ -40,18 +35,10 @@ export class RegistrarseComponent implements OnInit {
 
   registerForm!: FormGroup;
   submitted = false;
-  // identidicacion = '';
-  // tipoId = '';
-  // nombres = '';
-  // apellidos = '';
-  // correo = '';
-  // celular = '';
-  // rol = '';
-  // password = '';
-
   usuario!: Usuario;
   confirmacionClave!: string;
   checkbox!: boolean;
+  forgotpassword = new ForgotPassword();
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -72,7 +59,6 @@ export class RegistrarseComponent implements OnInit {
       checkbox: [this.checkbox, Validators.requiredTrue],
     },
       {
-        // Used custom form validator name
         validator: ComparePassword("password", "confirmacionClave")
       }
     );
@@ -81,21 +67,20 @@ export class RegistrarseComponent implements OnInit {
 
   obtenerFecha() {
     let fechaHoy: Date = new Date();
-     return `${fechaHoy.getFullYear()}-${('0'+(fechaHoy.getMonth()+1)).slice(-2)}-${('0'+(fechaHoy.getDate())).slice(-2)}  ${('0'+(fechaHoy.getHours())).slice(-2)}:${('0'+(fechaHoy.getMinutes())).slice(-2)}:${('0'+(fechaHoy.getSeconds())).slice(-2)}`;;
+    return `${fechaHoy.getFullYear()}-${('0' + (fechaHoy.getMonth() + 1)).slice(-2)}-${('0' + (fechaHoy.getDate())).slice(-2)}  ${('0' + (fechaHoy.getHours())).slice(-2)}:${('0' + (fechaHoy.getMinutes())).slice(-2)}:${('0' + (fechaHoy.getSeconds())).slice(-2)}`;;
   }
 
   get f() { return this.registerForm.controls; }
 
   onSubmit(form: NgForm) {
     this.submitted = true;
-    // stop here if form is invalid
     if (this.registerForm.invalid) {
       this.toastr.error('LLene Todos los Campos!', 'Error!');
       return;
     }
     this.authService.register(form)
       .subscribe(res => {
-        this.toastr.success('Usuario ' + res.nombres + ' Registrad@!', 'Registro Exitoso!');
+        this.toastr.success('Usuario ' + res.nombres + ' Registrad@!', 'Registro Exitoso, confirme el correo Electronico para la activación de la cuenta');
         this.router.navigate(['Ingresar']);
       }, (err) => {
         console.log(err);

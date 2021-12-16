@@ -21,7 +21,6 @@ export class UsuarioService {
       catchError(this.handleError<Usuario>('addUsuario'))
     );
   }
-
   getUsuario(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.baseUrl + 'api/Usuario')
       .pipe(
@@ -36,27 +35,27 @@ export class UsuarioService {
     );
   }
 
-  update (usuario: Usuario): Observable<any> {
+  update(usuario: Usuario): Observable<any> {
     const url =
-    
-    `${this.baseUrl + 'api/Usuario'}/${usuario.codusuario}`;
-    return this.http.put(url, usuario, httpOptions).pipe(
-    // tap(_ => this.log(`updated usuario isbn=${usuario.codusuario}`)),
-    catchError(this.handleError<any>('usuario'))
-    );
-    }
 
-  delete (usuario: Usuario | string): Observable<Usuario> {
+      `${this.baseUrl + 'api/Usuario'}/${usuario.codusuario}`;
+    return this.http.put(url, usuario, httpOptions).pipe(
+      // tap(_ => this.log(`updated usuario isbn=${usuario.codusuario}`)),
+      catchError(this.handleError<any>('usuario'))
+    );
+  }
+
+  delete(usuario: Usuario | string): Observable<Usuario> {
     const id = typeof usuario === 'string' ? usuario : usuario.codusuario;
     const url =
-    
-    `${this.baseUrl + 'api/Usuario'}/${id}`;
+
+      `${this.baseUrl + 'api/Usuario'}/${id}`;
 
     return this.http.delete<Usuario>(url, httpOptions).pipe(
-    // tap(_ => this.log(`deleted usuario isbn=${id}`)),
-    catchError(this.handleError<Usuario>('deleteTask'))
+      // tap(_ => this.log(`deleted usuario isbn=${id}`)),
+      catchError(this.handleError<Usuario>('deleteTask'))
     );
-    }
+  }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

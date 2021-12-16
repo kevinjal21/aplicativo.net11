@@ -50,7 +50,6 @@ export class TramiteService {
     );
   }
 
-
   delete(tramite: Tramite | string): Observable<Tramite> {
     const id = typeof tramite === 'string' ? tramite : tramite.codtramite;
     const url =
@@ -62,7 +61,6 @@ export class TramiteService {
       catchError(this.handleError<Tramite>('deleteTask'))
     );
   }
-
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

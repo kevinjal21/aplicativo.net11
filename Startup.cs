@@ -29,7 +29,7 @@ namespace Aplicativo.net
         public void ConfigureServices(IServiceCollection services)
         {
             // services.AddAutoMapper();
-
+             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
             services.AddSwaggerDocument();
             services.AddControllersWithViews();
             services.AddDbContext<AplicativoContext>(opt => opt.UseSqlServer(@"Server=.\;Database=AppTramites;Trusted_Connection=True;"));
@@ -53,7 +53,7 @@ namespace Aplicativo.net
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-
+            
 
         }
 
@@ -104,6 +104,8 @@ namespace Aplicativo.net
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+
         }
     }
 }

@@ -7,6 +7,7 @@ using Aplicativo.net.Models;
 using System;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Aplicativo.net.DTOs;
 
 namespace Aplicativo.net.Controllers
 {
@@ -125,7 +126,7 @@ namespace Aplicativo.net.Controllers
                 documento.Url = filePath;
                 _context.Entry(documento).State = EntityState.Modified;
                 _context.SaveChangesAsync();
-                 return CreatedAtAction(nameof(GetDocumento), new { id = documento.Codocumento }, documento);
+                return CreatedAtAction(nameof(GetDocumento), new { id = documento.Codocumento }, documento);
             }
             catch (Exception ex)
             {
@@ -135,40 +136,63 @@ namespace Aplicativo.net.Controllers
         }
 
 
-        [HttpPut("Archivos/{id}")]
-        public async Task<IActionResult> PutDocumentoArchivo(IFormFile file, int id)
+        [HttpPut("UpdateDocumento")]
+        public ActionResult<DocumentoDto> UpdateDocumento([FromForm] DocumentoDto DocumenRequest)
         {
-            Console.WriteLine("este es el archivo: " + file);
-            var documento = _context.Documentos.Single(p => p.Codocumento == id);
-            if (file == null) throw new Exception("File is null");
-            if (file.Length == 0) throw new Exception("File is empty");
+            int id = DocumenRequest.Id;
+            var re = Request.Form.Files;
 
-            if (id != (documento.Codocumento))
-            {
-                return BadRequest();
-            }
+            var documento = _context.Documentos.Single(p => p.Codocumento == id);
+
             try
             {
-                var filePath = "D:\\User\\Escritorio\\Practicas\\Sotfware\\Aplicativo.net\\ClientApp\\src\\assets\\Documentos\\" + file.FileName;
-                using (var stream = System.IO.File.Create(filePath))
+                FileInfo fi = new FileInfo(DocumenRequest.Archive.FileName);
+
+                string nameFile = documento.Nombredoc + DateTime.Now.Ticks.ToString() + fi.Extension;
+                var filePath = "D:\\User\\Escritorio\\Practicas\\Sotfware\\Aplicativo.net\\ClientApp\\src\\assets\\Documentos\\" + nameFile;
+
+                if (System.IO.File.Exists(documento.Url))
                 {
-                    file.CopyTo(stream);
+                    var ubicacion = "D:\\User\\Escritorio\\Practicas\\Sotfware\\Aplicativo.net\\ClientApp\\src\\assets\\Documentos\\" + documento.Url;
+                    System.IO.File.Delete(ubicacion);
+                    using (var stream = System.IO.File.Create(filePath))
+                    {
+                        DocumenRequest.Archive.CopyTo(stream);
+                    }
+
+                    double tamanio1 = DocumenRequest.Archive.Length;
+                    tamanio1 = tamanio1 / 1000000;
+                    tamanio1 = Math.Round(tamanio1, 2);
+                    documento.Fechaactualizacion = DateTime.Now.ToString();
+                    documento.Tamanio = tamanio1;
+                    documento.Url = nameFile;
+                    _context.Entry(documento).State = EntityState.Modified;
+                    _context.SaveChangesAsync();
+                    return Ok(documento);
                 }
-                double tamanio = file.Length;
-                tamanio = tamanio / 1000000;
-                tamanio = Math.Round(tamanio, 2);
-                documento.Fechacreacion = DateTime.Now.ToString();
-                documento.Tamanio = tamanio;
-                documento.Url = filePath;
-                _context.Entry(documento).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-                return NoContent();
+                else
+                {
+                    using (var stream = System.IO.File.Create(filePath))
+                    {
+                        DocumenRequest.Archive.CopyTo(stream);
+                    }
+                    double tamanio = DocumenRequest.Archive.Length;
+                    tamanio = tamanio / 1000000;
+                    tamanio = Math.Round(tamanio, 2);
+                    documento.Fechacreacion = DateTime.Now.ToString();
+                    documento.Tamanio = tamanio;
+                    documento.Observacion = "";
+                    documento.Estado = "En proceso";
+                    documento.Url = nameFile;
+                    _context.Entry(documento).State = EntityState.Modified;
+                    _context.SaveChangesAsync();
+                    return Ok(documento);
+                }
             }
             catch (System.Exception)
             {
                 return BadRequest();
             }
         }
-
     }
 }
