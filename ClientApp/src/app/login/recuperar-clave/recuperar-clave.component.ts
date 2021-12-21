@@ -62,6 +62,7 @@ export class RecuperarClaveComponent implements OnInit {
         this.userpassword.estado = "1";
         this.toastr.success('En estos momentos se le envió al correo la confirmación para restablecer su contraseña.','Confirmación');
         this.authService.SendEmail(this.userpassword);
+        this.goBack();
       }
 
     }

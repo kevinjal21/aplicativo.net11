@@ -33,6 +33,20 @@ import { TramitesComponent } from './Usuario/tramites/tramites/tramites.componen
 import { SeletionTipoTramiteComponent } from './Usuario/tramites/reconocimiento-personeria/seletion-tipo-tramite/seletion-tipo-tramite.component';
 import { CargaDocumentoLigaComponent } from './Usuario/tramites/reconocimiento-personeria/carga-documento-liga/carga-documento-liga.component';
 import { CargaDocumentoClubComponent } from './Usuario/tramites/reconocimiento-personeria/carga-documento-club/carga-documento-club.component';
+import { DatosPersonalesComponent } from './Usuario/datos-personales/datos-personales.component';
+import { DatosPersonalesFunComponent } from './Funcionario/datos-personales-fun/datos-personales-fun.component';
+import { SelectionTipoTramiteIComponent } from './Usuario/tramites/inscripcion-dignatarios/selection-tipo-tramite-i/selection-tipo-tramite-i.component';
+import { InscripcionGestionComponent } from './Usuario/tramites/inscripcion-dignatarios/inscripcion-gestion/inscripcion-gestion.component';
+import { SelectionTipoTramiteAComponent } from './Usuario/tramites/aprobacion-reformas/selection-tipo-tramite-a/selection-tipo-tramite-a.component';
+import { SelectionTipoTramiteCComponent } from './Usuario/tramites/cancelacion-personeria/selection-tipo-tramite-c/selection-tipo-tramite-c.component';
+import { SelectionTipoTramiteCeComponent } from './Usuario/tramites/certificado-existencia/selection-tipo-tramite-ce/selection-tipo-tramite-ce.component';
+import { AprobacionGestionComponent } from './Usuario/tramites/aprobacion-reformas/aprobacion-gestion/aprobacion-gestion.component';
+import { CancelacionGestionComponent } from './Usuario/tramites/cancelacion-personeria/cancelacion-gestion/cancelacion-gestion.component';
+import { CertificadoGestionComponent } from './Usuario/tramites/certificado-existencia/certificado-gestion/certificado-gestion.component';
+import { CargaDocumentoInscripcionComponent } from './Usuario/tramites/inscripcion-dignatarios/carga-documento-inscripcion/carga-documento-inscripcion.component';
+import { CargaDocumentoAprobacionComponent } from './Usuario/tramites/aprobacion-reformas/carga-documento-aprobacion/carga-documento-aprobacion.component';
+import { CargaDocumentoCancelacionComponent } from './Usuario/tramites/cancelacion-personeria/carga-documento-cancelacion/carga-documento-cancelacion.component';
+import { CargaDocumentoCertificadoComponent } from './Usuario/tramites/certificado-existencia/carga-documento-certificado/carga-documento-certificado.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'Ingresar', pathMatch: 'full' },
@@ -41,7 +55,6 @@ const routes: Routes = [
   { path: 'login/ConfirmacionCuenta/:token/:correo', component: ConfirmarCuentaComponent },
   { path: 'InicioAdmin', component: ModuloAdminComponent },
   { path: 'InicioFuncionario', component: ModuloFuncionarioComponent },
-  { path: 'InicioUsuario', component: ModuloUsuarioComponent, canActivate: [AuthGuard] },
   { path: 'Registrarse', component: RegistrarseComponent },
   { path: 'Ingresar', component: IngresarComponent },
   { path: 'login/identify', component: RecuperarClaveComponent },
@@ -57,24 +70,40 @@ const routes: Routes = [
   { path: 'detalleUsuarioF/:id', component: EditElimUsuarioComponent, canActivate: [AuthadminGuard] },
 
   //RUTAS PARA USUARIOS
+  { path: 'InicioUsuario', component: ModuloUsuarioComponent, canActivate: [AuthGuard] },
   { path: 'Tramites', component: TramitesComponent, canActivate: [AuthGuard] },
-  { path: 'ReconocimientoGestion', component: ReconocimientoGestioLigaComponent, canActivate: [AuthGuard] },
   { path: 'ReconocimientoGestionLigas/:id', component: ReconocimientoGestioLigaComponent, canActivate: [AuthGuard] },
   { path: 'ReconocimientoGestionClub/:id', component: ReconocimientoGestioClubComponent, canActivate: [AuthGuard] },
+  { path: 'InscripcionGestion/:id', component: InscripcionGestionComponent, canActivate: [AuthGuard] },
+  { path: 'AprobacionGestion/:id', component: AprobacionGestionComponent, canActivate: [AuthGuard] },
+  { path: 'CancelacionGestion/:id', component: CancelacionGestionComponent, canActivate: [AuthGuard] },
+  { path: 'CertificadoGestion/:id', component: CertificadoGestionComponent, canActivate: [AuthGuard] },
   { path: 'ReconocimientoSelection/:id', component: SeletionTipoTramiteComponent, canActivate: [AuthGuard] },
+  { path: 'InscripcionSelection/:id', component: SelectionTipoTramiteIComponent, canActivate: [AuthGuard] },
+  { path: 'AprobacionSelection/:id', component: SelectionTipoTramiteAComponent, canActivate: [AuthGuard] },
+  { path: 'CancelacionSelection/:id', component: SelectionTipoTramiteCComponent, canActivate: [AuthGuard] },
+  { path: 'CertificadoSelection/:id', component: SelectionTipoTramiteCeComponent, canActivate: [AuthGuard] },
+
   { path: 'CargarDocumentoRLigas/:id/:codt', component: CargaDocumentoLigaComponent, canActivate: [AuthGuard] },
   { path: 'CargarDocumentoRClub/:id/:codt', component: CargaDocumentoClubComponent, canActivate: [AuthGuard] },
+  { path: 'CargarDocumentoInscripcion/:id/:codt', component: CargaDocumentoInscripcionComponent, canActivate: [AuthGuard] },
+  { path: 'CargarDocumentoAprobacion/:id/:codt', component: CargaDocumentoAprobacionComponent, canActivate: [AuthGuard] },
+  { path: 'CargarDocumentoCancelacion/:id/:codt', component: CargaDocumentoCancelacionComponent, canActivate: [AuthGuard] },
+  { path: 'CargarDocumentoCertificado/:id/:codt', component: CargaDocumentoCertificadoComponent, canActivate: [AuthGuard] },
+
+  { path: 'DatosPersonales', component: DatosPersonalesComponent, canActivate: [AuthGuard] },
 
 
   //RUTAS PARA FUNCIONARIO
   { path: 'Solicitudes', component: SolicitudesListComponent, canActivate: [AuthFuncionarioGuard] },
   { path: 'GestionSolicitudes/:idSoli', component: GestionSolicitudComponent, canActivate: [AuthFuncionarioGuard] },
+  { path: 'DatosPersonalesFun', component: DatosPersonalesFunComponent, canActivate: [AuthFuncionarioGuard] },
+
 
   { path: 'Inscripcion', component: InscripcionDignatariosComponent },
   { path: 'Aprobacion', component: AprobacionReformasComponent },
   { path: 'Cancelacion', component: CancelacionPersoneriaComponent },
   { path: 'Certificado', component: CertificadoExistenciaComponent },
-
   { path: '**', redirectTo: 'PageNotFound' },
 ];
 

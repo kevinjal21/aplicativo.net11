@@ -1,5 +1,9 @@
 <app-menusesion></app-menusesion>
 
+<head>
+    <title>Tramites</title>
+</head>
+
 <body id="top">
     <!--  -->
     <div class="container ">
@@ -56,7 +60,7 @@
                                     <th class="text-center" scope="col" style="width:20%;">Opciones</th>
                                 </tr>
 
-                                <tr *ngFor="let documento of documentosList">         
+                                <tr *ngFor="let documento of documentosList">
                                     <td class="text-center">{{documento.nombredoc}}</td>
                                     <td class="text-center">Formato PDF que no exceda las 2Mb</td>
                                     <td>
@@ -64,7 +68,9 @@
                                             href="assets/Archivos/{{documento.plantilla}}">{{documento.plantilla}}</a>
                                     </td>
                                     <td class="text-center">
-                                        <a id="contenido_DOCUMENTOS_LinkButton1_0" class="btn btn-primary" routerLink="/CargarDocumentoRLigas/{{documento.codocumento}}/{{codigotramite}}">Cargar Documento</a>
+                                        <a id="contenido_DOCUMENTOS_LinkButton1_0" class="btn btn-primary"
+                                            routerLink="/CargarDocumentoRLigas/{{documento.codocumento}}/{{codigotramite}}">Cargar
+                                            Documento</a>
                                     </td>
                                 </tr>
 
@@ -99,7 +105,10 @@
                                     <td class="text-center">{{documento.observacion}}</td>
                                     <td class="text-center">{{documento.fechacreacion}}</td>
                                     <td class="text-center">
-                                        <span class="text-success">{{documento.estado}} </span>
+                                        <span
+                                            [style.color]="documento.estado == 'Verificación exitosa.'? '#28a745': documento.estado == 'En proceso'? '#be9d16f3': 'red' ">
+                                            {{documento.estado}}
+                                        </span>
                                     </td>
                                 </tr>
                             </tbody>

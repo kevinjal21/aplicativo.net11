@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import {  Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { Location } from '@angular/common';
@@ -54,12 +54,10 @@ export class RestablecerClaveComponent implements OnInit {
 
   ngOnInit(): void {
     this.token = this.route.snapshot.paramMap.get('token');
-    if (this.token == null)
-    {
+    if (this.token == null) {
       console.log("El token ya expiro");
       this.router.navigate(['Ingresar']);
-    }else
-    {
+    } else {
       this.registerForm = this.formBuilder.group({
         'password': [null, [Validators.required, Validators.pattern(/^[A-Za-z0-9_-]{8,}$/)]],
         confirmacionClave: [this.confirmacionClave, [Validators.required, Validators.pattern(/^[A-Za-z0-9_-]{1,}$/),], ""],
@@ -81,14 +79,17 @@ export class RestablecerClaveComponent implements OnInit {
     if (this.registerForm.invalid) {
       this.toastr.error('LLene el campo correo electrónico!', 'Error!');
       return;
+    } else {
+      this.token = this.route.snapshot.paramMap.get('token');
+      this.correo = this.route.snapshot.paramMap.get('correo');
+      this.clave = this.registerForm.controls.password.value + "";
+      this.authService.RestablecerClave(this.correo, this.clave);
+      this.toastr.success('Contraseña Actualizada', 'Aviso');
+      this.registerForm.reset();
+      this.submitted = false;
+      this.goBack();
     }
-    this.token = this.route.snapshot.paramMap.get('token');
-    this.correo = this.route.snapshot.paramMap.get('correo');
-    this.clave = this.registerForm.controls.password.value + "";
-    this.authService.RestablecerClave(this.correo, this.clave);
-    this.toastr.success('Contraseña Actualizada', 'Aviso');
-    console.log(this.correo);
-    console.log(this.clave);
+
     // this.router.navigate(['Ingresar']);
 
   }

@@ -43,6 +43,9 @@ export class AuthService {
   getApellidoLocalStore(): string {
     return localStorage.getItem('apellidos');
   }
+  getTokenLocalStore(): string {
+    return localStorage.getItem('token');
+  }
   getCorreoLocalStore(): string {
     return localStorage.getItem('email');
   }

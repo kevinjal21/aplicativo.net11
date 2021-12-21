@@ -66,11 +66,11 @@
                                 [ngClass]="{ 'is-invalid': submitted && f.tipoId.errors }"  name="tipoUsuario"
                                 id="tipoUsuario">
                                 <option value="" selected>--Seleccione--</option>
-                                <option value="CC">Cédula de ciudadanía</option>
-                                <option value="CE">Cédula de extranjería</option>
-                                <option value="PP">Pasaporte</option>
-                                <option value="RC">Registro civil</option>
-                                <option value="TI">Tarjeta de Identidad</option>
+                                <option value="CÉDULA DE CIUDADANÍA">Cédula de ciudadanía</option>
+                                <option value="CÉDILA DE EXTRANJERÍA">Cédula de extranjería</option>
+                                <option value="PASAPORTE">Pasaporte</option>
+                                <option value="REGISTRO CIVIL">Registro civil</option>
+                                <option value="TARGETA DE IDENTIDAD">Tarjeta de Identidad</option>
                             </select>
                             <div *ngIf="submitted && f.tipoId.errors" class="invalid-feedback">
                                 <div *ngIf="f.tipoId.errors.required">El campo es obligatorio</div>

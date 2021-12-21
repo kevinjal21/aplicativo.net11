@@ -97,7 +97,11 @@ namespace Aplicativo.net.Controllers
             if (await _repo.UserExistsCedula(registerDto.Id))
                 return BadRequest("Ya existe un usuario con esa identificacion");
             registerDto.FechaRegistro = DateTime.Now.ToString();
-
+            registerDto.Nombres=registerDto.Nombres.ToUpper();
+            registerDto.Apellidos=registerDto.Apellidos.ToUpper();
+            registerDto.TipoId=registerDto.TipoId.ToUpper();
+            registerDto.Sexo=registerDto.Sexo.ToUpper();
+            registerDto.Correo=registerDto.Correo.ToUpper();
             var userToCreate = _mapper.Map<Usuario>(registerDto);
             var createdUser = await _repo.Register(userToCreate, registerDto.Password);
             if (registerDto.Rol == "Usuario")

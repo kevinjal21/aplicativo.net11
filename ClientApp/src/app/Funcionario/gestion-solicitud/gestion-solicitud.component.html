@@ -74,7 +74,8 @@
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h4 class="modal-title">{{documento.nombredoc }} (revisión)</h4>
+                                                            <h4 class="modal-title">{{documento.nombredoc }} (revisión)
+                                                            </h4>
                                                             <button type="button" class="close"
                                                                 data-dismiss="modal">&times;</button>
                                                         </div>
@@ -148,7 +149,10 @@
                                     <td class="text-center">{{documento.observacion}}</td>
                                     <td class="text-center">{{documento.fechacreacion}}</td>
                                     <td class="text-center">
-                                        <span class="text-success">{{documento.estado}} </span>
+                                        <span
+                                            [style.color]="documento.estado == 'Verificación exitosa.'? '#28a745': documento.estado == 'En proceso'? '#be9d16f3': 'red' ">
+                                            {{documento.estado}}
+                                        </span>
                                     </td>
                                 </tr>
                             </tbody>

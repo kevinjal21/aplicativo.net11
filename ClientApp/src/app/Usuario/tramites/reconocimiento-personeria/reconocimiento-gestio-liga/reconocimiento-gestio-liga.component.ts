@@ -29,6 +29,7 @@ export class ReconocimientoGestioLigaComponent implements OnInit {
   codigotramite: string;
   // solicitudesTUsuario: Stramite[] = [];
   tramite: Tramite;
+  color: string;
 
   ngOnInit() {
     this.solicitudTramite = { codstramite: 0, codtramite: 0, codusuario: 0, fecha: "", tipoTramite: "" };
@@ -65,6 +66,16 @@ export class ReconocimientoGestioLigaComponent implements OnInit {
         );
       }
     });
+  }
+
+  colorEstado(estado: string) {
+    if (estado == "Incorrecto") {
+      this.color = "#FF0000";
+    } else if (estado == "En proceso") {
+      this.color = "#ffe205";
+    } else {
+      this.color = "#05ff1a";
+    }
   }
 
   crearDocumentosLigas(codigoStramite: number) {
@@ -229,5 +240,4 @@ export class ReconocimientoGestioLigaComponent implements OnInit {
       }
     }
   }
-
 }

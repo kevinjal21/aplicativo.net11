@@ -20,8 +20,10 @@ export class IngresarComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem('token') != null)
+    this.onLogout();
+    if (localStorage.getItem('token') != null){
       this.router.navigateByUrl('Ingresar');
+    }
     this.registerForm = this.formBuilder.group({
       'correo': [null, [Validators.email, Validators.required]],
       'password': [null, [Validators.required, Validators.pattern(/^[A-Za-z0-9_-]{8,}$/)]],

@@ -46,6 +46,20 @@ import { VistaComponent } from './Usuario/tramites/reconocimiento-personeria/vis
 import { SeletionTipoTramiteComponent } from './Usuario/tramites/reconocimiento-personeria/seletion-tipo-tramite/seletion-tipo-tramite.component';
 import { CargaDocumentoLigaComponent } from './Usuario/tramites/reconocimiento-personeria/carga-documento-liga/carga-documento-liga.component';
 import { CargaDocumentoClubComponent } from './Usuario/tramites/reconocimiento-personeria/carga-documento-club/carga-documento-club.component';
+import { DatosPersonalesComponent } from './Usuario/datos-personales/datos-personales.component';
+import { DatosPersonalesFunComponent } from './Funcionario/datos-personales-fun/datos-personales-fun.component';
+import { InscripcionGestionComponent } from './Usuario/tramites/inscripcion-dignatarios/inscripcion-gestion/inscripcion-gestion.component';
+import { SelectionTipoTramiteIComponent } from './Usuario/tramites/inscripcion-dignatarios/selection-tipo-tramite-i/selection-tipo-tramite-i.component';
+import { SelectionTipoTramiteAComponent } from './Usuario/tramites/aprobacion-reformas/selection-tipo-tramite-a/selection-tipo-tramite-a.component';
+import { AprobacionGestionComponent } from './Usuario/tramites/aprobacion-reformas/aprobacion-gestion/aprobacion-gestion.component';
+import { SelectionTipoTramiteCComponent } from './Usuario/tramites/cancelacion-personeria/selection-tipo-tramite-c/selection-tipo-tramite-c.component';
+import { CancelacionGestionComponent } from './Usuario/tramites/cancelacion-personeria/cancelacion-gestion/cancelacion-gestion.component';
+import { SelectionTipoTramiteCeComponent } from './Usuario/tramites/certificado-existencia/selection-tipo-tramite-ce/selection-tipo-tramite-ce.component';
+import { CertificadoGestionComponent } from './Usuario/tramites/certificado-existencia/certificado-gestion/certificado-gestion.component';
+import { CargaDocumentoCertificadoComponent } from './Usuario/tramites/certificado-existencia/carga-documento-certificado/carga-documento-certificado.component';
+import { CargaDocumentoCancelacionComponent } from './Usuario/tramites/cancelacion-personeria/carga-documento-cancelacion/carga-documento-cancelacion.component';
+import { CargaDocumentoAprobacionComponent } from './Usuario/tramites/aprobacion-reformas/carga-documento-aprobacion/carga-documento-aprobacion.component';
+import { CargaDocumentoInscripcionComponent } from './Usuario/tramites/inscripcion-dignatarios/carga-documento-inscripcion/carga-documento-inscripcion.component';
  
 
 @NgModule({
@@ -87,7 +101,21 @@ import { CargaDocumentoClubComponent } from './Usuario/tramites/reconocimiento-p
     ReconocimientoGestioClubComponent,
     ReconocimientoGestioLigaComponent,
     CargaDocumentoLigaComponent,
-    CargaDocumentoClubComponent
+    CargaDocumentoClubComponent,
+    DatosPersonalesComponent,
+    DatosPersonalesFunComponent,
+    InscripcionGestionComponent,
+    SelectionTipoTramiteIComponent,
+    SelectionTipoTramiteAComponent,
+    AprobacionGestionComponent,
+    SelectionTipoTramiteCComponent,
+    CancelacionGestionComponent,
+    SelectionTipoTramiteCeComponent,
+    CertificadoGestionComponent,
+    CargaDocumentoCertificadoComponent,
+    CargaDocumentoCancelacionComponent,
+    CargaDocumentoAprobacionComponent,
+    CargaDocumentoInscripcionComponent 
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

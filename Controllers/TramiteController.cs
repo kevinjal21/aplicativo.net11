@@ -8,7 +8,6 @@ using System;
 
 namespace Aplicativo.net.Controllers
 {
-
     [Route("api/[Controller]")]
     [ApiController]
     public class TramiteController : ControllerBase
@@ -21,11 +20,11 @@ namespace Aplicativo.net.Controllers
 
             if (_context.Tramites.Count() == 0)
             {
-                _context.Tramites.Add(new Tramite {  Nombre ="Personería Jurídica de organismos deportivos y recreativos",Descripcion ="Reconocimiento de la personería jurídica de los organismos deportivos y recreativos vinculados al sistema nacional del deporte",Duracion ="7",Costo="Trámite sin costo",Modalidad="Trámite en línea",Url="Reconocimiento"});
-                _context.Tramites.Add(new Tramite {  Nombre ="Inscripción de dignatarios de los organismos deportivos y recreativos",Descripcion ="Inscripción de dignatarios de los organismos deportivos y recreativos vinculados al sistema nacional del deporte",Duracion ="7",Costo="Trámite sin costo",Modalidad="Trámite en línea",Url="Inscripcion"});
-                _context.Tramites.Add(new Tramite {  Nombre ="Aprobación de reformas estatutarias",Descripcion ="Aprobación de las reformas estatutarias de los organismos deportivos o recreativos vinculados al sistema nacional del deporte",Duracion ="7",Costo="Trámite sin costo",Modalidad="Trámite en línea",Url="Aprobacion"});
-                _context.Tramites.Add(new Tramite {  Nombre ="Cancelación de Personería Jurídica",Descripcion ="Cancelación de la personería jurídica de ligas y clubes deportivos",Duracion ="7",Costo="Trámite sin costo",Modalidad="Trámite en línea",Url="Cancelacion"});
-                _context.Tramites.Add(new Tramite {  Nombre ="Certificación de existencia y representación legal",Descripcion ="Certificación de existencia y representación legal de las ligas y asociaciones deportivas",Duracion ="7",Costo="Trámite sin costo",Modalidad="Trámite en línea",Url="Certificado"});
+                _context.Tramites.Add(new Tramite {  Nombre ="Personería Jurídica de organismos deportivos y recreativos",Descripcion ="Reconocimiento de la personería jurídica de los organismos deportivos y recreativos vinculados al sistema nacional del deporte",Duracion ="15",Costo="Trámite sin costo",Modalidad="Trámite en línea",Url="Reconocimiento"});
+                _context.Tramites.Add(new Tramite {  Nombre ="Inscripción de dignatarios de los organismos deportivos y recreativos",Descripcion ="Inscripción de dignatarios de los organismos deportivos y recreativos vinculados al sistema nacional del deporte",Duracion ="15",Costo="Trámite sin costo",Modalidad="Trámite en línea",Url="Inscripcion"});
+                _context.Tramites.Add(new Tramite {  Nombre ="Aprobación de reformas estatutarias",Descripcion ="Aprobación de las reformas estatutarias de los organismos deportivos o recreativos vinculados al sistema nacional del deporte",Duracion ="15",Costo="Trámite sin costo",Modalidad="Trámite en línea",Url="Aprobacion"});
+                _context.Tramites.Add(new Tramite {  Nombre ="Cancelación de Personería Jurídica",Descripcion ="Cancelación de la personería jurídica de ligas y clubes deportivos",Duracion ="15",Costo="Trámite sin costo",Modalidad="Trámite en línea",Url="Cancelacion"});
+                _context.Tramites.Add(new Tramite {  Nombre ="Certificación de existencia y representación legal",Descripcion ="Certificación de existencia y representación legal de las ligas y asociaciones deportivas",Duracion ="15",Costo="Trámite sin costo",Modalidad="Trámite en línea",Url="Certificado"});
                 _context.SaveChanges();
             }
         }
@@ -98,6 +97,5 @@ namespace Aplicativo.net.Controllers
 
             return NoContent();
         }
-
     }
 }
