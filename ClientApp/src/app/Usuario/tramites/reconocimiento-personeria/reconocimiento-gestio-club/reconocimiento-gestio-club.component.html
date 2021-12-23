@@ -1,14 +1,16 @@
 <app-menusesion></app-menusesion>
+
 <head>
     <title>Tramites</title>
 </head>
+
 <body id="top">
     <!--  -->
     <div class="container ">
         <div class="row">
             <div class="col-12 ">
                 <div class="input-group mb-3">
-                    <span id="Label2" class="titulo_tipo_1">RECONOCIMIENTO DE LA PERSONERÍA JURÍDICA</span>
+                    <span id="Label2" class="titulo_tipo_1">RECONOCIMIENTO DE LA PERSONERÍA JURÍDICA ({{tipotramite}})</span>
                 </div>
             </div>
         </div>
@@ -103,7 +105,10 @@
                                     <td class="text-center">{{documento.observacion}}</td>
                                     <td class="text-center">{{documento.fechacreacion}}</td>
                                     <td class="text-center">
-                                        <span class="text-success">{{documento.estado}} </span>
+                                        <span
+                                            [style.color]="documento.estado == 'Verificación exitosa.'? '#28a745': documento.estado == 'En proceso'? '#be9d16f3': 'red' ">
+                                            {{documento.estado}}
+                                        </span>
                                     </td>
                                 </tr>
                             </tbody>

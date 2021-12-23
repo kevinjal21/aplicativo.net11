@@ -34,13 +34,6 @@ html {
     margin-left: -15px;
 }
 
-.p-2 {
-    padding: 0.5rem !important;
-}
-
-.border-info {
-    border-color: #5b7cb6 !important;
-}
 
 .card {
     position: relative;

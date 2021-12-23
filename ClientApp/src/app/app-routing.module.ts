@@ -4,13 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './inicio/inicio.component';
 import { RegistrarseComponent } from './login/registrarse/registrarse.component';
 import { IngresarComponent } from './login/ingresar/ingresar.component';
-import { AddusuarioComponent } from './Administrador/addusuario/addusuario.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ModuloAdminComponent } from './inicio/modulo-admin/modulo-admin.component';
 import { ModuloFuncionarioComponent } from './inicio/modulo-funcionario/modulo-funcionario.component';
 import { ModuloUsuarioComponent } from './inicio/modulo-usuario/modulo-usuario.component';
-import { EditElimUsuarioComponent } from './Administrador/edit-elim-usuario/edit-elim-usuario.component';
-import { SolicitudesListComponent } from './Funcionario/solicitudes-list/solicitudes-list.component';
 import { VistaaproComponent } from './Usuario/tramites/aprobacion-reformas/vistaapro/vistaapro.component';
 import { VistacanComponent } from './Usuario/tramites/cancelacion-personeria/vistacan/vistacan.component';
 import { VistainsComponent } from './Usuario/tramites/inscripcion-dignatarios/vistains/vistains.component';
@@ -23,7 +20,6 @@ import { RecuperarClaveComponent } from './login/recuperar-clave/recuperar-clave
 import { RestablecerClaveComponent } from './login/restablecer-clave/restablecer-clave.component';
 import { AuthadminGuard } from './auth/authadmin.guard';
 import { AuthFuncionarioGuard } from './auth/auth-funcionario.guard';
-import { GestionSolicitudComponent } from './Funcionario/gestion-solicitud/gestion-solicitud.component';
 import { ConfirmarCuentaComponent } from './login/confirmar-cuenta/confirmar-cuenta.component';
 import { Eror404Component } from './inicio/eror404/eror404.component';
 import { ReconocimientoGestioLigaComponent } from './Usuario/tramites/reconocimiento-personeria/reconocimiento-gestio-liga/reconocimiento-gestio-liga.component';
@@ -34,7 +30,6 @@ import { SeletionTipoTramiteComponent } from './Usuario/tramites/reconocimiento-
 import { CargaDocumentoLigaComponent } from './Usuario/tramites/reconocimiento-personeria/carga-documento-liga/carga-documento-liga.component';
 import { CargaDocumentoClubComponent } from './Usuario/tramites/reconocimiento-personeria/carga-documento-club/carga-documento-club.component';
 import { DatosPersonalesComponent } from './Usuario/datos-personales/datos-personales.component';
-import { DatosPersonalesFunComponent } from './Funcionario/datos-personales-fun/datos-personales-fun.component';
 import { SelectionTipoTramiteIComponent } from './Usuario/tramites/inscripcion-dignatarios/selection-tipo-tramite-i/selection-tipo-tramite-i.component';
 import { InscripcionGestionComponent } from './Usuario/tramites/inscripcion-dignatarios/inscripcion-gestion/inscripcion-gestion.component';
 import { SelectionTipoTramiteAComponent } from './Usuario/tramites/aprobacion-reformas/selection-tipo-tramite-a/selection-tipo-tramite-a.component';
@@ -47,14 +42,25 @@ import { CargaDocumentoInscripcionComponent } from './Usuario/tramites/inscripci
 import { CargaDocumentoAprobacionComponent } from './Usuario/tramites/aprobacion-reformas/carga-documento-aprobacion/carga-documento-aprobacion.component';
 import { CargaDocumentoCancelacionComponent } from './Usuario/tramites/cancelacion-personeria/carga-documento-cancelacion/carga-documento-cancelacion.component';
 import { CargaDocumentoCertificadoComponent } from './Usuario/tramites/certificado-existencia/carga-documento-certificado/carga-documento-certificado.component';
+import { ModuloAddUserComponent } from './inicio/modulo-admin/modulo-add-user/modulo-add-user.component';
+import { AddFuncionarioDeporteComponent } from './Administrador/GestionFuncionarios/add-funcionario-deporte/add-funcionario-deporte.component';
+import { EditElimFuncionarioDeporteComponent } from './Administrador/GestionFuncionarios/edit-elim-funcionario-deporte/edit-elim-funcionario-deporte.component';
+import { AddFuncionarioGobiernoComponent } from './Administrador/GestionFuncionarios/add-funcionario-gobierno/add-funcionario-gobierno.component';
+import { EditElimFuncionarioGobiernoComponent } from './Administrador/GestionFuncionarios/edit-elim-funcionario-gobierno/edit-elim-funcionario-gobierno.component';
+import { SolicitudesComponent } from './Funcionario/FuncionarioDeporte/solicitudes/solicitudes.component';
+import { SolicitudGestionComponent } from './Funcionario/FuncionarioDeporte/solicitud-gestion/solicitud-gestion.component';
+import { DatosPersonalesDComponent } from './Funcionario/FuncionarioDeporte/datos-personales-d/datos-personales-d.component';
+import { ModuloFuncionarioGobiernoComponent } from './inicio/modulo-funcionario-gobierno/modulo-funcionario-gobierno.component';
+import { AuthFuncionariGobiernoGuard } from './auth/auth-funcionari-gobierno.guard';
+import { DatosPersonalesGComponent } from './Funcionario/FuncionarioGobierno/datos-personales-g/datos-personales-g.component';
+import { SolicitudesVistaComponent } from './Funcionario/FuncionarioGobierno/solicitudes-vista/solicitudes-vista.component';
+import { SolicitudesgComponent } from './Funcionario/FuncionarioGobierno/solicitudesg/solicitudesg.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'Ingresar', pathMatch: 'full' },
   { path: 'PageNotFound', component: Eror404Component },
   { path: 'Inicio', component: InicioComponent },
   { path: 'login/ConfirmacionCuenta/:token/:correo', component: ConfirmarCuentaComponent },
-  { path: 'InicioAdmin', component: ModuloAdminComponent },
-  { path: 'InicioFuncionario', component: ModuloFuncionarioComponent },
   { path: 'Registrarse', component: RegistrarseComponent },
   { path: 'Ingresar', component: IngresarComponent },
   { path: 'login/identify', component: RecuperarClaveComponent },
@@ -65,9 +71,15 @@ const routes: Routes = [
   { path: 'Inscripcionvista', component: VistainsComponent },
   { path: 'Certificadovista', component: VistacertComponent },
 
+
   //RUTAS PARA ADMIN
-  { path: 'Addusuario', component: AddusuarioComponent, canActivate: [AuthadminGuard] },
-  { path: 'detalleUsuarioF/:id', component: EditElimUsuarioComponent, canActivate: [AuthadminGuard] },
+  { path: 'AddUsuarioDeporte', component: AddFuncionarioDeporteComponent, canActivate: [AuthadminGuard] },
+  { path: 'detalleFuncionarioDeporte/:id', component: EditElimFuncionarioDeporteComponent, canActivate: [AuthadminGuard] },
+  { path: 'AddUsuarioGobierno', component: AddFuncionarioGobiernoComponent, canActivate: [AuthadminGuard] },
+  { path: 'detalleFuncionarioGobierno/:id', component: EditElimFuncionarioGobiernoComponent, canActivate: [AuthadminGuard] },
+  { path: 'InicioAdmin', component: ModuloAdminComponent, canActivate: [AuthadminGuard] },
+  { path: 'InicioAdminAdd', component: ModuloAddUserComponent, canActivate: [AuthadminGuard] },
+
 
   //RUTAS PARA USUARIOS
   { path: 'InicioUsuario', component: ModuloUsuarioComponent, canActivate: [AuthGuard] },
@@ -93,13 +105,19 @@ const routes: Routes = [
 
   { path: 'DatosPersonales', component: DatosPersonalesComponent, canActivate: [AuthGuard] },
 
+  //RUTAS PARA FUNCIONARIO DEPORTE
+  { path: 'InicioFuncionarioDeporte', component: ModuloFuncionarioComponent, canActivate: [AuthFuncionarioGuard] },
+  { path: 'Solicitudes', component: SolicitudesComponent, canActivate: [AuthFuncionarioGuard] },
+  { path: 'GestionSolicitudes/:idSoli', component: SolicitudGestionComponent, canActivate: [AuthFuncionarioGuard] },
+  { path: 'DatosPersonalesFun', component: DatosPersonalesDComponent, canActivate: [AuthFuncionarioGuard] },
 
-  //RUTAS PARA FUNCIONARIO
-  { path: 'Solicitudes', component: SolicitudesListComponent, canActivate: [AuthFuncionarioGuard] },
-  { path: 'GestionSolicitudes/:idSoli', component: GestionSolicitudComponent, canActivate: [AuthFuncionarioGuard] },
-  { path: 'DatosPersonalesFun', component: DatosPersonalesFunComponent, canActivate: [AuthFuncionarioGuard] },
+  //RUTAS PARA FUNCIONARIO DEPORTE
+  { path: 'InicioFuncionarioGobierno', component: ModuloFuncionarioGobiernoComponent, canActivate: [AuthFuncionariGobiernoGuard] },
+  { path: 'DatosPersonalesFung', component: DatosPersonalesGComponent, canActivate: [AuthFuncionariGobiernoGuard] },
+  { path: 'Solicitudesg', component: SolicitudesgComponent, canActivate: [AuthFuncionariGobiernoGuard] },
+  { path: 'VerSolicitudes/:idSoli', component: SolicitudesVistaComponent, canActivate: [AuthFuncionariGobiernoGuard] },
 
-
+  
   { path: 'Inscripcion', component: InscripcionDignatariosComponent },
   { path: 'Aprobacion', component: AprobacionReformasComponent },
   { path: 'Cancelacion', component: CancelacionPersoneriaComponent },

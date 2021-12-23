@@ -19,6 +19,12 @@ namespace Aplicativo.net.DTOs
         [Required]
         public string Sexo { get; set; }
         [Required]
+        public string Municipio { get; set; }
+        [Required]
+        public string Direccion { get; set; }
+        [Required]
+        public string GrupoEtnico { get; set; }
+        [Required]
         public string FechaNacimiento { get; set; }
         [Required]
         public string FechaRegistro { get; set; }

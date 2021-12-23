@@ -64,6 +64,9 @@ namespace Aplicativo.net.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CodFuncionario")
+                        .HasColumnType("int");
+
                     b.Property<int>("Codtramite")
                         .HasColumnType("int");
 
@@ -127,6 +130,9 @@ namespace Aplicativo.net.Migrations
                     b.Property<string>("Correo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Direccion")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
@@ -136,7 +142,13 @@ namespace Aplicativo.net.Migrations
                     b.Property<string>("FechaRegistro")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("GrupoEtnico")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Municipio")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombres")

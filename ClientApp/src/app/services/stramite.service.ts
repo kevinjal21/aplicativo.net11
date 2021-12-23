@@ -47,10 +47,9 @@ export class StramiteService {
 
   update(stramite: Stramite): Observable<any> {
     const url =
-
       `${this.baseUrl + 'api/Stramite'}/${stramite.codstramite}`;
     return this.http.put(url, stramite, httpOptions).pipe(
-      tap(_ => this.log(`updated stramite isbn=${stramite.codstramite}`)),
+      // tap(_ => this.log(`updated stramite isbn=${stramite.codstramite}`)),
       catchError(this.handleError<any>('stramite'))
     );
   }

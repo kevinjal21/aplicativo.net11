@@ -125,10 +125,7 @@ export class AuthService {
 
   async ActualizarDocumento(data: Documento) {
     const url = this.baseUrl + 'api/Documento/UpdateDocumento';
-    console.log("datra ", data);
     let datos = new FormData();
-    console.log("id: " + data.codocumento);
-    console.log("file: " + data.Archive);
     datos.append('Id', data.codocumento + "");
     datos.append('Archive', data.Archive, data.Archive.name);
     //debugger

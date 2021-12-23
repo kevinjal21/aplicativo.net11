@@ -28,9 +28,11 @@ export class CancelacionGestionComponent implements OnInit {
   codigotramite: string;
   tramite: Tramite;
   color: string;
-
+  tipotramite:string;
+  
   ngOnInit() {
-    this.solicitudTramite = { codstramite: 0, codtramite: 0, codusuario: 0, fecha: "", tipoTramite: "" };
+    this.tipotramite=this.authService.getTipoTLocalStore();
+    this.solicitudTramite = { codstramite: 0, codtramite: 0, codusuario: 0, fecha: "", tipoTramite: "", codFuncionario: 0 };
     this.documento = { codocumento: 0, codstramite: 0, observacion: "", fechacreacion: "", fechaactualizacion: "", nombredoc: "", url: "", tamanio: 0, estado: "", plantilla: "", Archive: null }
     this.creacionDocumentosLigas();
     this.getAllDocumentos();

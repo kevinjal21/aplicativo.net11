@@ -16,6 +16,9 @@ namespace Aplicativo.net.Models
         [JsonProperty("correo")] public string Correo { get; set; }
         [JsonProperty("celular")] public string Celular { get; set; }
         [JsonProperty("sexo")] public string Sexo { get; set; }
+        [JsonProperty("municipio")] public string Municipio { get; set; }
+        [JsonProperty("direccion")] public string Direccion { get; set; }
+        [JsonProperty("grupoEtnico")] public string GrupoEtnico { get; set; }
          [JsonProperty("fechaNacimiento")] public string FechaNacimiento { get; set; }
         [JsonProperty("fechaRegistro")] public string FechaRegistro { get; set; }
         [JsonProperty("rol")] public string Rol { get; set; }

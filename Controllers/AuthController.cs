@@ -85,7 +85,9 @@ namespace Aplicativo.net.Controllers
             if (registerDto.Rol != "Usuario")
             {
                 registerDto.Estado = 1;
-            }else{
+            }
+            else
+            {
                 registerDto.Estado = 0;
 
             }
@@ -97,16 +99,19 @@ namespace Aplicativo.net.Controllers
             if (await _repo.UserExistsCedula(registerDto.Id))
                 return BadRequest("Ya existe un usuario con esa identificacion");
             registerDto.FechaRegistro = DateTime.Now.ToString();
-            registerDto.Nombres=registerDto.Nombres.ToUpper();
-            registerDto.Apellidos=registerDto.Apellidos.ToUpper();
-            registerDto.TipoId=registerDto.TipoId.ToUpper();
-            registerDto.Sexo=registerDto.Sexo.ToUpper();
-            registerDto.Correo=registerDto.Correo.ToUpper();
+            registerDto.Nombres = registerDto.Nombres.ToUpper();
+            registerDto.Apellidos = registerDto.Apellidos.ToUpper();
+            registerDto.TipoId = registerDto.TipoId.ToUpper();
+            registerDto.Sexo = registerDto.Sexo.ToUpper();
+            registerDto.Correo = registerDto.Correo.ToUpper();
+            registerDto.Municipio = registerDto.Municipio.ToUpper();
+            registerDto.Direccion = registerDto.Direccion.ToUpper();
+            registerDto.GrupoEtnico = registerDto.GrupoEtnico.ToUpper();
             var userToCreate = _mapper.Map<Usuario>(registerDto);
             var createdUser = await _repo.Register(userToCreate, registerDto.Password);
             if (registerDto.Rol == "Usuario")
             {
-               var ruta = "https://localhost:5001/login/ConfirmacionCuenta/";
+                var ruta = "https://localhost:5001/login/ConfirmacionCuenta/";
 
                 var claims = new[]
                 {
@@ -130,9 +135,9 @@ namespace Aplicativo.net.Controllers
                 mensaje.Body = "<h3>Hola " + "</h3> <br> <h4>Haz clic en el enlace de abajo para activar tu cuenta:</h4> <br> <br>" + ruta + tokenHandler.WriteToken(token) + "/" + registerDto.Correo;
                 mensaje.BodyEncoding = System.Text.Encoding.UTF8;
                 mensaje.IsBodyHtml = true;
-                mensaje.From = new System.Net.Mail.MailAddress("kjacosta@unicesar.edu.co");
+                mensaje.From = new System.Net.Mail.MailAddress(_config.GetSection("Credenciales:Correo").Value);
                 System.Net.Mail.SmtpClient cliente = new System.Net.Mail.SmtpClient();
-                cliente.Credentials = new System.Net.NetworkCredential("kjacosta@unicesar.edu.co", "1010133966");
+                cliente.Credentials = new System.Net.NetworkCredential(_config.GetSection("Credenciales:Correo").Value, _config.GetSection("Credenciales:Password").Value);
                 cliente.Port = 25;
                 cliente.EnableSsl = true;
                 cliente.Host = "smtp.gmail.com";
@@ -235,9 +240,9 @@ namespace Aplicativo.net.Controllers
 
                 mensaje.BodyEncoding = System.Text.Encoding.UTF8;
                 mensaje.IsBodyHtml = true;
-                mensaje.From = new System.Net.Mail.MailAddress("kjacosta@unicesar.edu.co");
+                mensaje.From = new System.Net.Mail.MailAddress(_config.GetSection("Credenciales:Correo").Value);
                 System.Net.Mail.SmtpClient cliente = new System.Net.Mail.SmtpClient();
-                cliente.Credentials = new System.Net.NetworkCredential("kjacosta@unicesar.edu.co", "1010133966");
+                cliente.Credentials = new System.Net.NetworkCredential(_config.GetSection("Credenciales:Correo").Value, _config.GetSection("Credenciales:Password").Value);
                 //MailAddress address = new MailAddress(usuario.Email);
                 //string Host = address.Host; 
                 //string dominio = Host.Split(".")[0];

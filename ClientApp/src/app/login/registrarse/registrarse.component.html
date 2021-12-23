@@ -1,4 +1,4 @@
-<app-menu></app-menu> 
+<app-menu></app-menu>
 <!DOCTYPE html>
 <!-- utilizara la ultima version de html -->
 <html>
@@ -63,7 +63,7 @@
                                         style="color: cornflowerblue"></i></span>
                             </div>
                             <select class="form-control" formControlName="tipoId"
-                                [ngClass]="{ 'is-invalid': submitted && f.tipoId.errors }"  name="tipoUsuario"
+                                [ngClass]="{ 'is-invalid': submitted && f.tipoId.errors }" name="tipoUsuario"
                                 id="tipoUsuario">
                                 <option value="" selected>--Seleccione--</option>
                                 <option value="CÉDULA DE CIUDADANÍA">Cédula de ciudadanía</option>
@@ -138,8 +138,7 @@
                                         style="color: cornflowerblue"></i></span>
                             </div>
                             <select class="form-control" formControlName="sexo"
-                                [ngClass]="{ 'is-invalid': submitted && f.sexo.errors }"  name="sexo"
-                                id="sexo">
+                                [ngClass]="{ 'is-invalid': submitted && f.sexo.errors }" name="sexo" id="sexo">
                                 <option value="" selected>--Seleccione--</option>
                                 <option value="Masculino">Masculino</option>
                                 <option value="Femenino">Femenino</option>
@@ -151,6 +150,85 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label>Municipio:*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-globe-americas fa-1x"
+                                        style="color: cornflowerblue"></i></span>
+                            </div>
+                            <select class="form-control" formControlName="municipio"
+                                [ngClass]="{ 'is-invalid': submitted && f.municipio.errors }" name="municipio"
+                                id="municipio">
+                                <option  selected="true" disabled="disabled">--Seleccione--</option>
+                                <option value="AGUACHICA">AGUACHICA</option>
+                                <option value="AGUSTIN CODAZZI">AGUSTIN CODAZZI</option>
+                                <option value="ASTREA">ASTREA</option>
+                                <option value="BECERRIL">BECERRIL</option>
+                                <option value="BOSCONIA">BOSCONIA</option>
+                                <option value="CHIMICHAGUA">CHIMICHAGUA</option>
+                                <option value="CHIRIGUANA">CHIRIGUANA</option>
+                                <option value="CURUMANI">CURUMANI</option>
+                                <option value="EL COPEY">EL COPEY</option>
+                                <option value="EL PASO">EL PASO</option>
+                                <option value="GAMARRA">GAMARRA</option>
+                                <option value="GONZALEZ">GONZALEZ</option>
+                                <option value="LA GLORIA">LA GLORIA</option>
+                                <option value="LA PAZ">LA PAZ</option>
+                                <option value="MANAURE">MANAURE</option>
+                                <option value="PAILITAS">PAILITAS</option>
+                                <option value="PELAYA">PELAYA</option>
+                                <option value="PUEBLO BELLO">PUEBLO BELLO</option>
+                                <option value="RIO DE ORO">RIO DE ORO</option>
+                                <option value="SAN ALBERTO">SAN ALBERTO</option>
+                                <option value="SAN DIEGO">SAN DIEGO</option>
+                                <option value="SAN MARTIN">SAN MARTIN</option>
+                                <option value="SAN MARTIN">TAMALAMEQUE</option>
+                                <option value="VALLEDUPAR">VALLEDUPAR</option>
+                            </select>
+                            <div *ngIf="submitted && f.municipio.errors" class="invalid-feedback">
+                                <div *ngIf="f.municipio.errors.required">El campo es obligatorio</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Dirección:*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-location-arrow fa-1x"
+                                        style="color: cornflowerblue"></i></span>
+                            </div>
+                            <input class="form-control" formControlName="direccion"
+                                [ngClass]="{ 'is-invalid': submitted && f.direccion.errors }" placeholder="Dirección"
+                                type="text" name="apellido" id="apellido" size="25" maxlength="100" value=""
+                                style="cursor: pointer;">
+                            <div *ngIf="submitted && f.direccion.errors" class="invalid-feedback">
+                                <div *ngIf="f.direccion.errors.required">El campo es obligatorio</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Grupo Etnico:*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user-friends fa-1x"
+                                        style="color: cornflowerblue"></i></span>
+                            </div>
+                            <select class="form-control" formControlName="grupoEtnico"
+                                [ngClass]="{ 'is-invalid': submitted && f.grupoEtnico.errors }" name="grupoEtnico"
+                                id="grupoEtnico">
+                                <option value="" selected>--Seleccione--</option>
+                                <option value="INDÍGENA">INDÍGENA</option>
+                                <option value="AFRODESCENDIENTE">AFRODESCENDIENTE</option>
+                                <option value="MESTIZO">MESTIZO</option>
+                                <option value="OTRO">OTRO</option>
+                                <option value="NINGUNO">NINGUNO</option>
+                            </select>
+                            <div *ngIf="submitted && f.grupoEtnico.errors" class="invalid-feedback">
+                                <div *ngIf="f.grupoEtnico.errors.required">El campo es obligatorio</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="apellido">Fecha de Nacimiento:*</label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -158,9 +236,9 @@
                                         style="color: cornflowerblue"></i></span>
                             </div>
                             <input class="form-control" formControlName="fechaNacimiento"
-                                [ngClass]="{ 'is-invalid': submitted && f.fechaNacimiento.errors }" placeholder="fecha de Nacimiento"
-                                type="date" name="fechaNacimiento" id="fechaNacimiento" size="25" maxlength="100" value=""
-                                style="cursor: pointer;">
+                                [ngClass]="{ 'is-invalid': submitted && f.fechaNacimiento.errors }"
+                                placeholder="fecha de Nacimiento" type="date" name="fechaNacimiento"
+                                id="fechaNacimiento" size="25" maxlength="100" value="" style="cursor: pointer;">
                             <div *ngIf="submitted && f.fechaNacimiento.errors" class="invalid-feedback">
                                 <div *ngIf="f.fechaNacimiento.errors.required">El campo es obligatorio</div>
                             </div>

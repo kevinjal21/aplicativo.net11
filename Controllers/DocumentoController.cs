@@ -8,6 +8,7 @@ using System;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using Aplicativo.net.DTOs;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Aplicativo.net.Controllers
 {
@@ -16,10 +17,12 @@ namespace Aplicativo.net.Controllers
     public class DocumentoController : ControllerBase
     {
         private readonly AplicativoContext _context;
+        private readonly IWebHostEnvironment _appEnvironment;
 
-        public DocumentoController(AplicativoContext context)
+        public DocumentoController(AplicativoContext context, IWebHostEnvironment appEnvironment)
         {
             _context = context;
+            _appEnvironment = appEnvironment;
 
             // if (_context.Libros.Count() == 0)
             // {
@@ -139,6 +142,7 @@ namespace Aplicativo.net.Controllers
         [HttpPut("UpdateDocumento")]
         public ActionResult<DocumentoDto> UpdateDocumento([FromForm] DocumentoDto DocumenRequest)
         {
+            var path = _appEnvironment.ContentRootPath;
             int id = DocumenRequest.Id;
             var re = Request.Form.Files;
 
@@ -149,11 +153,16 @@ namespace Aplicativo.net.Controllers
                 FileInfo fi = new FileInfo(DocumenRequest.Archive.FileName);
 
                 string nameFile = documento.Nombredoc + DateTime.Now.Ticks.ToString() + fi.Extension;
-                var filePath = "D:\\User\\Escritorio\\Practicas\\Sotfware\\Aplicativo.net\\ClientApp\\src\\assets\\Documentos\\" + nameFile;
+                var ruta = "ClientApp\\src\\assets\\Documentos\\" + nameFile;
+                var filePath = Path.Combine(path, ruta);
+                Console.WriteLine("La ruta1 es:  " + filePath);
 
                 if (System.IO.File.Exists(documento.Url))
                 {
-                    var ubicacion = "D:\\User\\Escritorio\\Practicas\\Sotfware\\Aplicativo.net\\ClientApp\\src\\assets\\Documentos\\" + documento.Url;
+                    //var ubicacion = "D:\\User\\Escritorio\\Practicas\\Sotfware\\Aplicativo.net\\ClientApp\\src\\assets\\Documentos\\" + documento.Url;
+                    var ubicacion = Path.Combine(path, "ClientApp\\src\\assets\\Documentos\\" + documento.Url);
+                    Console.WriteLine("La ruta es:  " + ubicacion);
+
                     System.IO.File.Delete(ubicacion);
                     using (var stream = System.IO.File.Create(filePath))
                     {
@@ -191,6 +200,7 @@ namespace Aplicativo.net.Controllers
             }
             catch (System.Exception)
             {
+                Console.WriteLine("catch");
                 return BadRequest();
             }
         }

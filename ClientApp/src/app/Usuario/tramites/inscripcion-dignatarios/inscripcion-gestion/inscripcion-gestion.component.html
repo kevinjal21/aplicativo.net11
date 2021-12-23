@@ -11,7 +11,7 @@
             <div class="col-12 ">
                 <div class="input-group mb-3">
                     <span id="Label2" class="titulo_tipo_1">INSCRIPCIÓN DE DIGNATARIOS DE LOS ORGANISMOS DEPORTIVOS Y
-                        RECREATIVOS</span>
+                        RECREATIVOS ({{tipotramite}}) </span>
                 </div>
             </div>
         </div>
@@ -106,7 +106,10 @@
                                     <td class="text-center">{{documento.observacion}}</td>
                                     <td class="text-center">{{documento.fechacreacion}}</td>
                                     <td class="text-center" id="vacio" onchange="colorDiv()">
-                                        <span class="text-center" id="3">{{documento.estado}} </span>
+                                        <span
+                                            [style.color]="documento.estado == 'Verificación exitosa.'? '#28a745': documento.estado == 'En proceso'? '#be9d16f3': 'red' ">
+                                            {{documento.estado}}
+                                        </span>
                                     </td>
                                 </tr>
                             </tbody>

@@ -70,11 +70,12 @@ export class IngresarComponent implements OnInit {
           } else if (this.rol == "Usuario") {
             this.toastr.success('Bienvenido ' + res.nombres + ' ' + res.apellidos + '!', 'Bienvenido Usuario!');
             this.router.navigate(['InicioUsuario']);
-          } else if(this.rol == "Funcionario") {
-            this.toastr.success('Bienvenido Funcionario ' + res.nombres + ' ' + res.apellidos + '!', 'Bienvenido Funcionario!');
-            this.router.navigate(['InicioFuncionario']);
-          }else{
-
+          } else if(this.rol == "FuncionarioDeporte") {
+            this.toastr.success('Bienvenido Funcionario ' + res.nombres + ' ' + res.apellidos + '!', 'Bienvenido Funcionario Deporte!');
+            this.router.navigate(['InicioFuncionarioDeporte']);
+          }else if(this.rol == "FuncionarioGobierno") {
+            this.toastr.success('Bienvenido Funcionario' + res.nombres + ' ' + res.apellidos + '!', 'Bienvenido Funcionario Gobierno!');
+            this.router.navigate(['InicioFuncionarioGobierno']);
           }
         } else if(res.mensaje){
           this.toastr.error(res.mensaje, 'Error!');

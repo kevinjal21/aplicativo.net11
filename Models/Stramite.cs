@@ -11,6 +11,7 @@ namespace Aplicativo.net.Models
         [Key] [JsonProperty("codstramite")] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Codstramite { get; set; }
         [JsonProperty("codusuario")] public int Codusuario { get; set; }
         [JsonProperty("codtramite")] public int Codtramite { get; set; }
+        [JsonProperty("codFuncionario")] public int CodFuncionario { get; set; }
         [JsonProperty("fecha")] public string Fecha { get; set; }
         [JsonProperty("tipoTramite")] public string TipoTramite { get; set; }
     }
