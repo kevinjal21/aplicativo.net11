@@ -14,7 +14,9 @@ const httpOptions = {
 
 export class DocumentoService {
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  constructor(private http: HttpClient) { }
+
+  baseUrl="192.168.0.3";
 
   addDocumento(documento: Documento): Observable<Documento> {
     return this.http.post<Documento>(this.baseUrl + 'api/Documento', documento, httpOptions).pipe(

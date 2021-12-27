@@ -13,7 +13,8 @@ const httpOptions = {
 })
 export class UsuarioService {
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  constructor(private http: HttpClient) { }
+  baseUrl="192.168.0.3";
 
   addUsuario(usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(this.baseUrl + 'api/Usuario', usuario, httpOptions).pipe(

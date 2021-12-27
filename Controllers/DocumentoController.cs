@@ -102,43 +102,6 @@ namespace Aplicativo.net.Controllers
             return NoContent();
         }
 
-        [HttpPost("ArchivosPost")]
-        public ActionResult PostArchivos(IFormFile file, int id)
-        {
-            Console.WriteLine("este es el archivo: " + file);
-            Console.WriteLine("este es el id: " + id);
-
-            if (file == null) throw new Exception("File is null");
-            if (file.Length == 0) throw new Exception("File is empty");
-            var documento = _context.Documentos.Single(p => p.Codocumento == id);
-
-            try
-            {
-                var filePath = "D:\\User\\Escritorio\\Practicas\\Sotfware\\Aplicativo.net\\ClientApp\\src\\assets\\Documentos\\" + file.FileName;
-                // var filePath = "C:/documentosPrueba/" + file.FileName;
-
-                using (var stream = System.IO.File.Create(filePath))
-                {
-                    file.CopyTo(stream);
-                }
-                double tamanio = file.Length;
-                tamanio = tamanio / 1000000;
-                tamanio = Math.Round(tamanio, 2);
-                documento.Fechacreacion = DateTime.Now.ToString();
-                documento.Tamanio = tamanio;
-                documento.Url = filePath;
-                _context.Entry(documento).State = EntityState.Modified;
-                _context.SaveChangesAsync();
-                return CreatedAtAction(nameof(GetDocumento), new { id = documento.Codocumento }, documento);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            // return Ok(documento);
-        }
-
-
         [HttpPut("UpdateDocumento")]
         public async Task<IActionResult> UpdateDocumento([FromForm] DocumentoDto DocumenRequest)
         {
@@ -153,14 +116,14 @@ namespace Aplicativo.net.Controllers
                 FileInfo fi = new FileInfo(DocumenRequest.Archive.FileName);
 
                 string nameFile = documento.Nombredoc + DateTime.Now.Ticks.ToString() + fi.Extension;
-                var ruta = "ClientApp\\src\\assets\\Documentos\\" + nameFile;
+                var ruta = Path.Combine(path, "assets\\Documentos\\" + nameFile);
+
                 var filePath = Path.Combine(path, ruta);
-                Console.WriteLine("La ruta1 es:  " + filePath);
 
                 if (System.IO.File.Exists(documento.Url))
                 {
                     //var ubicacion = "D:\\User\\Escritorio\\Practicas\\Sotfware\\Aplicativo.net\\ClientApp\\src\\assets\\Documentos\\" + documento.Url;
-                    var ubicacion = Path.Combine(path, "ClientApp\\src\\assets\\Documentos\\" + documento.Url);
+                    var ubicacion = Path.Combine(path, "assets\\Documentos\\" + documento.Url);
                     Console.WriteLine("La ruta es:  " + ubicacion);
 
                     System.IO.File.Delete(ubicacion);
@@ -174,7 +137,7 @@ namespace Aplicativo.net.Controllers
                     tamanio1 = Math.Round(tamanio1, 2);
                     documento.Fechaactualizacion = DateTime.Now.ToString();
                     documento.Tamanio = tamanio1;
-                    documento.Url = nameFile;
+                    documento.Url = ruta;
                     _context.Entry(documento).State = EntityState.Modified;
                     await _context.SaveChangesAsync();
                     return Ok(documento);
@@ -192,7 +155,7 @@ namespace Aplicativo.net.Controllers
                     documento.Tamanio = tamanio;
                     documento.Observacion = "";
                     documento.Estado = "En proceso";
-                    documento.Url = nameFile;
+                    documento.Url = ruta;
                     _context.Entry(documento).State = EntityState.Modified;
                     await _context.SaveChangesAsync();
                     return Ok(documento);

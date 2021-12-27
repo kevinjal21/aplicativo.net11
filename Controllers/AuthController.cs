@@ -44,44 +44,11 @@ namespace Aplicativo.net.Controllers
             return clienteItem;
         }
 
-        [HttpPost("PostArchivos")]
-        // [Produces("multipart/form-data")]
-        public ActionResult RegisterDocumento([FromForm] DocumentoDto documentoDto)
-        {
-            Console.WriteLine("este es el archivo: " + documentoDto.Archive);
-            Console.WriteLine("este es el id: " + documentoDto.Id);
-            Console.WriteLine("Hora: " + DateTime.Now.ToString());
-            if (documentoDto.Archive == null) throw new Exception("File is null");
-            if (documentoDto.Archive.Length == 0) throw new Exception("File is empty");
-            var documento = _context.Documentos.Single(p => p.Codocumento == documentoDto.Id);
-
-            try
-            {
-                var filePath = "D:\\User\\Escritorio\\Practicas\\Sotfware\\Aplicativo.net\\ClientApp\\src\\assets\\Documentos\\" + documentoDto.Archive.FileName;
-                // var filePath = "C:/documentosPrueba/" + file.FileName;
-                using (var stream = System.IO.File.Create(filePath))
-                {
-                    documentoDto.Archive.CopyTo(stream);
-                }
-                double tamanio = documentoDto.Archive.Length;
-                tamanio = tamanio / 1000000;
-                tamanio = Math.Round(tamanio, 2);
-                documento.Fechacreacion = DateTime.Now.ToString();
-                documento.Tamanio = tamanio;
-                documento.Url = filePath;
-                _context.Entry(documento).State = EntityState.Modified;
-                _context.SaveChangesAsync();
-                return CreatedAtAction(nameof(GetDocumento), new { id = documento.Codocumento }, documento);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
         [HttpPost("register")]
         public async Task<IActionResult> RegisterArchivo(RegisterDto registerDto)
         {
+
             if (registerDto.Rol != "Usuario")
             {
                 registerDto.Estado = 1;
@@ -111,7 +78,7 @@ namespace Aplicativo.net.Controllers
             var createdUser = await _repo.Register(userToCreate, registerDto.Password);
             if (registerDto.Rol == "Usuario")
             {
-                var ruta = "https://localhost:5001/login/ConfirmacionCuenta/";
+                var ruta = "192.168.0.3/login/ConfirmacionCuenta/";
 
                 var claims = new[]
                 {

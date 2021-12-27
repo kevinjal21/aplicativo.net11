@@ -22,7 +22,8 @@ export class AuthService {
 
   // apiUrl = 'http://192.168.0.5:5000/api/auth/';
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  constructor(private http: HttpClient) { }
+  baseUrl="192.168.0.3";
 
   login(data: any): Observable<any> {
     return this.http.post<any>(this.baseUrl + 'api/Auth/login', data, {
