@@ -12,6 +12,7 @@ namespace Aplicativo.net.Models
         [JsonProperty("codusuario")] public int Codusuario { get; set; }
         [JsonProperty("codtramite")] public int Codtramite { get; set; }
         [JsonProperty("codFuncionario")] public int CodFuncionario { get; set; }
+        [JsonProperty("estado")] public string Estado { get; set; }
         [JsonProperty("fecha")] public string Fecha { get; set; }
         [JsonProperty("tipoTramite")] public string TipoTramite { get; set; }
     }

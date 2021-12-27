@@ -91,6 +91,7 @@ export class AddFuncionarioGobiernoComponent implements OnInit {
 
   get f() { return this.registerForm.controls; }
 
+  refresh(): void { window.location.reload(); }
 
 
   obtenerFecha() {
@@ -120,14 +121,16 @@ export class AddFuncionarioGobiernoComponent implements OnInit {
         this.submitted = false;
         this.toastr.success('Usuario ' + res.nombres + ' Registrad@!', 'Registro Exitoso!');
         this.registerForm.reset();
-        this.getAllUsuarios();
+        this.tipoId="";
+        this.sexo="";
+        this.municipio="";
+        this.grupoEtnico="";
         // this.router.navigate(['Ingresar']);
       }, (err) => {
         console.log(err);
         alert(err.error);
       });
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-      this.router.navigate(['AddUsuarioGobierno']);
+      this.refresh();
       // this.goBack();
 
   }

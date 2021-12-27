@@ -48,7 +48,7 @@
                                     <td>{{tramitesList[i]?.nombre}}</td>
                                     <td>{{solicitud?.tipoTramite}}</td>
                                     <td>{{solicitud?.fecha}}</td>
-                                    <td><a class="btn btn-primary" routerLink="/GestionSolicitudes/{{solicitud.codstramite}}">Gestionar</a></td>
+                                    <td><a class="btn btn-primary" (click)="gestionar(solicitud.codstramite)" >Gestionar</a></td>
                                 </tr>
                             </tbody>
                         </table>

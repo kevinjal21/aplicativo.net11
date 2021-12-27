@@ -68,13 +68,13 @@ export class IngresarComponent implements OnInit {
             this.toastr.success('Bienvenido Administrador ' + res.nombres + ' ' + res.apellidos + '!', 'Bienvenido Administrador!');
             this.router.navigate(['InicioAdmin']);
           } else if (this.rol == "Usuario") {
-            this.toastr.success('Bienvenido ' + res.nombres + ' ' + res.apellidos + '!', 'Bienvenido Usuario!');
+            this.toastr.success('Bienvenid@ ' + res.nombres + ' ' + res.apellidos + '!', 'Bienvenido Usuario!');
             this.router.navigate(['InicioUsuario']);
           } else if(this.rol == "FuncionarioDeporte") {
-            this.toastr.success('Bienvenido Funcionario ' + res.nombres + ' ' + res.apellidos + '!', 'Bienvenido Funcionario Deporte!');
+            this.toastr.success('Bienvenid@ Funcionari@ ' + res.nombres + ' ' + res.apellidos + '!', 'Bienvenid@ Funcionari@ Deporte!');
             this.router.navigate(['InicioFuncionarioDeporte']);
           }else if(this.rol == "FuncionarioGobierno") {
-            this.toastr.success('Bienvenido Funcionario' + res.nombres + ' ' + res.apellidos + '!', 'Bienvenido Funcionario Gobierno!');
+            this.toastr.success('Bienvenid@ Funcionari@' + res.nombres + ' ' + res.apellidos + '!', 'Bienvenid@ Funcionari@ Gobierno!');
             this.router.navigate(['InicioFuncionarioGobierno']);
           }
         } else if(res.mensaje){

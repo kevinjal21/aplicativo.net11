@@ -9,11 +9,11 @@
 </head>
 
 <body>
-    <br><br>
+    <br>
     <div class="container">
         <div class="row">
 
-            <div class="col-md-5 col-sm-8 rounded mx-auto bg-white">
+            <div class="col-md-6 col-sm-8 rounded mx-auto bg-white">
                 <br>
                 <div class="form-group mb-3">
                     <!-- Colocar margin top -->
@@ -23,7 +23,7 @@
                 <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
                     <div *ngIf="usuario">
 
-                        <legend class="txt-titulo">Gestionar Usuario Funcionario</legend>
+                        <legend class="txt-titulo">Gestionar Usuario Funcionario Gobierno</legend>
                         <div class="form-group">
                             <label for="nombre">Nombres:*</label>
                             <div class="input-group mb-3">
@@ -66,13 +66,13 @@
 
                                 <select class="form-control" formControlName="tipoId" [(ngModel)]="usuario.tipoId"
                                     [ngClass]="{ 'is-invalid': submitted && f.tipoId.errors }" name="tipoUsuario"
-                                    id="tipoUsuario">
+                                    id="tipoUsuario" >
                                     <option value="" selected>--Seleccione--</option>
-                                    <option value="CC">Cédula de ciudadanía</option>
-                                    <option value="CE">Cédula de extranjería</option>
-                                    <option value="PP">Pasaporte</option>
-                                    <option value="RC">Registro civil</option>
-                                    <option value="TI">Tarjeta de Identidad</option>
+                                    <option value="CÉDULA DE CIUDADANÍA">Cédula de ciudadanía</option>
+                                    <option value="CÉDILA DE EXTRANJERÍA">Cédula de extranjería</option>
+                                    <option value="PASAPORTE">Pasaporte</option>
+                                    <option value="REGISTRO CIVIL">Registro civil</option>
+                                    <option value="TARGETA DE IDENTIDAD">Tarjeta de Identidad</option>
                                 </select>
                                 <div *ngIf="submitted && f.tipoId.errors" class="invalid-feedback">
                                     <div *ngIf="f.tipoId.errors.required">El campo es obligatorio</div>
@@ -144,9 +144,9 @@
                                 <select class="form-control" formControlName="sexo" [(ngModel)]="usuario.sexo"
                                     [ngClass]="{ 'is-invalid': submitted && f.sexo.errors }" name="sexo" id="sexo">
                                     <option value="" selected>--Seleccione--</option>
-                                    <option value="Masculino">Masculino</option>
-                                    <option value="Femenino">Femenino</option>
-                                    <option value="Indeterminado ">Indeterminado </option>
+                                    <option value="MASCULINO">Masculino</option>
+                                    <option value="FEMENINO">Femenino</option>
+                                    <option value="INDETERMINADO ">Indeterminado </option>
                                 </select>
                                 <div *ngIf="submitted && f.sexo.errors" class="invalid-feedback">
                                     <div *ngIf="f.sexo.errors.required">El campo es obligatorio</div>
@@ -194,9 +194,9 @@
                                 <div class="form-group center" style="width:100%; height:100%">
                                     <button (click)="update()" class="btn btn-primary" style='width:120px'>Actualizar</button>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button (click)="delete()" class="btn btn-primary" style='width:120px'>Eliminar</button>
+                                    <button (click)="delete()" class="btn btn-secundary" style='width:120px'>Eliminar</button>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button (click)="cancelar()" class="btn btn-secundary" style='width:120px'>Cancelar</button>
+                                    <button (click)="cancelar()" class="btn btn-primary" style='width:120px'>Atras</button>
                                 </div>
                             </div>
                         </div>

@@ -72,37 +72,6 @@ export class SolicitudesVistaComponent implements OnInit {
     }
   }
 
-  observacion(documento: Documento) {
-    documento.observacion = this.obser;
-    documento.estado = "Incorrecto";
-    this.servicioDocumentos.update(documento).subscribe(doc => this.documentos = doc);
-    this.getAllDocumentos();
-    this.refresh();
-  }
-
-  correcto(documento: Documento) {
-    documento.observacion = "CORRECTO";
-    documento.estado = "Verificación exitosa.";
-    this.servicioDocumentos.update(documento).subscribe(doc => this.documentos = doc);
-    this.getAllDocumentos();
-    this.refresh();
-  }
-  revisar(documento: Documento) {
-    if (this.obser == null || this.obser == "") {
-      documento.observacion = "CORRECTO";
-      documento.estado = "Verificación exitosa.";
-      this.servicioDocumentos.update(documento).subscribe(doc => this.documentos = doc);
-      this.getAllDocumentos();
-      this.refresh();
-    } else {
-      documento.observacion = this.obser;
-      documento.estado = "Incorrecto";
-      this.servicioDocumentos.update(documento).subscribe(doc => this.documentos = doc);
-      this.getAllDocumentos();
-      this.refresh();
-    }
-  }
-
   getUsuario() {
     this.servicioUsuario.get(this.solicitud.codusuario).subscribe(usu => this.usuario = usu);
     this.servicioUsuario.get(this.solicitud.codFuncionario).subscribe(usua => this.funcionarioDeporte = usua);

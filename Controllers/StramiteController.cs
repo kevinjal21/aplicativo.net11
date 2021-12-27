@@ -31,20 +31,22 @@ namespace Aplicativo.net.Controllers
 
         // POST: api/Task
         [HttpPost]
-        public async Task<ActionResult<Stramite>> PostStramite(Stramite newdocumento)
+        public async Task<ActionResult<Stramite>> PostStramite(Stramite newdocStramite)
         {
-            var varLibro = await _context.Stramites.FindAsync(newdocumento.Codstramite);
+            var varLibro = await _context.Stramites.FindAsync(newdocStramite.Codstramite);
             if (varLibro != null)
             {
                 return BadRequest();
             }
             else
             {
-                newdocumento.Fecha=DateTime.Now.ToString();
+                newdocStramite.Fecha = DateTime.Now.ToString();
                 // localStorage.setItem('paises',newdocumento.Fecha);
-                _context.Stramites.Add(newdocumento);
+                newdocStramite.Estado = newdocStramite.Estado.ToUpper();
+                newdocStramite.TipoTramite = newdocStramite.TipoTramite.ToUpper();
+                _context.Stramites.Add(newdocStramite);
                 await _context.SaveChangesAsync();
-                return CreatedAtAction(nameof(GetStramite), new { id = newdocumento.Codstramite }, newdocumento);
+                return CreatedAtAction(nameof(GetStramite), new { id = newdocStramite.Codstramite }, newdocStramite);
             }
 
         }
@@ -56,6 +58,8 @@ namespace Aplicativo.net.Controllers
             {
                 return BadRequest();
             }
+            itemStramite.Estado = itemStramite.Estado.ToUpper();
+            itemStramite.TipoTramite = itemStramite.TipoTramite.ToUpper();
             _context.Entry(itemStramite).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 

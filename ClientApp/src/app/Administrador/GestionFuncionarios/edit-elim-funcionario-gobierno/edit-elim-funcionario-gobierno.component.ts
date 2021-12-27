@@ -74,6 +74,11 @@ export class EditElimFuncionarioGobiernoComponent implements OnInit {
       .subscribe(() => this.goBack());
   }
   delete(): void {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    }
     this.servicioUsuario.delete(this.usuario)
       .subscribe(() => this.goBack());
   }

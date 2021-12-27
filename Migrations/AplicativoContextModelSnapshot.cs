@@ -73,6 +73,9 @@ namespace Aplicativo.net.Migrations
                     b.Property<int>("Codusuario")
                         .HasColumnType("int");
 
+                    b.Property<string>("Estado")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Fecha")
                         .HasColumnType("nvarchar(max)");
 

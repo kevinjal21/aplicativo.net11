@@ -24,6 +24,7 @@ export class SolicitudGestionComponent implements OnInit {
     private servicioUsuario: UsuarioService) { }
 
   documentos: Documento[] = [];
+  documentosStramite: Documento[] = [];
   documentosFiltrados: Documento[] = [];
   documentosFiltradosRev: Documento[] = [];
 
@@ -57,9 +58,7 @@ export class SolicitudGestionComponent implements OnInit {
   getSoticitud() {
     this.servicioStramite.get(this.route.snapshot.paramMap.get('idSoli')).subscribe(solic => {
       this.solicitud = solic
-      console.log("solisitud: "+this.solicitud.codFuncionario)
       this.agregarIdFuncionario();
-      console.log("solisitud2: "+this.solicitud.codFuncionario)
       this.getTramite();
       this.getUsuario();
     });
@@ -72,32 +71,33 @@ export class SolicitudGestionComponent implements OnInit {
     }
   }
 
-  observacion(documento: Documento) {
-    documento.observacion = this.obser;
-    documento.estado = "Incorrecto";
-    this.servicioDocumentos.update(documento).subscribe(doc => this.documentos = doc);
-    this.getAllDocumentos();
-    this.refresh();
-  }
+  // observacion(documento: Documento) {
+  //   documento.observacion = this.obser;
+  //   documento.estado = "Incorrecto";
+  //   this.servicioDocumentos.update(documento).subscribe(doc => this.documentos = doc);
+  //   this.getAllDocumentos();
+  //   this.refresh();
+  // }
 
-  correcto(documento: Documento) {
-    documento.observacion = "CORRECTO";
-    documento.estado = "Verificación exitosa.";
-    this.servicioDocumentos.update(documento).subscribe(doc => this.documentos = doc);
-    this.getAllDocumentos();
-    this.refresh();
-  }
+  // correcto(documento: Documento) {
+  //   documento.observacion = "CORRECTO";
+  //   documento.estado = "Verificación exitosa.";
+  //   this.servicioDocumentos.update(documento).subscribe(doc => this.documentos = doc);
+  //   this.getAllDocumentos();
+  //   this.refresh();
+  // }
+
   revisar(documento: Documento) {
     if (this.obser == null || this.obser == "") {
       documento.observacion = "CORRECTO";
       documento.estado = "Verificación exitosa.";
-      this.servicioDocumentos.update(documento).subscribe(doc => this.documentos = doc);
+      this.servicioDocumentos.update(documento).subscribe();
       this.getAllDocumentos();
       this.refresh();
     } else {
       documento.observacion = this.obser;
       documento.estado = "Incorrecto";
-      this.servicioDocumentos.update(documento).subscribe(doc => this.documentos = doc);
+      this.servicioDocumentos.update(documento).subscribe();
       this.getAllDocumentos();
       this.refresh();
     }
@@ -114,16 +114,43 @@ export class SolicitudGestionComponent implements OnInit {
   getAllDocumentos() {
     this.servicioDocumentos.getDocumentos().subscribe(documento => {
       this.documentos = documento
+      this.getDocumentosStramite();
+      this.EstadoStramite();
       this.filtarDocumentos();
       this.filtarDocumentosRevisados();
     });
   }
 
-  filtarDocumentos() {
-    this.documentosFiltrados = [];
+  getDocumentosStramite() {
+    this.documentosStramite = [];
     for (let index = 0; index < this.documentos.length; index++) {
       const element = this.documentos[index];
-      if (element.codstramite == Number(this.route.snapshot.paramMap.get('idSoli')) && element.observacion != "CORRECTO" && element.observacion == "" && element.estado != "Nuevo") {
+      if (element.codstramite == Number(this.route.snapshot.paramMap.get('idSoli'))) {
+        this.documentosStramite.push(element);
+      }
+    }
+  }
+
+  EstadoStramite() {
+    var contador = 0;
+    for (let index = 0; index < this.documentosStramite.length; index++) {
+      const element = this.documentosStramite[index];
+      if (element.estado != "Verificación exitosa.") {
+        contador++;
+      }
+    }
+    console.log("El Contador es: " + contador)
+    if (contador != 0) {
+      this.solicitud.estado = "CORRECTO";
+      this.servicioStramite.update(this.solicitud).subscribe(soli => this.solicitud = soli);
+    }
+  }
+
+  filtarDocumentos() {
+    this.documentosFiltrados = [];
+    for (let index = 0; index < this.documentosStramite.length; index++) {
+      const element = this.documentosStramite[index];
+      if (element.observacion != "CORRECTO" && element.observacion == "" && element.estado != "Nuevo") {
         this.documentosFiltrados.push(element);
       }
     }
@@ -131,9 +158,9 @@ export class SolicitudGestionComponent implements OnInit {
 
   filtarDocumentosRevisados() {
     this.documentosFiltradosRev = [];
-    for (let index = 0; index < this.documentos.length; index++) {
-      const element = this.documentos[index];
-      if (element.codstramite == Number(this.route.snapshot.paramMap.get('idSoli')) && element.estado != "En proceso" && element.estado != "Cargado" && element.estado != "Nuevo") {
+    for (let index = 0; index < this.documentosStramite.length; index++) {
+      const element = this.documentosStramite[index];
+      if (element.estado != "En proceso" && element.estado != "Cargado" && element.estado != "Nuevo") {
         this.documentosFiltradosRev.push(element);
       }
     }

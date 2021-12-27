@@ -140,7 +140,7 @@ namespace Aplicativo.net.Controllers
 
 
         [HttpPut("UpdateDocumento")]
-        public ActionResult<DocumentoDto> UpdateDocumento([FromForm] DocumentoDto DocumenRequest)
+        public async Task<IActionResult> UpdateDocumento([FromForm] DocumentoDto DocumenRequest)
         {
             var path = _appEnvironment.ContentRootPath;
             int id = DocumenRequest.Id;
@@ -176,7 +176,7 @@ namespace Aplicativo.net.Controllers
                     documento.Tamanio = tamanio1;
                     documento.Url = nameFile;
                     _context.Entry(documento).State = EntityState.Modified;
-                    _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
                     return Ok(documento);
                 }
                 else
@@ -194,7 +194,7 @@ namespace Aplicativo.net.Controllers
                     documento.Estado = "En proceso";
                     documento.Url = nameFile;
                     _context.Entry(documento).State = EntityState.Modified;
-                    _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
                     return Ok(documento);
                 }
             }

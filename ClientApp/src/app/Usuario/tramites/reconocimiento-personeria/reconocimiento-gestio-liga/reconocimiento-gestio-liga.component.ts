@@ -30,11 +30,11 @@ export class ReconocimientoGestioLigaComponent implements OnInit {
   // solicitudesTUsuario: Stramite[] = [];
   tramite: Tramite;
   color: string;
-  tipotramite:string;
+  tipotramite: string;
 
   ngOnInit() {
-    this.tipotramite=this.authService.getTipoTLocalStore();
-    this.solicitudTramite = { codstramite: 0, codtramite: 0, codusuario: 0, fecha: "", tipoTramite: "", codFuncionario: 0 };
+    this.tipotramite = this.authService.getTipoTLocalStore();
+    this.solicitudTramite = { codstramite: 0, codtramite: 0, codusuario: 0, fecha: "", tipoTramite: "", codFuncionario: 0, estado: "" };
     this.documento = { codocumento: 0, codstramite: 0, observacion: "", fechacreacion: "", fechaactualizacion: "", nombredoc: "", url: "", tamanio: 0, estado: "", plantilla: "", Archive: null }
     this.creacionDocumentosLigas();
     this.getAllDocumentos();
@@ -59,6 +59,7 @@ export class ReconocimientoGestioLigaComponent implements OnInit {
         this.solicitudTramite.codtramite = Number(this.route.snapshot.paramMap.get('id'));
         this.solicitudTramite.codusuario = this.authService.getCodigoUserLocalStore();
         this.solicitudTramite.tipoTramite = this.authService.getTipoTLocalStore();
+        this.solicitudTramite.estado = "EN PROCESO";
         this.servicioStramite.addStramite(this.solicitudTramite).subscribe(res => {
           localStorage.setItem('codigosolicitud', res.codstramite.toString());
           this.crearDocumentosLigas(res.codstramite);

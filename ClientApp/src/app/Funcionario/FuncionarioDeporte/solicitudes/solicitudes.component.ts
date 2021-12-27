@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { StramiteService } from 'src/app/services/stramite.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -7,6 +7,7 @@ import { TramiteService } from 'src/app/services/tramite.service';
 import { Stramite } from 'src/app/models/stramite';
 import { Usuario } from 'src/app/models/usuario';
 import { Tramite } from 'src/app/models/tramite';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-solicitudes',
@@ -18,6 +19,7 @@ export class SolicitudesComponent implements OnInit {
 
   listasolisitud: Stramite[] = [];
   solicitudes: Stramite[] = [];
+  solicitud: Stramite;
   filtrarUser = '';
   usuarios: Usuario[] = [];
   usuariosList: Usuario[] = [];
@@ -31,8 +33,10 @@ export class SolicitudesComponent implements OnInit {
   constructor(private serviciosTramite: TramiteService,
     private solicitudService: StramiteService,
     private router: Router,
+    private route: ActivatedRoute,
     private location: Location,
-    private servicioUsuario: UsuarioService
+    private servicioUsuario: UsuarioService,
+    private toastr: ToastrService,
   ) {
   }
 
@@ -44,9 +48,19 @@ export class SolicitudesComponent implements OnInit {
     this.location.back();
   }
 
+  gestionar(codigo: string) {
+    this.solicitudService.get(codigo).subscribe(solic => {
+      this.solicitud = solic
+      if (this.solicitud.codFuncionario == Number(localStorage.getItem('codigoU')) || this.solicitud.codFuncionario == 0) {
+        this.router.navigate(['GestionSolicitudes/' + codigo]);
+      } else {
+        this.toastr.warning('El tramite selecionado lo está revisando otro funcionario!', 'Aviso!');
+      }
+    });
+  }
   getAllUsuarios() {
     // this.usuariosList = new Usuario[];
-   
+
     this.solicitudService.getStramite().subscribe(soli => {
       this.solicitudes = soli
       for (let index = 0; index < this.solicitudes.length; index++) {

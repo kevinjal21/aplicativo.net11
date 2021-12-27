@@ -119,6 +119,10 @@ export class AddFuncionarioDeporteComponent implements OnInit {
         this.submitted = false;
         this.toastr.success('Usuario ' + res.nombres + ' Registrad@!', 'Registro Exitoso!');
         this.registerForm.reset();
+        this.tipoId="";
+        this.sexo="";
+        this.municipio="";
+        this.grupoEtnico="";
         // this.router.navigate(['Ingresar']);
       }, (err) => {
         console.log(err);
@@ -126,7 +130,6 @@ export class AddFuncionarioDeporteComponent implements OnInit {
       });
     this.refresh();
     // this.goBack();
-
   }
 
   refresh(): void { window.location.reload(); }

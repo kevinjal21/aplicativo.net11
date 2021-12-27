@@ -53,6 +53,14 @@ namespace Aplicativo.net.Controllers
             {
                 return BadRequest();
             }
+            itemUsuario.Nombres = itemUsuario.Nombres.ToUpper();
+            itemUsuario.Apellidos = itemUsuario.Apellidos.ToUpper();
+            itemUsuario.TipoId = itemUsuario.TipoId.ToUpper();
+            itemUsuario.Sexo = itemUsuario.Sexo.ToUpper();
+            itemUsuario.Correo = itemUsuario.Correo.ToUpper();
+            itemUsuario.Municipio = itemUsuario.Municipio.ToUpper();
+            itemUsuario.Direccion = itemUsuario.Direccion.ToUpper();
+            itemUsuario.GrupoEtnico = itemUsuario.GrupoEtnico.ToUpper();
             _context.Entry(itemUsuario).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
