@@ -55,6 +55,7 @@ import { AuthFuncionariGobiernoGuard } from './auth/auth-funcionari-gobierno.gua
 import { DatosPersonalesGComponent } from './Funcionario/FuncionarioGobierno/datos-personales-g/datos-personales-g.component';
 import { SolicitudesVistaComponent } from './Funcionario/FuncionarioGobierno/solicitudes-vista/solicitudes-vista.component';
 import { SolicitudesgComponent } from './Funcionario/FuncionarioGobierno/solicitudesg/solicitudesg.component';
+import { CambiarClaveComponent } from './Usuario/cambiar-clave/cambiar-clave.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'Ingresar', pathMatch: 'full' },
@@ -65,7 +66,6 @@ const routes: Routes = [
   { path: 'Ingresar', component: IngresarComponent },
   { path: 'login/identify', component: RecuperarClaveComponent },
   { path: 'login/Restablecer/:token/:correo', component: RestablecerClaveComponent },
-  { path: 'Reconocimientovista', component: VistaComponent },
   { path: 'Aprobacionvista', component: VistaaproComponent },
   { path: 'Cancelacionvista', component: VistacanComponent },
   { path: 'Inscripcionvista', component: VistainsComponent },
@@ -83,6 +83,8 @@ const routes: Routes = [
 
   //RUTAS PARA USUARIOS
   { path: 'InicioUsuario', component: ModuloUsuarioComponent, canActivate: [AuthGuard] },
+  { path: 'Reconocimientovista', component: VistaComponent, canActivate: [AuthGuard] },
+  { path: 'CambiarClave/:token/:correo', component: CambiarClaveComponent, canActivate: [AuthGuard] },
   { path: 'Tramites', component: TramitesComponent, canActivate: [AuthGuard] },
   { path: 'ReconocimientoGestionLigas/:id', component: ReconocimientoGestioLigaComponent, canActivate: [AuthGuard] },
   { path: 'ReconocimientoGestionClub/:id', component: ReconocimientoGestioClubComponent, canActivate: [AuthGuard] },
@@ -102,7 +104,6 @@ const routes: Routes = [
   { path: 'CargarDocumentoAprobacion/:id/:codt', component: CargaDocumentoAprobacionComponent, canActivate: [AuthGuard] },
   { path: 'CargarDocumentoCancelacion/:id/:codt', component: CargaDocumentoCancelacionComponent, canActivate: [AuthGuard] },
   { path: 'CargarDocumentoCertificado/:id/:codt', component: CargaDocumentoCertificadoComponent, canActivate: [AuthGuard] },
-
   { path: 'DatosPersonales', component: DatosPersonalesComponent, canActivate: [AuthGuard] },
 
   //RUTAS PARA FUNCIONARIO DEPORTE
@@ -111,13 +112,13 @@ const routes: Routes = [
   { path: 'GestionSolicitudes/:idSoli', component: SolicitudGestionComponent, canActivate: [AuthFuncionarioGuard] },
   { path: 'DatosPersonalesFun', component: DatosPersonalesDComponent, canActivate: [AuthFuncionarioGuard] },
 
-  //RUTAS PARA FUNCIONARIO DEPORTE
+  //RUTAS PARA FUNCIONARIO GOBIERNO
   { path: 'InicioFuncionarioGobierno', component: ModuloFuncionarioGobiernoComponent, canActivate: [AuthFuncionariGobiernoGuard] },
   { path: 'DatosPersonalesFung', component: DatosPersonalesGComponent, canActivate: [AuthFuncionariGobiernoGuard] },
   { path: 'Solicitudesg', component: SolicitudesgComponent, canActivate: [AuthFuncionariGobiernoGuard] },
   { path: 'VerSolicitudes/:idSoli', component: SolicitudesVistaComponent, canActivate: [AuthFuncionariGobiernoGuard] },
 
-  
+
   { path: 'Inscripcion', component: InscripcionDignatariosComponent },
   { path: 'Aprobacion', component: AprobacionReformasComponent },
   { path: 'Cancelacion', component: CancelacionPersoneriaComponent },

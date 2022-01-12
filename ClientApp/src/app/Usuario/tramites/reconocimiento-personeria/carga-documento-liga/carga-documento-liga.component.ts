@@ -47,7 +47,7 @@ export class CargaDocumentoLigaComponent implements OnInit {
       this.toastr.error('LLene Todos los Campos!', 'Error!');
       return;
     }
-    
+
     this.documento.Archive = this.file;
     this.authService.ActualizarDocumento(this.documento);
     // this.goBack();

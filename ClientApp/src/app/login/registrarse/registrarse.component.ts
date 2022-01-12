@@ -5,7 +5,7 @@ import { ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-
+import { Location } from '@angular/common';
 
 // To validate password and confirm password
 export function ComparePassword(
@@ -38,10 +38,24 @@ export class RegistrarseComponent implements OnInit {
   usuario!: Usuario;
   confirmacionClave!: string;
   checkbox!: boolean;
+  tipoId: string;
+  sexo: string;
+  municipio: string;
+  grupoEtnico: string;
   forgotpassword = new ForgotPassword();
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService, private toastr: ToastrService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService,
+    private toastr: ToastrService,
+    private location: Location
+  ) { }
 
   ngOnInit(): void {
+    this.tipoId = '';
+    this.sexo = "";
+    this.municipio = '';
+    this.grupoEtnico = "";
     this.usuario = new Usuario();
     this.registerForm = this.formBuilder.group({
       'tipoId': [null, Validators.required],
@@ -91,9 +105,14 @@ export class RegistrarseComponent implements OnInit {
       });
   }
 
+  goBack(): void {
+    this.location.back();
+  }
+
   onReset() {
     this.submitted = false;
     this.registerForm.reset();
+    this.goBack();
   }
 }
 

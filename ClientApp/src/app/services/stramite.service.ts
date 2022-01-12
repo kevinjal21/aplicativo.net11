@@ -12,8 +12,7 @@ const httpOptions = {
 })
 export class StramiteService {
 
-  constructor(private http: HttpClient) { }
-  baseUrl="192.168.0.3";
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
 
   addStramite(stramite: Stramite): Observable<Stramite> {

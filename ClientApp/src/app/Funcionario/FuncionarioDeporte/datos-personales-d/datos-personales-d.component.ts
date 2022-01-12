@@ -13,7 +13,7 @@ export class DatosPersonalesDComponent implements OnInit {
 
   codusuario: number;
   usuario: Usuario;
-  constructor(private authService: AuthService, private usuarioService: UsuarioService,private location: Location) { }
+  constructor(private authService: AuthService, private usuarioService: UsuarioService, private location: Location) { }
 
   ngOnInit() {
     this.codusuario = this.authService.getCodigoUserLocalStore();

@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { DocumentoService } from 'src/app/services/documento.service';
 import { StramiteService } from 'src/app/services/stramite.service';
 import { TramiteService } from 'src/app/services/tramite.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-reconocimiento-gestio-club',
@@ -17,7 +18,8 @@ export class ReconocimientoGestioClubComponent implements OnInit {
 
   constructor(private router: Router, private servicioStramite: StramiteService,
     private servicioDocumentos: DocumentoService, private route: ActivatedRoute,
-    private servicioTramites: TramiteService, private authService: AuthService) { }
+    private servicioTramites: TramiteService, private authService: AuthService,
+    private location: Location) { }
 
   documentos: Documento[] = [];
   documentosCargados: Documento[] = [];
@@ -66,6 +68,12 @@ export class ReconocimientoGestioClubComponent implements OnInit {
         );
       }
     });
+  }
+  cancelar() {
+    this.goBack();
+  }
+  goBack(): void {
+    this.location.back();
   }
 
   crearDocumentosClub(codigoStramite: number) {
@@ -164,7 +172,7 @@ export class ReconocimientoGestioClubComponent implements OnInit {
     this.refresh();
   }
 
-  getAllDocumentos() {
+  public getAllDocumentos() {
     this.servicioDocumentos.getDocumentos().subscribe(documento => {
       this.documentos = documento
       this.filtarDocumentosListClub();

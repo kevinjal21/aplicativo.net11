@@ -7,7 +7,7 @@
             <div class="col-12 ">
                 <div class="input-group mb-3">
                     <span id="Label2" class="titulo_tipo_1">Tramite: {{tramite?.nombre}}
-                        ({{solicitud?.tipoTramite}})</span>
+                        ({{solicitud.tipoTramite}})</span>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
                                     <td class="text-center">{{documento.fechacreacion}}</td>
                                     <td>
                                         <a class="a text-center" target="_blank"
-                                            href="{{documento.url}}">
+                                            href="assets/Documentos/{{documento.url}}">
                                             <div class="pdf">
                                                 <i class="fas fa-file-pdf fa-3x" style="color: #b30c00db"></i>
                                             </div>
@@ -163,6 +163,13 @@
                         </table>
                     </div>
                 </div>
+                <div>
+                  <div class="input-group mb-3">
+                      <div class="form-group center" style="width:100%; height:100%">
+                          <button (click)="cancelar()" class="btn btn-primary" style='width:120px'>Atras</button>
+                      </div>
+                  </div>
+              </div>
             </div>
         </div>
     </div>

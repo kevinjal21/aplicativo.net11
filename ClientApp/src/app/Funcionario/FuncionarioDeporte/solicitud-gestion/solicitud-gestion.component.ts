@@ -9,7 +9,7 @@ import { DocumentoService } from 'src/app/services/documento.service';
 import { StramiteService } from 'src/app/services/stramite.service';
 import { TramiteService } from 'src/app/services/tramite.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-solicitud-gestion',
@@ -21,7 +21,7 @@ export class SolicitudGestionComponent implements OnInit {
   constructor(private router: Router, private servicioStramite: StramiteService,
     private servicioDocumentos: DocumentoService, private route: ActivatedRoute,
     private servicioTramite: TramiteService, private authService: AuthService,
-    private servicioUsuario: UsuarioService) { }
+    private servicioUsuario: UsuarioService, private location: Location) { }
 
   documentos: Documento[] = [];
   documentosStramite: Documento[] = [];
@@ -49,8 +49,11 @@ export class SolicitudGestionComponent implements OnInit {
     this.Email = document.getElementById("email" + this.UserId).innerHTML;
   }
 
-  addestu() {
-
+  cancelar() {
+    this.goBack();
+  }
+  goBack(): void {
+    this.location.back();
   }
 
   refresh(): void { window.location.reload(); }

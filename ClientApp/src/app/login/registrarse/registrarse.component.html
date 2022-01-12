@@ -62,7 +62,7 @@
                                 <span class="input-group-text"><i class="fas fa-fingerprint fa-1x"
                                         style="color: cornflowerblue"></i></span>
                             </div>
-                            <select class="form-control" formControlName="tipoId"
+                            <select class="form-control" formControlName="tipoId" [(ngModel)]="tipoId"
                                 [ngClass]="{ 'is-invalid': submitted && f.tipoId.errors }" name="tipoUsuario"
                                 id="tipoUsuario">
                                 <option value="" selected>--Seleccione--</option>
@@ -137,7 +137,7 @@
                                 <span class="input-group-text"><i class="fas fa-venus-mars fa-1x"
                                         style="color: cornflowerblue"></i></span>
                             </div>
-                            <select class="form-control" formControlName="sexo"
+                            <select class="form-control" formControlName="sexo" [(ngModel)]="sexo"
                                 [ngClass]="{ 'is-invalid': submitted && f.sexo.errors }" name="sexo" id="sexo">
                                 <option value="" selected>--Seleccione--</option>
                                 <option value="Masculino">Masculino</option>
@@ -156,10 +156,10 @@
                                 <span class="input-group-text"><i class="fas fa-globe-americas fa-1x"
                                         style="color: cornflowerblue"></i></span>
                             </div>
-                            <select class="form-control" formControlName="municipio"
+                            <select class="form-control" formControlName="municipio" [(ngModel)]="municipio"
                                 [ngClass]="{ 'is-invalid': submitted && f.municipio.errors }" name="municipio"
                                 id="municipio">
-                                <option  selected="true" disabled="disabled">--Seleccione--</option>
+                                <option value="" selected>--Seleccione--</option>
                                 <option value="AGUACHICA">AGUACHICA</option>
                                 <option value="AGUSTIN CODAZZI">AGUSTIN CODAZZI</option>
                                 <option value="ASTREA">ASTREA</option>
@@ -213,7 +213,7 @@
                                 <span class="input-group-text"><i class="fas fa-user-friends fa-1x"
                                         style="color: cornflowerblue"></i></span>
                             </div>
-                            <select class="form-control" formControlName="grupoEtnico"
+                            <select class="form-control" formControlName="grupoEtnico" [(ngModel)]="grupoEtnico"
                                 [ngClass]="{ 'is-invalid': submitted && f.grupoEtnico.errors }" name="grupoEtnico"
                                 id="grupoEtnico">
                                 <option value="" selected>--Seleccione--</option>

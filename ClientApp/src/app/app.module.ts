@@ -68,6 +68,7 @@ import { ModuloFuncionarioGobiernoComponent } from './inicio/modulo-funcionario-
 import { MenuFuncionarioGobiernoComponent } from './menu/menu-funcionario-gobierno/menu-funcionario-gobierno.component';
 import { SolicitudesgComponent } from './Funcionario/FuncionarioGobierno/solicitudesg/solicitudesg.component';
 import { SolicitudesVistaComponent } from './Funcionario/FuncionarioGobierno/solicitudes-vista/solicitudes-vista.component';
+import { CambiarClaveComponent } from './Usuario/cambiar-clave/cambiar-clave.component';
  
 
 @NgModule({
@@ -131,7 +132,8 @@ import { SolicitudesVistaComponent } from './Funcionario/FuncionarioGobierno/sol
     ModuloFuncionarioGobiernoComponent,
     MenuFuncionarioGobiernoComponent,
     SolicitudesgComponent,
-    SolicitudesVistaComponent 
+    SolicitudesVistaComponent,
+    CambiarClaveComponent 
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -6,8 +6,10 @@ import { DocumentoService } from 'src/app/services/documento.service';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
+import { ReconocimientoGestioClubComponent } from '../reconocimiento-gestio-club/reconocimiento-gestio-club.component';
 
 @Component({
+  providers:[ReconocimientoGestioClubComponent ],
   selector: 'app-carga-documento-club',
   templateUrl: './carga-documento-club.component.html',
   styleUrls: ['./carga-documento-club.component.css']
@@ -29,7 +31,8 @@ export class CargaDocumentoClubComponent implements OnInit {
       private location: Location,
       private toastr: ToastrService,
       private authService: AuthService,
-      private router: Router
+      private router: Router,
+      private componenteRecono: ReconocimientoGestioClubComponent,
 
     ) { }
 
@@ -49,6 +52,7 @@ export class CargaDocumentoClubComponent implements OnInit {
     }
     this.documento.Archive = this.file;
     this.authService.ActualizarDocumento(this.documento);
+    // this.componenteRecono.getAllDocumentos();
     // this.goBack();
     this.router.navigate(['ReconocimientoGestionClub/'+this.route.snapshot.paramMap.get('codt')]);
   }

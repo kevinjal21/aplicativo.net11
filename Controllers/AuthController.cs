@@ -78,7 +78,7 @@ namespace Aplicativo.net.Controllers
             var createdUser = await _repo.Register(userToCreate, registerDto.Password);
             if (registerDto.Rol == "Usuario")
             {
-                var ruta = "192.168.0.3/login/ConfirmacionCuenta/";
+                var ruta = "https://localhost:5001/login/ConfirmacionCuenta/";
 
                 var claims = new[]
                 {

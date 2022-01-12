@@ -1,8 +1,9 @@
 <app-menusesion></app-menusesion>
 
-<head>
+<!-- <head>
     <title>Datos Personales</title>
-</head>
+</head> -->
+
 <body id="top">
 
     <!--  -->
@@ -66,7 +67,8 @@
                             </tr>
                             <tr>
                                 <th width="30%">Fecha de nacimiento </th>
-                                <td><span id="contenido_TablaPostulado_Label11_0">{{usuario?.fechaNacimiento}}</span>&nbsp;
+                                <td><span
+                                        id="contenido_TablaPostulado_Label11_0">{{usuario?.fechaNacimiento}}</span>&nbsp;
                                 </td>
                             </tr>
                             <tr>
@@ -79,12 +81,12 @@
                                 <td><span id="contenido_TablaPostulado_Label16_0">{{usuario?.municipio}}</span>&nbsp;
                                 </td>
                             </tr>
-                                          <tr>
+                            <tr>
                                 <th width="30%">Dirección</th>
                                 <td><span id="contenido_TablaPostulado_Label16_0">{{usuario?.direccion}}</span>&nbsp;
                                 </td>
                             </tr>
-                                          <tr>
+                            <tr>
                                 <th width="30%">Grupo Étnico</th>
                                 <td><span id="contenido_TablaPostulado_Label16_0">{{usuario?.grupoEtnico}}</span>&nbsp;
                                 </td>
@@ -96,12 +98,18 @@
                             </tr>
                             <tr>
                                 <th width="30%">Correo electrónico</th>
-                                <td><span
-                                        id="contenido_TablaPostulado_Label29_0">{{usuario?.correo}}</span>&nbsp;
+                                <td><span id="contenido_TablaPostulado_Label29_0">{{usuario?.correo}}</span>&nbsp;
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div>
+                    <div class="input-group mb-3">
+                        <div class="form-group center" style="width:100%; height:100%">
+                            <button (click)="cancelar()" class="btn btn-primary" style='width:120px'>Atras</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

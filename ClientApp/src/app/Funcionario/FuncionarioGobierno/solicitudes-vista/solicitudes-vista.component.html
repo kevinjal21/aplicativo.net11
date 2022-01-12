@@ -58,6 +58,7 @@
                                     <th class="text-center" scope="col" style="width:30%;">Nombre documento</th>
                                     <th class="text-center" scope="col" style="width:30%;">Fecha Creación</th>
                                     <th class="text-center" scope="col" style="width:20%;">Documento</th>
+                                    <th class="text-center" scope="col" style="width:20%;">Estado</th>
                                     <th class="text-center" scope="col" style="width:20%;">Tamaño</th>
                                 </tr>
 
@@ -73,6 +74,12 @@
                                             </div>
                                         </a>
                                     </td>
+                                    <td class="text-center">
+                                      <span
+                                          [style.color]="documento.estado == 'Verificación exitosa.'? '#28a745': documento.estado == 'En proceso'? '#be9d16f3': 'red' ">
+                                          {{documento.estado}}
+                                      </span>
+                                  </td>
                                     <td class="text-center">{{documento.tamanio}}MB</td>
                                 </tr>
                             </tbody>

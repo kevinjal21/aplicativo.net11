@@ -28,13 +28,13 @@ export class MenusesionComponent implements OnInit {
   }
 
   CambiarCLave() {
-    this.router.navigate(['login/Restablecer/' + this.servicios.getTokenLocalStore() + '/'+this.usuario.correo]);
+    this.router.navigate(['CambiarClave/' + this.servicios.getTokenLocalStore() + '/'+this.usuario.correo]);
   }
 
   DatosPersonales() {
     this.router.navigate(['DatosPersonales']);
   }
-  
+
   onLogout() {
     localStorage.removeItem('nombres');
     localStorage.removeItem('token');

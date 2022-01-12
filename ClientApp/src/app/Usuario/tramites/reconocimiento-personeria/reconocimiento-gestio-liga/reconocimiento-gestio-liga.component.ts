@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { DocumentoService } from 'src/app/services/documento.service';
 import { StramiteService } from 'src/app/services/stramite.service';
 import { TramiteService } from 'src/app/services/tramite.service';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-reconocimiento-gestio-liga',
@@ -17,7 +19,9 @@ export class ReconocimientoGestioLigaComponent implements OnInit {
 
   constructor(private router: Router, private servicioStramite: StramiteService,
     private servicioDocumentos: DocumentoService, private route: ActivatedRoute,
-    private servicioTramites: TramiteService, private authService: AuthService) { }
+    private servicioTramites: TramiteService, private authService: AuthService,
+    private location: Location,
+    ) { }
 
   documentos: Documento[] = [];
   documentosCargados: Documento[] = [];
@@ -27,7 +31,6 @@ export class ReconocimientoGestioLigaComponent implements OnInit {
   codeStramite: number;
   solicitudesT: Stramite[] = [];
   codigotramite: string;
-  // solicitudesTUsuario: Stramite[] = [];
   tramite: Tramite;
   color: string;
   tipotramite: string;
@@ -79,6 +82,10 @@ export class ReconocimientoGestioLigaComponent implements OnInit {
     } else {
       this.color = "#05ff1a";
     }
+  }
+
+  cancelar() {
+    this.router.navigate(['Tramites']);
   }
 
   crearDocumentosLigas(codigoStramite: number) {
