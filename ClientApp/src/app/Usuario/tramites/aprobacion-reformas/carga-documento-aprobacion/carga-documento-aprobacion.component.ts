@@ -49,11 +49,15 @@ export class CargaDocumentoAprobacionComponent implements OnInit {
     {
       this.toastr.error('El archivo supera los 2MB', 'Error!');
     }
+    else 
+    {
+      this.documento.Archive = this.file;
+      this.authService.ActualizarDocumento(this.documento);
+      // this.goBack();
+      this.regresar();
+    }
 
-    this.documento.Archive = this.file;
-    this.authService.ActualizarDocumento(this.documento);
-    // this.goBack();
-    this.regresar();
+    
   }
 
   regresar()
