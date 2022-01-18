@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-selection-tipo-tramite-ce',
@@ -10,7 +11,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SelectionTipoTramiteCeComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private toastr: ToastrService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+     private toastr: ToastrService,
+      private router: Router,
+      private location: Location) { }
 
   registerForm!: FormGroup;
   submitted = false;
@@ -41,5 +46,13 @@ export class SelectionTipoTramiteCeComponent implements OnInit {
         localStorage.setItem('tipoTramite', this.tipoTramite);
       }
     }
+  }
+
+  cancelar() {
+    this.submitted = false;
+    this.goBack();
+  }
+  goBack(): void {
+    this.location.back();
   }
 }

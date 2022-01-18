@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-vistacert',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VistacertComponent implements OnInit {
 
-  constructor() { }
+  constructor(private location: Location) { }
 
   ngOnInit() {
   }
+  cancelar() {
+    this.goBack();
+  }
 
+  goBack(): void {
+    this.location.back();
+  }
 }

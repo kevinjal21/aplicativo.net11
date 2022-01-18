@@ -99,9 +99,9 @@ export class RecuperarClaveComponent implements OnInit {
     this.correo=this.registerForm.controls.correo.value+"";
     for (let index = 0; index < this.usuarios.length; index++) {
       const element = this.usuarios[index];
-      if (this.correo == element.correo) {
+      if (this.correo.toUpperCase() == element.correo) {
         return true;
-      } 
+      }
     }
     return false;
   }

@@ -16,6 +16,7 @@ export class DocumentoService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
+  // baseUrl = 'http://172.23.128.1:9090/';
 
 
   addDocumento(documento: Documento): Observable<Documento> {
@@ -56,7 +57,7 @@ export class DocumentoService {
     console.log(formData.get("id"))
     console.log(formData.get("file"))
     return this.http.post<any>(url, formData, httpOptions).pipe(
-      tap(_ => this.log(`se actualizo el documento id:${id}`)),
+      // tap(_ => this.log(`se actualizo el documento id:${id}`)),
       catchError(this.handleError<any>('File'))
     );
   }
@@ -80,7 +81,7 @@ export class DocumentoService {
     // const url =
     //   `${this.baseUrl + 'api/Documento/Archivos'}/${id}`;
     return this.http.post<any>(this.baseUrl + 'api/Documento/Archivos', formData, httpOptions).pipe(
-      tap(_ => this.log(`se actualizo el documento id:${2}`)),
+      // tap(_ => this.log(`se actualizo el documento id:${2}`)),
       catchError(this.handleError<any>('file'))
     );
   }

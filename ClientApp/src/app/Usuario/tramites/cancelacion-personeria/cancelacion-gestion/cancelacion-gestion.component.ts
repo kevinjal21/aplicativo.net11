@@ -16,7 +16,7 @@ export class CancelacionGestionComponent implements OnInit {
 
   constructor(
     private servicioStramite: StramiteService, private servicioDocumentos: DocumentoService,
-    private route: ActivatedRoute, private authService: AuthService) { }
+    private route: ActivatedRoute, private authService: AuthService, private router: Router) { }
 
   documentos: Documento[] = [];
   documentosCargados: Documento[] = [];
@@ -29,7 +29,7 @@ export class CancelacionGestionComponent implements OnInit {
   tramite: Tramite;
   color: string;
   tipotramite:string;
-  
+
   ngOnInit() {
     this.tipotramite=this.authService.getTipoTLocalStore();
     this.solicitudTramite = { codstramite: 0, codtramite: 0, codusuario: 0, fecha: "", tipoTramite: "", codFuncionario: 0 ,estado:""};
@@ -38,6 +38,12 @@ export class CancelacionGestionComponent implements OnInit {
     this.getAllDocumentos();
     this.codigotramite = this.route.snapshot.paramMap.get('id');
   }
+
+  cancelar() {
+
+    this.router.navigate(['Tramites']);
+  }
+
 
   refresh(): void { window.location.reload(); }
 

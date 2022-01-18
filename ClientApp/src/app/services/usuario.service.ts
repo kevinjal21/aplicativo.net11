@@ -15,10 +15,11 @@ export class UsuarioService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
+  // baseUrl = 'http://172.23.128.1:9090/';
 
   addUsuario(usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(this.baseUrl + 'api/Usuario', usuario, httpOptions).pipe(
-      tap((newUsuario: Usuario) => this.log(`added NewSocio w/ id=${newUsuario.codusuario}`)),
+      // // tap((newUsuario: Usuario) => this.log(`added NewSocio w/ id=${newUsuario.codusuario}`)),
       catchError(this.handleError<Usuario>('addUsuario'))
     );
   }

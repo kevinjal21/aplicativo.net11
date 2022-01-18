@@ -15,10 +15,11 @@ export class TramiteService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
+  // baseUrl = 'http://172.23.128.1:9090/';
 
   addTramite(tramite: Tramite): Observable<Tramite> {
     return this.http.post<Tramite>(this.baseUrl + 'api/Tramite', tramite, httpOptions).pipe(
-      tap((newTramite: Tramite) => this.log(`added NewSocio w/ id=${newTramite.codtramite}`)),
+      // // tap((newTramite: Tramite) => this.log(`added NewSocio w/ id=${newTramite.codtramite}`)),
       catchError(this.handleError<Tramite>('addTramite'))
     );
   }
@@ -46,7 +47,7 @@ export class TramiteService {
 
       `${this.baseUrl + 'api/Tramite'}/${tramite.codtramite}`;
     return this.http.put(url, tramite, httpOptions).pipe(
-      tap(_ => this.log(`updated tramite isbn=${tramite.codtramite}`)),
+      // // tap(_ => this.log(`updated tramite isbn=${tramite.codtramite}`)),
       catchError(this.handleError<any>('tramite'))
     );
   }
@@ -58,7 +59,7 @@ export class TramiteService {
       `${this.baseUrl + 'api/Tramite'}/${id}`;
 
     return this.http.delete<Tramite>(url, httpOptions).pipe(
-      tap(_ => this.log(`deleted tramite isbn=${id}`)),
+      // // tap(_ => this.log(`deleted tramite isbn=${id}`)),
       catchError(this.handleError<Tramite>('deleteTask'))
     );
   }

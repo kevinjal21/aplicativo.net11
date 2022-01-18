@@ -45,12 +45,26 @@ export class CargaDocumentoAprobacionComponent implements OnInit {
     if (this.registerForm.invalid) {
       this.toastr.error('LLene Todos los Campos!', 'Error!');
       return;
+    }else if (this.file.size > 2e+6)
+    {
+      this.toastr.error('El archivo supera los 2MB', 'Error!');
     }
-    
+
     this.documento.Archive = this.file;
     this.authService.ActualizarDocumento(this.documento);
     // this.goBack();
-    this.router.navigate(['AprobacionGestion/'+this.route.snapshot.paramMap.get('codt')]);
+    this.regresar();
+  }
+
+  regresar()
+  {
+    this.router.navigate(['AprobacionGestion/'+this.route.snapshot.paramMap.get('codt')]).then(
+      () =>
+      {
+        window.location.reload();
+
+      }
+    );
   }
 
   selectFile(e: any) {

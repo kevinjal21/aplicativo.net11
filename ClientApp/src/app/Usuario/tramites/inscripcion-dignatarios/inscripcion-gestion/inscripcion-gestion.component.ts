@@ -17,7 +17,7 @@ export class InscripcionGestionComponent implements OnInit {
 
   constructor(
     private servicioStramite: StramiteService, private servicioDocumentos: DocumentoService,
-    private route: ActivatedRoute, private authService: AuthService) { }
+    private route: ActivatedRoute, private authService: AuthService, private router: Router) { }
 
   documentos: Documento[] = [];
   documentosCargados: Documento[] = [];
@@ -37,6 +37,11 @@ export class InscripcionGestionComponent implements OnInit {
     this.creacionDocumentosLigas();
     this.getAllDocumentos();
     this.codigotramite = this.route.snapshot.paramMap.get('id');
+  }
+  cancelar()
+  {
+    this.router.navigate(['Tramites']);
+
   }
 
   refresh(): void { window.location.reload(); }

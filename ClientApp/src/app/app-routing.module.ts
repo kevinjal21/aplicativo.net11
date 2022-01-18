@@ -56,6 +56,13 @@ import { DatosPersonalesGComponent } from './Funcionario/FuncionarioGobierno/dat
 import { SolicitudesVistaComponent } from './Funcionario/FuncionarioGobierno/solicitudes-vista/solicitudes-vista.component';
 import { SolicitudesgComponent } from './Funcionario/FuncionarioGobierno/solicitudesg/solicitudesg.component';
 import { CambiarClaveComponent } from './Usuario/cambiar-clave/cambiar-clave.component';
+import { Vista1aproComponent } from './tramites/vista1apro/vista1apro.component';
+import { Vista1canComponent } from './tramites/vista1can/vista1can.component';
+import { Vista1certComponent } from './tramites/vista1cert/vista1cert.component';
+import { Vista1insComponent } from './tramites/vista1ins/vista1ins.component';
+import { Vista1recoComponent } from './tramites/vista1reco/vista1reco.component';
+import { HistorialComponent } from './Usuario/tramites/historial/historial.component';
+import { DetallesComponent } from './Usuario/tramites/historial/detalles/detalles.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'Ingresar', pathMatch: 'full' },
@@ -66,10 +73,11 @@ const routes: Routes = [
   { path: 'Ingresar', component: IngresarComponent },
   { path: 'login/identify', component: RecuperarClaveComponent },
   { path: 'login/Restablecer/:token/:correo', component: RestablecerClaveComponent },
-  { path: 'Aprobacionvista', component: VistaaproComponent },
-  { path: 'Cancelacionvista', component: VistacanComponent },
-  { path: 'Inscripcionvista', component: VistainsComponent },
-  { path: 'Certificadovista', component: VistacertComponent },
+  { path: 'Aprobacionvista1', component: Vista1aproComponent },
+  { path: 'Cancelacionvista1', component: Vista1canComponent },
+  { path: 'Inscripcionvista1', component: Vista1insComponent },
+  { path: 'Certificadovista1', component: Vista1certComponent },
+  { path: 'Reconocimientovista1', component: Vista1recoComponent },
 
 
   //RUTAS PARA ADMIN
@@ -82,10 +90,16 @@ const routes: Routes = [
 
 
   //RUTAS PARA USUARIOS
+
   { path: 'InicioUsuario', component: ModuloUsuarioComponent, canActivate: [AuthGuard] },
-  { path: 'Reconocimientovista', component: VistaComponent, canActivate: [AuthGuard] },
+  { path: 'Historial', component: HistorialComponent, canActivate: [AuthGuard] },
   { path: 'CambiarClave/:token/:correo', component: CambiarClaveComponent, canActivate: [AuthGuard] },
   { path: 'Tramites', component: TramitesComponent, canActivate: [AuthGuard] },
+  { path: 'Aprobacionvista', component: VistaaproComponent, canActivate: [AuthGuard] },
+  { path: 'Cancelacionvista', component: VistacanComponent, canActivate: [AuthGuard] },
+  { path: 'Inscripcionvista', component: VistainsComponent, canActivate: [AuthGuard] },
+  { path: 'Certificadovista', component: VistacertComponent, canActivate: [AuthGuard] },
+  { path: 'Reconocimientovista', component: VistaComponent, canActivate: [AuthGuard] },
   { path: 'ReconocimientoGestionLigas/:id', component: ReconocimientoGestioLigaComponent, canActivate: [AuthGuard] },
   { path: 'ReconocimientoGestionClub/:id', component: ReconocimientoGestioClubComponent, canActivate: [AuthGuard] },
   { path: 'InscripcionGestion/:id', component: InscripcionGestionComponent, canActivate: [AuthGuard] },
@@ -105,6 +119,8 @@ const routes: Routes = [
   { path: 'CargarDocumentoCancelacion/:id/:codt', component: CargaDocumentoCancelacionComponent, canActivate: [AuthGuard] },
   { path: 'CargarDocumentoCertificado/:id/:codt', component: CargaDocumentoCertificadoComponent, canActivate: [AuthGuard] },
   { path: 'DatosPersonales', component: DatosPersonalesComponent, canActivate: [AuthGuard] },
+  { path: 'Detalles/:detalleC', component: DetallesComponent, canActivate: [AuthGuard] },
+
 
   //RUTAS PARA FUNCIONARIO DEPORTE
   { path: 'InicioFuncionarioDeporte', component: ModuloFuncionarioComponent, canActivate: [AuthFuncionarioGuard] },

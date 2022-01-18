@@ -52,6 +52,16 @@ export class SolicitudesVistaComponent implements OnInit {
 
   }
 
+  cancelar()
+  {
+    this.router.navigate(['Solicitudesg']).then(
+      () =>
+      {
+        window.location.reload();
+      }
+    )
+  }
+
   refresh(): void { window.location.reload(); }
 
   getSoticitud() {

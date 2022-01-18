@@ -69,6 +69,13 @@ import { MenuFuncionarioGobiernoComponent } from './menu/menu-funcionario-gobier
 import { SolicitudesgComponent } from './Funcionario/FuncionarioGobierno/solicitudesg/solicitudesg.component';
 import { SolicitudesVistaComponent } from './Funcionario/FuncionarioGobierno/solicitudes-vista/solicitudes-vista.component';
 import { CambiarClaveComponent } from './Usuario/cambiar-clave/cambiar-clave.component';
+import { Vista1aproComponent } from './tramites/vista1apro/vista1apro.component';
+import { Vista1canComponent } from './tramites/vista1can/vista1can.component';
+import { Vista1insComponent } from './tramites/vista1ins/vista1ins.component';
+import { Vista1certComponent } from './tramites/vista1cert/vista1cert.component';
+import { Vista1recoComponent } from './tramites/vista1reco/vista1reco.component';
+import { HistorialComponent } from './Usuario/tramites/historial/historial.component';
+import { DetallesComponent } from './Usuario/tramites/historial/detalles/detalles.component';
  
 
 @NgModule({
@@ -133,7 +140,14 @@ import { CambiarClaveComponent } from './Usuario/cambiar-clave/cambiar-clave.com
     MenuFuncionarioGobiernoComponent,
     SolicitudesgComponent,
     SolicitudesVistaComponent,
-    CambiarClaveComponent 
+    CambiarClaveComponent,
+    Vista1aproComponent,
+    Vista1canComponent,
+    Vista1insComponent,
+    Vista1certComponent,
+    Vista1recoComponent,
+    HistorialComponent,
+    DetallesComponent 
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

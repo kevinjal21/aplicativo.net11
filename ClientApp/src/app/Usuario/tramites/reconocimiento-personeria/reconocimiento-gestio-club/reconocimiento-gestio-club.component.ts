@@ -69,8 +69,11 @@ export class ReconocimientoGestioClubComponent implements OnInit {
       }
     });
   }
-  cancelar() {
-    this.goBack();
+  cancelar()
+  {
+    this.router.navigate(['Tramites']);
+
+
   }
   goBack(): void {
     this.location.back();

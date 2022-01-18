@@ -20,16 +20,16 @@ const options = {} as any;
 })
 export class AuthService {
 
-  // apiUrl = 'http://192.168.0.5:5000/api/auth/';
-
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+
+  // baseUrl = 'http://172.23.128.1:9090/';
 
   login(data: any): Observable<any> {
     return this.http.post<any>(this.baseUrl + 'api/Auth/login', data, {
       reportProgress: true
     })
       .pipe(
-        tap(_ => this.log('login')),
+        // tap(_ => this.log('login')),
         catchError(this.handleError('login', []))
       );
   }
@@ -62,7 +62,7 @@ export class AuthService {
   register(data: any): Observable<any> {
     return this.http.post<any>(this.baseUrl + 'api/Auth/register', data)
       .pipe(
-        tap(_ => this.log('register')),
+        // tap(_ => this.log('register')),
         catchError(this.handleError('register', []))
       );
   }

@@ -50,7 +50,10 @@ export class SolicitudGestionComponent implements OnInit {
   }
 
   cancelar() {
-    this.goBack();
+    this.router.navigate(['Solicitudes'])
+      .then(() => {
+        window.location.reload();
+      });
   }
   goBack(): void {
     this.location.back();

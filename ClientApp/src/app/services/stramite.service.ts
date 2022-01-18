@@ -14,6 +14,7 @@ export class StramiteService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
+  // baseUrl = 'http://172.23.128.1:9090/';
 
   addStramite(stramite: Stramite): Observable<Stramite> {
     return this.http.post<Stramite>(this.baseUrl + 'api/Stramite', stramite, httpOptions).pipe(
@@ -62,7 +63,7 @@ export class StramiteService {
       `${this.baseUrl + 'api/Stramite'}/${id}`;
 
     return this.http.delete<Stramite>(url, httpOptions).pipe(
-      tap(_ => this.log(`deleted stramite isbn=${id}`)),
+      // tap(_ => this.log(`deleted stramite isbn=${id}`)),
       catchError(this.handleError<Stramite>('deleteTask'))
     );
   }

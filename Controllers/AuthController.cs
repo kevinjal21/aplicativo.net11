@@ -78,7 +78,7 @@ namespace Aplicativo.net.Controllers
             var createdUser = await _repo.Register(userToCreate, registerDto.Password);
             if (registerDto.Rol == "Usuario")
             {
-                var ruta = "https://localhost:5001/login/ConfirmacionCuenta/";
+                var ruta = "http://172.23.128.1:9090/login/ConfirmacionCuenta/";
 
                 var claims = new[]
                 {
@@ -95,11 +95,13 @@ namespace Aplicativo.net.Controllers
 
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var token = tokenHandler.CreateToken(tokenDescriptor);
+                string _token = tokenHandler.WriteToken(token);
+                string _token1 = _token.Split(".")[1];
                 System.Net.Mail.MailMessage mensaje = new System.Net.Mail.MailMessage();
                 mensaje.To.Add(registerDto.Correo);
                 mensaje.Subject = "Activación  de Cuenta";
                 mensaje.SubjectEncoding = System.Text.Encoding.UTF8;
-                mensaje.Body = "<h3>Hola " + "</h3> <br> <h4>Haz clic en el enlace de abajo para activar tu cuenta:</h4> <br> <br>" + ruta + tokenHandler.WriteToken(token) + "/" + registerDto.Correo;
+                mensaje.Body = "<h3>Hola " + "</h3> <br> <h4>Haz clic en el enlace de abajo para activar tu cuenta:</h4> <br> <br>" + ruta + _token1 + "/" + registerDto.Correo;
                 mensaje.BodyEncoding = System.Text.Encoding.UTF8;
                 mensaje.IsBodyHtml = true;
                 mensaje.From = new System.Net.Mail.MailAddress(_config.GetSection("Credenciales:Correo").Value);
@@ -188,6 +190,8 @@ namespace Aplicativo.net.Controllers
 
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var token = tokenHandler.CreateToken(tokenDescriptor);
+                string _token = tokenHandler.WriteToken(token);
+                string _token1 = _token.Split(".")[1];
 
                 System.Net.Mail.MailMessage mensaje = new System.Net.Mail.MailMessage();
                 mensaje.To.Add(usuario.Email);
@@ -195,14 +199,14 @@ namespace Aplicativo.net.Controllers
                 {
                     mensaje.Subject = "Activación  de Cuenta";
                     mensaje.SubjectEncoding = System.Text.Encoding.UTF8;
-                    mensaje.Body = "<h3>Hola " + "</h3> <br> <h4>Haz clic en el enlace de abajo para activar tu cuenta:</h4> <br> <br>" + usuario.ClientURI + tokenHandler.WriteToken(token) + "/" + usuario.Email;
+                    mensaje.Body = "<h3>Hola " + "</h3> <br> <h4>Haz clic en el enlace de abajo para activar tu cuenta:</h4> <br> <br>" + usuario.ClientURI + _token1 + "/" + usuario.Email;
                 }
                 else
                 {
                     mensaje.Subject = "Recuperación de Cuenta";
                     mensaje.SubjectEncoding = System.Text.Encoding.UTF8;
                     // string url =usuario.ClientURI + "?token=" + tokenHandler.WriteToken(token) + "&email=" + usuario.Email;
-                    mensaje.Body = "<h3>Hola " + "</h3> <br> <h4>Haz clic en el enlace de abajo para recuperar las credenciales de inicio de sesión de tu cuenta:</h4> <br> <br>" + usuario.ClientURI + tokenHandler.WriteToken(token) + "/" + usuario.Email;
+                    mensaje.Body = "<h3>Hola " + "</h3> <br> <h4>Haz clic en el enlace de abajo para recuperar las credenciales de inicio de sesión de tu cuenta:</h4> <br> <br>" + usuario.ClientURI + _token1 + "/" + usuario.Email;
                 }
 
                 mensaje.BodyEncoding = System.Text.Encoding.UTF8;
